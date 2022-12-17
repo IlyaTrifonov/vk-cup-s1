@@ -1,0 +1,217 @@
+.letter-item
+  display: flex
+  flex-direction: row
+  align-items: center
+
+  width: 100%
+  height: 48px
+
+  border-radius: 12px
+
+  user-select: none
+
+  transition-duration: 0.2s, 0.2s
+  //transition-duration: 0.8s, 0.8s
+  transition-timing-function: ease-out, ease-out
+  transition-delay: 0s, 0s
+  transition-property: background-color, border-radius
+
+  &:hover
+    background: var(--colorTransparentHover)
+    .read-mark__mark
+      //TODO Переписать на переменную
+      background-color: #A5A7AD
+
+    .item-flag
+      .item-flag__flag--not-flagged
+        display: flex
+      .item-flag__flag--flagged
+        //display: none
+      .item-flag__flag--important
+        display: none
+
+    .select-letter
+      display: flex
+      justify-content: center
+    .user-avatar
+      display: none
+
+  .item-flag
+    //TODO Какая-то тут запара
+    height: 100%
+    width: 32px
+    min-width: 24px
+    display: flex
+    padding-right: 8px
+    fill: none
+    &:hover
+      cursor: pointer
+    .item-flag__checkbox
+      appearance: none
+    .item-flag__flag
+      display: flex
+      align-items: center
+      justify-content: center
+      width: 28px
+      svg
+
+        width: 20px
+        height: 20px
+    .item-flag__flag--flagged
+
+      //display: none
+      fill: var(--octaviusColorIconFavorite)
+    .item-flag__flag--important
+      fill: var(--octaviusColorIconFavorite)
+    .item-flag__flag--not-flagged
+      display: none
+      fill: var(--colorIconSecondary)
+    .item-flag__checkbox:checked + .item-flag__flag--flagged
+      display: flex
+
+  .read-mark
+    height: 100%
+    width: 28px
+    display: flex
+    align-items: center
+    justify-content: center
+    &:hover
+      cursor: pointer
+    .read-mark__checkbox
+      appearance: none
+    .read-mark__mark
+      width: 6px
+      height: 6px
+      border-radius: 3px
+    .read-mark__checkbox:checked + .read-mark__mark
+      background: #005FF9
+
+  .user-avatar, .user-avatar__avatar
+    width: 32px
+    height: 32px
+    background: #D3B3FF
+    border-radius: 16px
+  .select-letter
+    width: 32px
+    height: 32px
+    display: none
+
+
+  .letter-container
+    padding: 0 12px
+    // 4 пикселя необходимы для отсупа от скроллбара
+    width: calc(100% - 64px)
+    //width: calc(100% - 60px)
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: flex-start
+    box-sizing: border-box
+    .letter-content
+      display: flex
+      align-items: center
+      height: 48px
+      width: 100%
+      //border: 1px solid red
+      .correspondent
+        display: flex
+        align-items: center
+        height: 100%
+        width: 22%
+        min-width: 22%
+        padding-right: 8px
+        color: var(--colorTextPrimary)
+        .correspondent-name-surname
+          text-overflow: ellipsis
+          overflow-x: hidden
+          overflow-y: hidden
+          white-space: nowrap
+        .correspondent-name-surname.unread
+          font-weight: 700
+
+
+      //.item-flag__checkbox:checked + .item-flag__flag--flagged
+          //  fill: var(--octaviusColorIconFavorite)
+
+          //.item-flag__flag--flagged, .item-flag__flag--important
+          //  fill: var(--octaviusColorIconFavorite)
+          //.item-flag__flag--not-flagged
+          //  fill: none
+
+          //&:checked + .item-flag__flag.item-flag__flag--flagged
+          //  fill: var(--octaviusColorIconFavorite)
+
+
+
+
+      .letter-fragment
+        text-overflow: ellipsis
+        overflow-x: hidden
+        overflow-y: hidden
+        white-space: nowrap
+        color: var(--colorTextSecondary)
+
+        flex-grow: 1
+        flex-shrink: 1
+        flex-basis: 0
+        display: block
+
+        padding-right: 8px
+
+        .tittle
+          white-space: nowrap
+          color: var(--colorTextPrimary)
+        .tittle.unread
+          font-weight: 700
+        .text
+          margin-left: 12px
+      .secondary-data
+        flex-shrink: 0
+        min-width: 24px
+        display: flex
+        align-items: center
+        padding-right: 8px
+        .secondary-data__flag-icon
+          width: 20px
+          height: 20px
+          margin: 2px
+        .secondary-data__flag-icon.attachment
+          fill: var(--colorIconPrimary)
+        //.tempSD
+        //  width: 24px
+        //  height: 24px
+          //background: black
+
+
+
+      .item-date
+        padding-right: 0
+        font-size: 13px
+        text-align: right
+        white-space: nowrap
+        width: 44px
+        min-width: 44px
+        display: block
+        color: var(--colorTextSecondary)
+        //color: rgb(147, 150, 155)
+
+
+
+
+
+
+  //.user
+  //  height: 48px
+  //  //width: 22%
+  //  //min-width: 22%
+  //  display: flex
+  //  flex-direction: row
+  //  align-items: center
+  //  //padding: 8px 0
+  //  gap: 12px
+  //  font-size: 15px
+  //  .avatar
+  //    width: 32px
+  //    height: 32px
+  //    background: #D3B3FF
+  //    border-radius: 16px
