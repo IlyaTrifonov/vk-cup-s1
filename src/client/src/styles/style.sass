@@ -32,6 +32,7 @@ html[data-theme="light"]
 
   //Borders
   --colorSeparatorPrimary: #DADCE0
+  --colorSeparatorPrimaryAlpha: rgba(0, 16, 61, 0.12)
 
   //Text
   --octaviusColorSidebarComposeButtonText: #333333
@@ -54,6 +55,13 @@ html[data-theme="light"]
 
   // Icons
   --colorIconPrimary: #2C2D2E
+
+  // Checkbox
+  --checkboxBackground: #FFFFFF
+  --checkboxBorder: rgba(0, 16, 61, 0.12)
+  --checkboxBackgroundActive: #005FF9
+  --checkboxBorderActive: rgba(0, 16, 61, 0.12)
+
 
 
 html[data-theme="dark"]
@@ -84,6 +92,8 @@ html[data-theme="dark"]
 
   //Borders
   --colorSeparatorPrimary: rgba(0, 0, 0, 0.4)
+  --colorSeparatorPrimaryAlpha: rgba(0, 0, 0, 0.4)
+
 
   //Text
   --octaviusColorSidebarComposeButtonText: #333333
@@ -108,6 +118,13 @@ html[data-theme="dark"]
 
   // Icons
   --colorIconPrimary: #D9DADD
+
+  // Checkbox
+  --checkboxBackground: #1F1F1F
+  --checkboxBorder: rgba(255, 255, 255, 0.16)
+  --checkboxBackgroundActive: #005FF9
+  --checkboxBorderActive: rgba(0, 16, 61, 0.12)
+
 
 
 
@@ -162,8 +179,42 @@ html[data-theme="dark"]
   //display: none
   width: calc(100% - 232px - 12px)
   //width: auto
-  //height: 100px
+  //height: 300px
+  max-height: calc(100% - 13px - 56px)
   min-height: 100px
+  overflow: auto
+  //padding-right: 2px
+  //@if height > max-height
+  //  padding-right: 2px
+  &::-webkit-scrollbar
+    //box-sizing: border-box
+    //width: 8px
+    width: 10px
+    //margin-left: 2px
+    //padding: 8px 8px
+    //margin-top: 20px
+  &::-webkit-scrollbar-thumb
+    background: var(--octaviusColorContentScrollbarAlpha)
+    //background: red
+    //padding-top: 20px
+    //top: 12px
+    border-left: 2px solid var(--octaviusColorLetterListBackground)
+    //border-top: 12px solid var(--octaviusColorLetterListBackground)
+    //border-right: 12px solid var(--octaviusColorLetterListBackground)
+
+    //padding-left: 2px
+    //width: 10px
+    border-radius: 5px
+    //border-radius: 4px
+  &::-webkit-scrollbar-track
+    //padding-top: 2px
+    background: var(--octaviusColorLetterListBackground)
+    //background: red
+    border-top-right-radius: 12px
+    border-bottom-right-radius: 12px
+
+    //width: 15px
+  //margin-top: 10px
   //overflow-y: scroll
   background: var(--octaviusColorLetterListBackground)
   margin-top: 13px

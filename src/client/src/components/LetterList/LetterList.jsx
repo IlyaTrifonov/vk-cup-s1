@@ -40,8 +40,8 @@ const LetterList = () => {
     return (
         <div className="letter-list">
             {testSomeLetters ?
-                testSomeLetters.map((letter, index) =>
-                    <LetterItem letter={letter}/>
+                testSomeLetters.slice(0, 20).map((letter, index) =>
+                    <LetterItem letter={letter} key={index}/>
                 ) : null
             }
 

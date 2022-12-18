@@ -23,5 +23,6 @@ export const flagsIcons = {
     plane_outline: 'plane_outline',
     ticket_outline: 'ticket_outline',
     government_outline: 'government_outline',
-    attach: 'attach'
+    attach: 'attach',
+    checkbox_check_mark: 'checkbox_check_mark'
 }

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './LetterItem.sass';
 import ReadMark from "./ReadMark";
 import ItemFlag from "./ItemFlag";
 import Icons from "../../assets/icons/Icons";
 import {flagsIcons} from "../../assets/icons";
 import {flags} from "./flags";
+import UserAvatar from "./UserAvatar";
+import SelectLetter from "./SelectLetter";
 
 const LetterItem = ({letter}) => {
 
@@ -12,17 +14,22 @@ const LetterItem = ({letter}) => {
     let flag = letter['flag'] || null;
     if (flag === 'Путешевствия') flag = 'Путешествия' // Какие данные дали, так и адаптируемся)))
     const doc = letter.doc || null;
+
+    const [isCheckedLetter, setIsCheckedLetter] = useState(false)
+
+/*
     // console.log(letter['flagss'])
     // console.log(flag)
     // console.log('Путешествия')
     // console.log(flag === 'Путешествия')
     // console.log('flag:', flags[flag])
+*/
 
-    var options = {
+    const options = {
         day: 'numeric',
         month: 'numeric',
         year: 'numeric'
-    }
+    };
 
     const getDateString = (date) => {
         const nowDate = new Date()
@@ -66,49 +73,33 @@ const LetterItem = ({letter}) => {
     // const letterDateRAW = new Date(letter.date)
     // const letterDay = new Date(letterDateRAW.getFullYear(), letterDateRAW.getMonth(), letterDateRAW.getDate()).valueOf()
     // console.log()
-
-
     // console.log('doc:', doc)
-
     // const flagIcon = flags.;
     // if (!flag) {
     //     flags
     // }
     // const avatar = null;
 
-    // console.log(letter.avatarsdsd)
 
     return (
-        <div className="letter-item">
+        <div className={`letter-item ${isCheckedLetter ? 'checked-letter' : ''}`}>
             <ReadMark isRead={letter.read}/>
-            {/*<div className="read_mark">*</div>*/}
-            {/*<User author={letter.author}/>*/}
-            <div className="user-avatar">
-                {avatar ?
-                    <img className="user-avatar__avatar" src={avatar} alt="Аватар"/>
-                    : null
-                }
-            </div>
-            <div className="select-letter">
-                <input className="select-letter__checkbox" type="checkbox"/>
-            </div>
+            <UserAvatar avatar={avatar} isHidden={isCheckedLetter}/>
+            <SelectLetter isCheckedLetter={isCheckedLetter} setIsCheckedLetter={setIsCheckedLetter}/>
 
             <div className="letter-container">
                 <div className="letter-content">
                     <div className="correspondent">
-                        {/*<span>Математика для олимпиад по программированию</span>*/}
-                        <span
-                            className={`correspondent-name-surname ${letter.read ? "" : "unread"}`}>{letter.author.name} {letter.author.surname}</span>
+                        <span className={`correspondent-name-surname ${letter.read ? "" : "unread"}`}>
+                            {letter.author.name} {letter.author.surname}
+                        </span>
                     </div>
 
                     <ItemFlag bookmark={letter.bookmark} important={letter.important}/>
 
                     <div className="letter-fragment">
                         <span className={`tittle ${letter.read ? "" : "unread"}`}>{letter.title}</span>
-                        {/*<span className="tittle">Тайтл</span>*/}
-                        {/*для олимпиад открывает двери для каждого желающего писать это чудо.*/}
                         <span className="text">{letter.text}</span>
-                        {/*<span className="text">s</span>*/}
                     </div>
                     <div className="secondary-data">
                         {flag ?
@@ -129,9 +120,13 @@ const LetterItem = ({letter}) => {
                     <div className="item-date">{getDateString(letter.date)}</div>
                 </div>
             </div>
+            <div className="delimiter">
+                <div className="delimiter__lane"></div>
+            </div>
 
 
-            {/*
+{/*
+
             <div className="user">
 
                 <div className="avatar">
@@ -141,8 +136,8 @@ const LetterItem = ({letter}) => {
                     <span>{letter.author.name} {letter.author.surname}</span>
                 </div>
             </div>
-*/}
-            {/*
+
+
             <div className="icon"></div>
             <div className="message-and-icons">
                 <div className="message">
@@ -157,6 +152,7 @@ const LetterItem = ({letter}) => {
                 </div>
             </div>
             <div className="border"></div>
+
 */}
         </div>
     );
