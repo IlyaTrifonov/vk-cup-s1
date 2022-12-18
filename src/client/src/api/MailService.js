@@ -33,4 +33,8 @@ export default class MailService {
         })
         return response;
     }
+
+    static async getLettersFromFolder() {
+
+    }
 }

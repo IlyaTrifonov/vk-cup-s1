@@ -6,8 +6,17 @@ import SidebarItem from "./SidebarItem";
 import Button from "../UI/buttons/Button";
 import {buttonTypes} from "../UI/buttons";
 import {folders} from "./folders";
+import {useNavigate} from "react-router-dom";
 
 const LargeSidebar = ({selectedFolder, setSelectedFolder}) => {
+    const router = useNavigate()
+
+/*
+    const getFolderRoute = (folderName) => {
+
+    }
+*/
+
     return (
         <ThemeContext.Consumer>
             {({theme, setTheme}) => (
@@ -20,7 +29,10 @@ const LargeSidebar = ({selectedFolder, setSelectedFolder}) => {
                             {folders.map((item, index) =>
                                 <SidebarItem selectedFolder={selectedFolder}
                                              folderName={item.name}
-                                             onClick={() => setSelectedFolder(item.name)}
+                                             onClick={() => {
+                                                 setSelectedFolder(item.name)
+                                                 router(item.route)
+                                             }}
                                              key={item.name}
                                              icon={item.icon}>
                                     {item.name}

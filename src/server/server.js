@@ -52,6 +52,25 @@ const makePictureAndUrl = (image, type) => {
     return `http://${hostname}:${port}${path}`
 }
 
+const sortFunctionByDate = (a, b) => {
+    const dateA = Date.parse(a.date)
+    const dateB = Date.parse(b.date)
+    return dateA - dateB
+}
+/*
+const sortFunctionByDateL = (a, b) => {
+    const dateA = Date.parse(new Date(a.date).toLocaleString())
+    const dateB = Date.parse(new Date(b.date).toLocaleString())
+    return dateA - dateB
+}
+
+const sortFunctionByDateReversed = (a, b) => {
+    const dateA = Date.parse(a.date)
+    const dateB = Date.parse(b.date)
+    return dateB - dateA
+}
+*/
+
 const setFlag = (flag) => {
     switch (flag) {
         case 'Заказы':
@@ -100,12 +119,17 @@ data.forEach(letter => {
             }
         })
     }
+    if (letter.flag) {
+        if (letter.flag === 'Путешевствия') letter.flag = 'Путешествия' // Какие данные дали, так и адаптируемся)))
+    }
     /*
         if (letter.hasOwnProperty('flag')) {
             letter.flag = setFlag(letter.flag)
         }
     */
 })
+
+data.sort(sortFunctionByDate).reverse()
 
 const server = http.createServer((req, res) => {
 
@@ -147,7 +171,7 @@ const server = http.createServer((req, res) => {
         }
         case 'arr': {
             try {
-                const myData = data.slice(0, 20);
+                const myData = data.slice(0, 100);
                 res.setHeader('x-total-letters-count', data.length)
                 res.writeHead(200, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify(myData));

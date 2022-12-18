@@ -40,7 +40,7 @@ const LetterList = ({folder}) => {
     return (
         <div className="letter-list">
             {testSomeLetters ?
-                testSomeLetters.slice(0, 20).map((letter, index) =>
+                testSomeLetters.slice(0, 100).map((letter, index) =>
                     <LetterItem letter={letter} key={index}/>
                 ) : null
             }

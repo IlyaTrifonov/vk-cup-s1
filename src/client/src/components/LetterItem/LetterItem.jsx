@@ -10,10 +10,15 @@ import SelectLetter from "./SelectLetter";
 
 const LetterItem = ({letter}) => {
 
-    const avatar = letter.author.avatar || null;
-    let flag = letter['flag'] || null;
-    if (flag === 'Путешевствия') flag = 'Путешествия' // Какие данные дали, так и адаптируемся)))
-    const doc = letter.doc || null;
+    // const avatar = letter.author.avatar || null;
+    // let flag = letter['flag'] || null;
+/*
+    if (flag === 'Путешевствия') {
+        console.warn("Обнаружено в письме от", letter.author.name, letter.author.surname)
+        flag = 'Путешествия'
+    } // Какие данные дали, так и адаптируемся)))
+*/
+    // const doc = letter.doc || null;
 
     const [isCheckedLetter, setIsCheckedLetter] = useState(false)
 
@@ -25,11 +30,13 @@ const LetterItem = ({letter}) => {
     // console.log('flag:', flags[flag])
 */
 
+/*
     const options = {
         day: 'numeric',
         month: 'numeric',
         year: 'numeric'
     };
+*/
 
     const getDateString = (date) => {
         const nowDate = new Date()
@@ -44,6 +51,7 @@ const LetterItem = ({letter}) => {
             'Июль',
             'Август',
             'Сентябрь',
+            'Октябрь',
             'Ноябрь',
             'Декабрь',
         ]
@@ -52,10 +60,9 @@ const LetterItem = ({letter}) => {
             return letterDate.toLocaleTimeString().slice(0, -3);
         }
         if (nowDate.getFullYear() === letterDate.getFullYear()) {
-            return `${letterDate.getDay() + 1} ${months[letterDate.getMonth()].slice(0, 3).toLowerCase()}`
+            return `${letterDate.getDate()} ${months[letterDate.getMonth()].slice(0, 3).toLowerCase()}`
         } else {
             const date = letterDate.toLocaleDateString()
-            // return letterDate.toLocaleDateString()
             return `${date.slice(0,6)}${date.slice(-2,)}`
         }
     }
@@ -84,7 +91,7 @@ const LetterItem = ({letter}) => {
     return (
         <div className={`letter-item ${isCheckedLetter ? 'checked-letter' : ''}`}>
             <ReadMark isRead={letter.read}/>
-            <UserAvatar avatar={avatar} isHidden={isCheckedLetter}/>
+            <UserAvatar avatar={letter.author.avatar} isHidden={isCheckedLetter}/>
             <SelectLetter isCheckedLetter={isCheckedLetter} setIsCheckedLetter={setIsCheckedLetter}/>
 
             <div className="letter-container">
@@ -102,14 +109,14 @@ const LetterItem = ({letter}) => {
                         <span className="text">{letter.text}</span>
                     </div>
                     <div className="secondary-data">
-                        {flag ?
-                            <Icons name={flags[flag]}
+                        {letter.flag ?
+                            <Icons name={flags[letter.flag]}
                                    width="20"
                                    height="20"
                                    className="secondary-data__flag-icon"/>
                             : null
                         }
-                        {doc ?
+                        {letter.doc ?
                             <Icons name={flagsIcons.attach}
                                    width="20"
                                    height="20"

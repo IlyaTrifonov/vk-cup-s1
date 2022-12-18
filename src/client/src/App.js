@@ -13,17 +13,19 @@ export const ThemeContext = React.createContext(null);
 function App() {
     // const [theme, setTheme] = useState("light");
 
-    const [selectedFolder, setSelectedFolder] = useState(folders[0].name ? folders[0].name : null)
 
     return (
         <div className="App">
             <BrowserRouter>
                 <Navbar/>
+                <AppRouter/>
+{/*
                 <div className="content">
                     <LargeSidebar selectedFolder={selectedFolder}
                                   setSelectedFolder={setSelectedFolder}/>
                     <AppRouter/>
                 </div>
+*/}
             </BrowserRouter>
         </div>
 
