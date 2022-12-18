@@ -10,15 +10,18 @@ import SelectLetter from "./SelectLetter";
 
 const LetterItem = ({letter}) => {
 
+/*
     // const avatar = letter.author.avatar || null;
     // let flag = letter['flag'] || null;
-/*
+/!*
     if (flag === 'Путешевствия') {
         console.warn("Обнаружено в письме от", letter.author.name, letter.author.surname)
         flag = 'Путешествия'
     } // Какие данные дали, так и адаптируемся)))
-*/
+*!/
     // const doc = letter.doc || null;
+*/
+    // console.log(letter.hasOwnProperty('folder'))
 
     const [isCheckedLetter, setIsCheckedLetter] = useState(false)
 

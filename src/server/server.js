@@ -135,16 +135,62 @@ const server = http.createServer((req, res) => {
 
     res.setHeader('Access-Control-Allow-Origin', '*');
 
-    const q = url.parse(req.url, true);
-    console.log(q.pathname)
-    // console.log(q.path)
-    const path = q.pathname.split('/');
+    const parsedURL = url.parse(req.url, true);
+    console.log(parsedURL.path)
+    console.log(parsedURL.query)
+    // console.log(parsedURL.path)
+    const path = parsedURL.pathname.split('/');
     // console.log(path[path.length - 1])
     console.log(path[1])
+    // console.log(path[2])
+
+    const folders = {
+        inbox: 'Входящие',
+        important: 'Важное',
+        sent: 'Отправленные',
+        drafts: 'Черновики',
+        archive: 'Архив',
+        spam: 'Спам',
+        waste: 'Корзина'
+    }
+
+    const path1 = parsedURL.pathname.split('/')[1]
+    console.log('Перед ифом', path1)
+    console.log(Object.keys(folders).includes(path1))
+    if (Object.keys(folders).includes(path1)) {
+        try {
+            console.log('Вошли в трай папок')
+            const offset = parsedURL.query.offset
+            const limit = parsedURL.query.limit
+
+            let myData = []
+            console.log('Перед фильтром')
+            res.setHeader('x-folder', path1)
+            if (path1 === 'inbox') {
+                console.log('Внутри инбокса')
+                myData = data.filter(letter => !letter.hasOwnProperty('folder'));
+            } else {
+                console.log('Внутри другого')
+                myData = data.filter(letter => letter.folder === folders[path1]);
+            }
+            console.log('Длина после фильтра',myData.length)
+            // console.log('Перед хедом каунта')
+            res.setHeader('x-total-letters-count', myData.length)
+            // console.log('Перед вторым хедом')
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            console.log('Перед отправкой данных')
+            res.end(JSON.stringify(myData.slice(offset, limit)));
+        } catch (e) {
+            console.log('Ошибка трая папок')
+            console.warn(e)
+            res.writeHead(404, {'Content-Type': 'text/html'});
+            return res.end("404 Not Found");
+        }
+    } else
     switch (path[1]) {
         case 'files': {
             // fs.readFile(`./files/attachments/${path[path.length - 1]}`, (err, data) => {
-            fs.readFile(`.${q.pathname}`, (err, data) => {
+            fs.readFile(`.${parsedURL.pathname}`, (err, data) => {
                 if (err) {
                     res.writeHead(404, {'Content-Type': 'text/html'});
                     return res.end("404 Not Found");
@@ -182,6 +228,38 @@ const server = http.createServer((req, res) => {
             break;
 
         }
+/*
+        case 'inbox': {
+            try {
+                const offset = parsedURL.query.offset
+                const limit = parsedURL.query.limit
+                const myData = data.filter(letter => !letter.hasOwnProperty('folder')).slice(offset, limit);
+
+                res.setHeader('x-total-letters-count', myData.length)
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify(myData));
+            } catch (e) {
+                res.writeHead(404, {'Content-Type': 'text/html'});
+                return res.end("404 Not Found");
+            }
+            break;
+        }
+        case 'important': {
+            try {
+                const offset = parsedURL.query.offset
+                const limit = parsedURL.query.limit
+                const myData = data.filter(letter => letter.folder === 'Важное').slice(offset, limit);
+
+                res.setHeader('x-total-letters-count', myData.length)
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify(myData));
+            } catch (e) {
+                res.writeHead(404, {'Content-Type': 'text/html'});
+                return res.end("404 Not Found");
+            }
+            break;
+        }
+*/
         default: {
             res.writeHead(404, {'Content-Type': 'text/html'});
             return res.end("404 Not Found");

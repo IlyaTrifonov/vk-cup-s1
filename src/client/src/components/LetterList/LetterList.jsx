@@ -4,10 +4,13 @@ import {useFetching} from "../../hooks/useFetching";
 import MailService from "../../api/MailService";
 
 const LetterList = ({folder}) => {
+    console.log('Загружаем леттер лист', folder)
 
+/*
     // const testLetter = fuckThis()
     // console.log(testLetter)
 
+/!*
     const [testLetter, setTestLetter] = useState(null)
     const [fetchLetter, isLetterLoading, letterError] = useFetching(async () => {
         const response = await MailService.getOneLetterT();
@@ -15,21 +18,29 @@ const LetterList = ({folder}) => {
         console.log(data);
         setTestLetter(data)
     })
+*!/
 
+/!*
     const [testSomeLetters, setTestSomeLetters] = useState([])
     const [fetchLetters, isLettersLoading, lettersError] = useFetching(async () => {
         const response = await MailService.getSomeLetters();
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setTestSomeLetters(data)
     })
+*!/
+*/
 
+    const [myLetters, setMyLetters] = useState([])
+    const [fetchLettersX, isLettersLoadingX, lettersErrorX] = useFetching(async () => {
+        const response = await MailService.getLettersFromFolder(folder, 500, 0);
+        const data = await response.json();
+        setMyLetters(data)
+    })
 
     useEffect(() => {
-        // fetchLetter()
-        fetchLetters()
-        // console.warn(testLetter)
-    }, [])
+        fetchLettersX()
+    }, [folder])
 
     // if (isLettersLoading || isLetterLoading) {
     //     return (
@@ -39,27 +50,11 @@ const LetterList = ({folder}) => {
 
     return (
         <div className="letter-list">
-            {testSomeLetters ?
-                testSomeLetters.slice(0, 100).map((letter, index) =>
+            {myLetters ?
+                myLetters.map((letter, index) =>
                     <LetterItem letter={letter} key={index}/>
                 ) : null
             }
-
-            {/*{testSomeLetters.map((letter, index) => {*/}
-            {/*        // <LetterItem letter={letter}/>*/}
-            {/*    })*/}
-            {/*}*/}
-
-
-{/*
-            {testLetter ?
-                <LetterItem letter={testLetter}/>
-                :
-                <span>Грузится</span>
-            }
-*/}
-
-
         </div>
     );
 };
