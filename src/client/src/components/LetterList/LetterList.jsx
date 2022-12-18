@@ -3,7 +3,7 @@ import LetterItem from "../LetterItem/LetterItem";
 import {useFetching} from "../../hooks/useFetching";
 import MailService from "../../api/MailService";
 
-const LetterList = () => {
+const LetterList = ({folder}) => {
 
     // const testLetter = fuckThis()
     // console.log(testLetter)
