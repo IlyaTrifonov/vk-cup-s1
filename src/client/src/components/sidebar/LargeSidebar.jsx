@@ -10,6 +10,7 @@ import {useNavigate} from "react-router-dom";
 
 const LargeSidebar = ({selectedFolder, setSelectedFolder}) => {
     const router = useNavigate()
+    console.log(selectedFolder)
 
 /*
     const getFolderRoute = (folderName) => {

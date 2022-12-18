@@ -1,0 +1,161 @@
+.letter
+  width: calc(100% - 232px - 12px)
+  max-height: calc(100% - 13px - 56px)
+  min-height: 100px
+  overflow: auto
+  &::-webkit-scrollbar
+    width: 10px
+  &::-webkit-scrollbar-thumb
+    background: var(--octaviusColorContentScrollbarAlpha)
+    border-left: 2px solid var(--octaviusColorLetterListBackground)
+    border-radius: 5px
+  &::-webkit-scrollbar-track
+    background: var(--octaviusColorLetterListBackground)
+    border-top-right-radius: 12px
+    border-bottom-right-radius: 12px
+  background: var(--octaviusColorLetterListBackground)
+  margin-top: 13px
+  margin-right: 12px
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  border-radius: 12px
+  z-index: 10
+
+  position: absolute
+  left: 232px
+
+  .letter__header
+    display: flex
+    flex-direction: row
+    align-items: flex-start
+    padding: 16px 12px 12px 32px
+    gap: 10px
+    width: 100%
+    //height: 60px
+    .letter__tittle
+      flex-grow: 1
+      flex-shrink: 1
+      font-size: 24px
+      line-height: 28px
+      overflow-wrap: break-word
+      //min-width: 0
+      width: 100%
+      color: var(--colorTextPrimary)
+      //font-family: var(--vkui--octavius_font_family_mail_sans,var(--vkui--font_family_accent,MailSans,Helvetica,Arial,sans-serif));
+      font-weight: 700
+    .letter__flag
+      flex-shrink: 0
+      justify-self: flex-end
+      margin-left: auto
+      padding-top: 2px
+      padding-left: 20px
+      //временно
+      color: var(--colorTextPrimary)
+  .letter__head
+    display: flex
+    flex-direction: row
+    align-items: center
+    padding: 8px
+    gap: 8px
+    width: 100%
+    height: 58px
+    .read-mark
+      width: 16px
+      height: 42px
+      display: flex
+      align-items: center
+      justify-content: center
+      &:hover
+        cursor: pointer
+      .read-mark__checkbox
+        appearance: none
+      .read-mark__mark
+        width: 6px
+        height: 6px
+        border-radius: 3px
+        background-color: #A5A7AD
+      //transition-duration: 0.1s
+      //transition-timing-function: ease-out
+      //transition-delay: 0s
+      //transition-property: background
+      .read-mark__checkbox:checked + .read-mark__mark
+        background: #005FF9
+    .letter__info
+      display: flex
+      flex-direction: row
+      align-items: flex-start
+      gap: 12px
+      width: 100%
+      height: 42px
+      .letter__info__info
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        gap: 4px
+        width: 100%
+        height: 42px
+        .letter__info__info__tittle
+          display: flex
+          flex-direction: row
+          align-items: flex-end
+          gap: 8px
+          width: 100%
+          height: 20px
+          .name
+            font-weight: 400
+            font-size: 15px
+            line-height: 20px
+            color: var(--colorTextPrimary)
+          .time
+            font-weight: 400
+            font-size: 13px
+            line-height: 18px
+            color: var(--colorTextSecondary)
+        .letter__info__info__users
+          display: flex
+          flex-direction: row
+          align-items: flex-start
+          gap: 10px
+          width: 100%
+          height: 18px
+          .users
+            font-weight: 400
+            font-size: 13px
+            line-height: 18px
+            padding-right: 100px
+            color: var(--colorTextSecondary)
+            text-overflow: ellipsis
+            overflow-x: hidden
+            overflow-y: hidden
+            white-space: nowrap
+
+  .attaches
+    width: 100%
+    //height: 190px
+    display: flex
+    flex-direction: row
+    align-items: flex-start
+    gap: 10px
+    //padding-left: 32px
+    //padding-bottom: 38px
+    padding: 12px 32px
+    //width: 522px
+    //height: 190px
+    .attach__img
+      width: 256px
+      height: 190px
+      border-radius: 12px
+  .text
+    display: flex
+    flex-direction: row
+    align-items: flex-start
+    padding: 16px 32px 32px
+    gap: 10px
+    width: 100%
+    //height: 208
+    .text__text
+      font-weight: 400
+      font-size: 15px
+      line-height: 150%
+      color: var(--colorTextPrimary)

@@ -64,4 +64,15 @@ export default class MailService {
         })
         return response;
     }
+
+    static async getLetterById(id) {
+        const queryURL = `${MailService.url}/letter/${id}`
+        const response = await fetch(queryURL, {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+            },
+        })
+        return response;
+    }
 }

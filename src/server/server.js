@@ -11,15 +11,16 @@ const rawData = fs.readFileSync('db.json');
 const data = JSON.parse(rawData);
 
 if (fs.existsSync('./files')) {
-    console.log('Папка есть');
+    console.log('Папка ресурсов обнаружена');
     fs.rmSync('./files', {recursive: true});
-    console.log('Папка удалена')
+    console.log('Папка ресурсов удалена')
+} else {
+    console.log('Папка ресурсов не найдена');
 }
-console.log('Папки нет');
 fs.mkdirSync('./files');
 fs.mkdirSync('./files/attachments');
 fs.mkdirSync('./files/avatars');
-console.log('Папки созданы');
+console.log('Папка ресурсов создана');
 
 /*
 let imgNumber = 1;
@@ -71,6 +72,7 @@ const sortFunctionByDateReversed = (a, b) => {
 }
 */
 
+/*
 const setFlag = (flag) => {
     switch (flag) {
         case 'Заказы':
@@ -89,9 +91,11 @@ const setFlag = (flag) => {
             return null
     }
 }
+*/
 
 // let imgNumber = 1;
-data.forEach(letter => {
+data.forEach((letter, index) => {
+    letter.id = index
     if (letter.hasOwnProperty('doc')) {
         const docImg = letter.doc.img;
         if (Array.isArray(docImg)) {
@@ -120,7 +124,8 @@ data.forEach(letter => {
         })
     }
     if (letter.flag) {
-        if (letter.flag === 'Путешевствия') letter.flag = 'Путешествия' // Какие данные дали, так и адаптируемся)))
+        if (letter.flag === 'Путешевствия')
+            letter.flag = 'Путешествия' // Какие данные дали, так и адаптируемся)))
     }
     /*
         if (letter.hasOwnProperty('flag')) {
@@ -128,6 +133,7 @@ data.forEach(letter => {
         }
     */
 })
+console.log('Ресурсы созданы');
 
 data.sort(sortFunctionByDate).reverse()
 
@@ -136,12 +142,12 @@ const server = http.createServer((req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     const parsedURL = url.parse(req.url, true);
-    console.log(parsedURL.path)
-    console.log(parsedURL.query)
+    console.log('Request:', parsedURL.path)
+    // console.log(parsedURL.query)
     // console.log(parsedURL.path)
     const path = parsedURL.pathname.split('/');
     // console.log(path[path.length - 1])
-    console.log(path[1])
+    // console.log(path[1])
     // console.log(path[2])
 
     const folders = {
@@ -155,34 +161,35 @@ const server = http.createServer((req, res) => {
     }
 
     const path1 = parsedURL.pathname.split('/')[1]
-    console.log('Перед ифом', path1)
-    console.log(Object.keys(folders).includes(path1))
+    // console.log('Перед ифом', path1)
+    // console.log(Object.keys(folders).includes(path1))
     if (Object.keys(folders).includes(path1)) {
         try {
-            console.log('Вошли в трай папок')
+            // console.log('Вошли в трай папок')
             const offset = parsedURL.query.offset
             const limit = parsedURL.query.limit
 
             let myData = []
-            console.log('Перед фильтром')
+            // console.log('Перед фильтром')
             res.setHeader('x-folder', path1)
             if (path1 === 'inbox') {
-                console.log('Внутри инбокса')
+                // console.log('Внутри инбокса')
                 myData = data.filter(letter => !letter.hasOwnProperty('folder'));
             } else {
-                console.log('Внутри другого')
+                // console.log('Внутри другого')
                 myData = data.filter(letter => letter.folder === folders[path1]);
             }
-            console.log('Длина после фильтра',myData.length)
+            // console.log('Длина после фильтра',myData.length)
             // console.log('Перед хедом каунта')
             res.setHeader('x-total-letters-count', myData.length)
             // console.log('Перед вторым хедом')
             res.writeHead(200, {'Content-Type': 'application/json'});
-            console.log('Перед отправкой данных')
+            // console.log('Перед отправкой данных')
             res.end(JSON.stringify(myData.slice(offset, limit)));
         } catch (e) {
-            console.log('Ошибка трая папок')
-            console.warn(e)
+            // console.log('Ошибка трая папок')
+            // console.warn(e)
+            console.log('Not Found')
             res.writeHead(404, {'Content-Type': 'text/html'});
             return res.end("404 Not Found");
         }
@@ -192,6 +199,7 @@ const server = http.createServer((req, res) => {
             // fs.readFile(`./files/attachments/${path[path.length - 1]}`, (err, data) => {
             fs.readFile(`.${parsedURL.pathname}`, (err, data) => {
                 if (err) {
+                    console.log('Not Found')
                     res.writeHead(404, {'Content-Type': 'text/html'});
                     return res.end("404 Not Found");
                 }
@@ -201,6 +209,28 @@ const server = http.createServer((req, res) => {
             })
             break;
         }
+        case 'letter': {
+            const letterNumber = path[2]
+            console.log('Letter number: ', letterNumber)
+            let letter = null
+            // Это неоптимально, но пока пойдёт
+            data.forEach(dataLetter => {
+                if (dataLetter.id.toString() === letterNumber) {
+                    letter = dataLetter
+                }
+            })
+            if (!letter) {
+                console.log('Not Found')
+                console.log('Всего писем', data.length)
+                res.writeHead(404, {'Content-Type': 'text/html'});
+                return res.end("404 Not Found");
+            }
+            // res.setHeader('x-total-letters-count', data.length)
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(letter));
+            break;
+        }
+/*
         case 'data': {
             try {
                 const myData = data[path[path.length - 1]];
@@ -228,6 +258,7 @@ const server = http.createServer((req, res) => {
             break;
 
         }
+*/
 /*
         case 'inbox': {
             try {
@@ -261,19 +292,13 @@ const server = http.createServer((req, res) => {
         }
 */
         default: {
+            console.log('Not Found')
             res.writeHead(404, {'Content-Type': 'text/html'});
             return res.end("404 Not Found");
         }
-
     }
-
-
 })
 
 server.listen(port, hostname, () => {
     console.log(`Сервер запущен на http://${hostname}:${port}/`)
 })
-
-// data.forEach(letter => {
-//
-// })

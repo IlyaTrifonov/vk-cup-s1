@@ -1,4 +1,5 @@
 import Content from "../components/Content";
+import Letter from "../components/Letter/Letter";
 
 /*
 export const routes = [
@@ -19,5 +20,6 @@ export const routes = [
     {path: '/drafts', element: <Content folder='Черновики'/>},
     {path: '/archive', element: <Content folder='Архив'/>},
     {path: '/spam', element: <Content folder='Спам'/>},
-    {path: '/waste', element: <Content folder='Корзина'/>}
+    {path: '/waste', element: <Content folder='Корзина'/>},
+    {path: '/letter/:id', element: <Letter folder={null}/>}
 ]

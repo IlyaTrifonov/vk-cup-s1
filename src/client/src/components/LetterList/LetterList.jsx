@@ -4,7 +4,7 @@ import {useFetching} from "../../hooks/useFetching";
 import MailService from "../../api/MailService";
 
 const LetterList = ({folder}) => {
-    console.log('Загружаем леттер лист', folder)
+    // console.log('Загружаем леттер лист', folder)
 
 /*
     // const testLetter = fuckThis()

@@ -7,6 +7,8 @@ import {flagsIcons} from "../../assets/icons";
 import {flags} from "./flags";
 import UserAvatar from "./UserAvatar";
 import SelectLetter from "./SelectLetter";
+import {useNavigate} from "react-router-dom";
+import {getDateString} from "../dateParse";
 
 const LetterItem = ({letter}) => {
 
@@ -24,6 +26,7 @@ const LetterItem = ({letter}) => {
     // console.log(letter.hasOwnProperty('folder'))
 
     const [isCheckedLetter, setIsCheckedLetter] = useState(false)
+    const router = useNavigate()
 
 /*
     // console.log(letter['flagss'])
@@ -41,34 +44,7 @@ const LetterItem = ({letter}) => {
     };
 */
 
-    const getDateString = (date) => {
-        const nowDate = new Date()
-        const letterDate = new Date(date)
-        const months = [
-            'Январь',
-            'Февраль',
-            'Март',
-            'Апрель',
-            'Май',
-            'Июнь',
-            'Июль',
-            'Август',
-            'Сентябрь',
-            'Октябрь',
-            'Ноябрь',
-            'Декабрь',
-        ]
 
-        if (nowDate.toLocaleDateString() === letterDate.toLocaleDateString()) {
-            return letterDate.toLocaleTimeString().slice(0, -3);
-        }
-        if (nowDate.getFullYear() === letterDate.getFullYear()) {
-            return `${letterDate.getDate()} ${months[letterDate.getMonth()].slice(0, 3).toLowerCase()}`
-        } else {
-            const date = letterDate.toLocaleDateString()
-            return `${date.slice(0,6)}${date.slice(-2,)}`
-        }
-    }
 
     // console.log(letter.date)
     // const nowDate = new Date()
@@ -92,7 +68,9 @@ const LetterItem = ({letter}) => {
 
 
     return (
-        <div className={`letter-item ${isCheckedLetter ? 'checked-letter' : ''}`}>
+        <div className={`letter-item ${isCheckedLetter ? 'checked-letter' : ''}`}
+             onClick={() => router(`/letter/${letter.id}`)}
+        >
             <ReadMark isRead={letter.read}/>
             <UserAvatar avatar={letter.author.avatar} isHidden={isCheckedLetter}/>
             <SelectLetter isCheckedLetter={isCheckedLetter} setIsCheckedLetter={setIsCheckedLetter}/>
@@ -135,7 +113,7 @@ const LetterItem = ({letter}) => {
             </div>
 
 
-{/*
+            {/*
 
             <div className="user">
 
