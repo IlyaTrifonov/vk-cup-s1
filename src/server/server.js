@@ -230,67 +230,6 @@ const server = http.createServer((req, res) => {
             res.end(JSON.stringify(letter));
             break;
         }
-/*
-        case 'data': {
-            try {
-                const myData = data[path[path.length - 1]];
-                // res.setHeader('x-total-count', 200)
-                // res.setHeader('hueta-count', 200)
-                res.setHeader('x-total-letters-count', data.length)
-                res.writeHead(200, {'Content-Type': 'application/json'});
-                res.end(JSON.stringify(myData));
-            } catch (e) {
-                res.writeHead(404, {'Content-Type': 'text/html'});
-                return res.end("404 Not Found");
-            }
-            break;
-        }
-        case 'arr': {
-            try {
-                const myData = data.slice(0, 100);
-                res.setHeader('x-total-letters-count', data.length)
-                res.writeHead(200, {'Content-Type': 'application/json'});
-                res.end(JSON.stringify(myData));
-            } catch (e) {
-                res.writeHead(404, {'Content-Type': 'text/html'});
-                return res.end("404 Not Found");
-            }
-            break;
-
-        }
-*/
-/*
-        case 'inbox': {
-            try {
-                const offset = parsedURL.query.offset
-                const limit = parsedURL.query.limit
-                const myData = data.filter(letter => !letter.hasOwnProperty('folder')).slice(offset, limit);
-
-                res.setHeader('x-total-letters-count', myData.length)
-                res.writeHead(200, {'Content-Type': 'application/json'});
-                res.end(JSON.stringify(myData));
-            } catch (e) {
-                res.writeHead(404, {'Content-Type': 'text/html'});
-                return res.end("404 Not Found");
-            }
-            break;
-        }
-        case 'important': {
-            try {
-                const offset = parsedURL.query.offset
-                const limit = parsedURL.query.limit
-                const myData = data.filter(letter => letter.folder === 'Важное').slice(offset, limit);
-
-                res.setHeader('x-total-letters-count', myData.length)
-                res.writeHead(200, {'Content-Type': 'application/json'});
-                res.end(JSON.stringify(myData));
-            } catch (e) {
-                res.writeHead(404, {'Content-Type': 'text/html'});
-                return res.end("404 Not Found");
-            }
-            break;
-        }
-*/
         default: {
             console.log('Not Found')
             res.writeHead(404, {'Content-Type': 'text/html'});
@@ -302,3 +241,4 @@ const server = http.createServer((req, res) => {
 server.listen(port, hostname, () => {
     console.log(`Сервер запущен на http://${hostname}:${port}/`)
 })
+
