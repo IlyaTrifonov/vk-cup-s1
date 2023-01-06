@@ -2,8 +2,11 @@ import {folders} from "../components/sidebar/folders";
 
 export default class MailService {
 
-    static url = 'http://127.0.0.1:3010'
+    static hostname = process.env.HOSTNAME || '127.0.0.1'
+    static port = process.env.PORT || 3010
+    static url = `http://${MailService.hostname}:${MailService.port}`
 
+/*
     static async getOneLetterT() {
         // const url = 'http://127.0.0.1:3000'
         const url = 'http://127.0.0.1:3010/data/13'
@@ -24,7 +27,9 @@ export default class MailService {
         // return data;
         return response;
     }
+*/
 
+/*
     static async getSomeLetters() {
         const url = 'http://127.0.0.1:3010/arr'
         const response = await fetch(url, {
@@ -35,6 +40,7 @@ export default class MailService {
         })
         return response;
     }
+*/
 
     static getFolderPathByName = (folderName) => {
         // console.log('Ищем роут для', folderName)
@@ -54,7 +60,7 @@ export default class MailService {
         // const _page = page
 
         // const queryURL = `${MailService.url}${folder}?${_limit}&${_page}`
-        const queryURL = `${MailService.url}${folder}?${_limit}&${_offset}`
+        const queryURL = `${MailService.url}/backend${folder}?${_limit}&${_offset}`// тут тоже поменял
 
         const response = await fetch(queryURL, {
             method: 'GET',
@@ -66,7 +72,7 @@ export default class MailService {
     }
 
     static async getLetterById(id) {
-        const queryURL = `${MailService.url}/letter/${id}`
+        const queryURL = `${MailService.url}/backend/letter/${id}`
         const response = await fetch(queryURL, {
             method: 'GET',
             headers: {
