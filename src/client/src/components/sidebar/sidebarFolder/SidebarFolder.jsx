@@ -3,11 +3,8 @@ import Icons from "../../../assets/icons/Icons";
 import {NavLink} from "react-router-dom";
 import './SidebarFolder.sass'
 
-const SidebarFolder = ({
-                           className, // TODO оптимизировать
-                           children, icon, route,
-                           ...props
-                       }) => {
+
+const SidebarFolder = ({children, icon, route}) => {
     return (
         <NavLink className={({isActive}) =>
             isActive ? "sidebar-folder active" : "sidebar-folder"}

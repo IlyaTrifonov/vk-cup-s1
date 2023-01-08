@@ -1,10 +1,7 @@
 import {folders} from "./FoldersService";
 
-export default class MailService {
 
-    // static hostname = process.env.HOSTNAME || '127.0.0.1'
-    // static port = process.env.PORT || 3010
-    // static url = `http://${MailService.hostname}:${MailService.port}`
+export default class MailService {
     static url = process.env.REACT_APP_API_URL;
 
     static getFolderPathByName = (folderName) => {
@@ -12,11 +9,6 @@ export default class MailService {
         Object.entries(folders).map(([key, value]) => {
             if (value.name === folderName) route = value.path
         });
-        /*
-                folders.forEach(folder => {
-                    if (folder.name === folderName) route = folder.route
-                })
-        */
         return route
     }
 
