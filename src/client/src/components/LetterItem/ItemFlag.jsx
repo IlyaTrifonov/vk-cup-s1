@@ -12,7 +12,10 @@ const ItemFlag = ({bookmark, important}) => {
 
     return (
         <div className="item-flag"
-             onClick={() => setIsBookmark(!isBookmark)}>
+             onClick={(event) => {
+                 event.stopPropagation()
+                 setIsBookmark(!isBookmark)
+             }}>
             <input type="checkbox"
                    checked={isBookmark}
                    readOnly

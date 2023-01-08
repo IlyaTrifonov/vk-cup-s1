@@ -11,7 +11,8 @@ const ReadMark = ({isRead}) => {
 
     return (
         <div className="read-mark"
-             onClick={() => {
+             onClick={(event) => {
+                 event.stopPropagation()
                  setIsLetterRead(!isLetterRead)
              }}>
             <input checked={!isLetterRead}

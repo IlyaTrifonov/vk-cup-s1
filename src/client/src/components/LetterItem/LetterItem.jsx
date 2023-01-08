@@ -12,60 +12,8 @@ import {getDateString} from "../dateParse";
 
 const LetterItem = ({letter}) => {
 
-/*
-    // const avatar = letter.author.avatar || null;
-    // let flag = letter['flag'] || null;
-/!*
-    if (flag === 'Путешевствия') {
-        console.warn("Обнаружено в письме от", letter.author.name, letter.author.surname)
-        flag = 'Путешествия'
-    } // Какие данные дали, так и адаптируемся)))
-*!/
-    // const doc = letter.doc || null;
-*/
-    // console.log(letter.hasOwnProperty('folder'))
-
     const [isCheckedLetter, setIsCheckedLetter] = useState(false)
     const router = useNavigate()
-
-/*
-    // console.log(letter['flagss'])
-    // console.log(flag)
-    // console.log('Путешествия')
-    // console.log(flag === 'Путешествия')
-    // console.log('flag:', flags[flag])
-*/
-
-/*
-    const options = {
-        day: 'numeric',
-        month: 'numeric',
-        year: 'numeric'
-    };
-*/
-
-
-
-    // console.log(letter.date)
-    // const nowDate = new Date()
-    // const letterDate = new Date(letter.date)
-    // console.log(letterDate)
-    // console.log(getDateString(letterDate))
-    // console.log(letterDate.toLocaleDateString())
-    // console.log(letterDate.toLocaleTimeString())
-    // console.log()
-    // console.log(nowDate.toLocaleDateString())
-    // const today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate()).valueOf()
-    // const letterDateRAW = new Date(letter.date)
-    // const letterDay = new Date(letterDateRAW.getFullYear(), letterDateRAW.getMonth(), letterDateRAW.getDate()).valueOf()
-    // console.log()
-    // console.log('doc:', doc)
-    // const flagIcon = flags.;
-    // if (!flag) {
-    //     flags
-    // }
-    // const avatar = null;
-
 
     return (
         <div className={`letter-item ${isCheckedLetter ? 'checked-letter' : ''}`}
@@ -111,37 +59,6 @@ const LetterItem = ({letter}) => {
             <div className="delimiter">
                 <div className="delimiter__lane"></div>
             </div>
-
-
-            {/*
-
-            <div className="user">
-
-                <div className="avatar">
-                </div>
-
-                <div className="name">
-                    <span>{letter.author.name} {letter.author.surname}</span>
-                </div>
-            </div>
-
-
-            <div className="icon"></div>
-            <div className="message-and-icons">
-                <div className="message">
-                    <div className="text">
-                        <div className="theme"></div>
-                        <div className="message"></div>
-                    </div>
-                </div>
-                <div className="right">
-                    <div className="icons"></div>
-                    <div className="date"></div>
-                </div>
-            </div>
-            <div className="border"></div>
-
-*/}
         </div>
     );
 };

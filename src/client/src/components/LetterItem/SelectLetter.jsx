@@ -5,7 +5,10 @@ import {flagsIcons} from "../../assets/icons";
 const SelectLetter = ({isCheckedLetter, setIsCheckedLetter}) => {
     return (
         <div className={`select-letter ${isCheckedLetter ? 'show-select-letter' : ''}`}
-             onClick={() => setIsCheckedLetter(!isCheckedLetter)}>
+             onClick={(event) => {
+                 event.stopPropagation()
+                 setIsCheckedLetter(!isCheckedLetter)
+             }}>
             <input className="select-letter__checkbox"
                    type="checkbox"
                    checked={isCheckedLetter}
