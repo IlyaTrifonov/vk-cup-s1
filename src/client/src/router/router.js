@@ -1,5 +1,5 @@
 import Letter from "../components/Letter/Letter";
-import {folders} from "../components/sidebar/folders";
+import {folders} from "../api/FoldersService";
 import LetterList from "../components/LetterList/LetterList";
 
 /*

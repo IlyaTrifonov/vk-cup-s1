@@ -1,4 +1,4 @@
-import {folders} from "../components/sidebar/folders";
+import {folders} from "./FoldersService";
 
 export default class MailService {
 

@@ -1,4 +1,8 @@
-import {folderIcons} from "../../assets/icons";
+import {folderIcons} from "../assets/icons";
+
+/*
+* В дальнейшем папки можно будет получать с сервера, поэтому папки вынесены в отдельный файл
+* */
 
 /*
 export const folders = [

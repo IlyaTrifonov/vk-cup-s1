@@ -5,7 +5,7 @@ import {ThemeContext, themes} from "../../context/ThemeContext";
 import SidebarItem from "./SidebarItem";
 import Button from "../UI/buttons/Button";
 import {buttonTypes} from "../UI/buttons";
-import {folders} from "./folders";
+import {folders} from "../../api/FoldersService";
 import SidebarFolder from "./sidebarFolder/SidebarFolder";
 
 const LargeSidebar = ({/*selectedFolder, setSelectedFolder*/ ...props}) => {
