@@ -1,0 +1,31 @@
+.sidebar-folder
+  width: 100%
+  height: 36px
+  border-radius: 8px
+  text-decoration: none
+  display: flex
+  flex-direction: row
+  align-items: center
+  gap: 8px
+  padding-left: 12px
+  font-size: 15px
+  line-height: 20px
+  color: var(--octaviusColorSidebarItemTextPrimary)
+  user-select: none
+  -moz-user-select: none
+  -webkit-user-select: none
+  &:hover
+    background: var(--colorTransparentHover)
+    cursor: pointer
+  &:active
+    background: var(--colorTransparentActive)
+    cursor: pointer
+  svg
+    flex-shrink: 0
+    fill: var(--octaviusColorSidebarItemTextPrimary)
+
+.sidebar-folder.active
+  font-weight: 700
+  background: var(--colorTransparentActive)
+  &:hover
+    cursor: pointer

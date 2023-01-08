@@ -6,17 +6,17 @@ import SidebarItem from "./SidebarItem";
 import Button from "../UI/buttons/Button";
 import {buttonTypes} from "../UI/buttons";
 import {folders} from "./folders";
-import {useNavigate} from "react-router-dom";
+import SidebarFolder from "./sidebarFolder/SidebarFolder";
 
-const LargeSidebar = ({selectedFolder, setSelectedFolder}) => {
-    const router = useNavigate()
-    console.log(selectedFolder)
+const LargeSidebar = ({/*selectedFolder, setSelectedFolder*/ ...props}) => {
+    // const router = useNavigate()
+    // console.log(selectedFolder)
 
-/*
-    const getFolderRoute = (folderName) => {
+    /*
+        const getFolderRoute = (folderName) => {
 
-    }
-*/
+        }
+    */
 
     return (
         <ThemeContext.Consumer>
@@ -27,6 +27,7 @@ const LargeSidebar = ({selectedFolder, setSelectedFolder}) => {
                     </div>
                     <div className="sidebar-scrollable-container">
                         <div className="sidebar-folders-container">
+                            {/*
                             {folders.map((item, index) =>
                                 <SidebarItem selectedFolder={selectedFolder}
                                              folderName={item.name}
@@ -37,7 +38,20 @@ const LargeSidebar = ({selectedFolder, setSelectedFolder}) => {
                                              key={item.name}
                                              icon={item.icon}>
                                     {item.name}
-                                </SidebarItem>
+                                </SidebarItem >
+                            )}
+*/}
+                            {/*
+                            {folders.map((item, index) =>
+                                <SidebarFolder icon={item.icon} route={item.route} key={index}>
+                                    {item.name}
+                                </SidebarFolder>
+                            )}
+*/}
+                            {Object.entries(folders).map(([key, value]) =>
+                                <SidebarFolder icon={value.icon} route={value.path} key={key}>
+                                    {value.name}
+                                </SidebarFolder>
                             )}
                         </div>
                         <hr className="sidebar-divider"/>

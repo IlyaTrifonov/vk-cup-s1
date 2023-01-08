@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import LargeSidebar from "../sidebar/LargeSidebar";
 import './Letter.sass'
 import {useParams} from "react-router-dom";
 import {useFetching} from "../../hooks/useFetching";
@@ -8,8 +7,8 @@ import ReadMark from "../LetterItem/ReadMark";
 import UserAvatar from "../LetterItem/UserAvatar";
 import {getDateString} from "../dateParse";
 
-const Letter = ({folder}) => {
-    const [selectedFolder, setSelectedFolder] = useState(folder)
+const Letter = ({/*folder*/}) => {
+    // const [selectedFolder, setSelectedFolder] = useState(folder)
 
     const params = useParams()
 
@@ -43,50 +42,50 @@ const Letter = ({folder}) => {
     console.log('isDoc', isDoc, 'isDocArray', isDocArray)
 
     return (
-        <div className="content">
-            <LargeSidebar selectedFolder={selectedFolder}
-                          setSelectedFolder={setSelectedFolder}/>
-            {letter ?
-                <div className="letter">
-                    <div className="letter__header">
-                        <h2 className="letter__tittle">{letter.title}</h2>
-                        <div className="letter__flag">{letter.flag || 'Письмо без категории'}</div>
-                    </div>
-                    <div className="letter__head">
-                        <ReadMark isRead={letter.read}/>
-                        <div className="letter__info">
-                            <UserAvatar avatar={letter.author.avatar}/>
-                            <div className="letter__info__info">
-                                <div className="letter__info__info__tittle">
-                                    <div className="name">{letter.author.name} {letter.author.surname}</div>
-                                    <div className="time">{getDateString(letter.date)}</div>
-                                </div>
-                                <div className="letter__info__info__users">
-                                    <span className="users">{users}</span>
-                                </div>
-                            </div>
+        /*
+                <div className="content">
+                    <LargeSidebar selectedFolder={selectedFolder}
+                                  setSelectedFolder={setSelectedFolder}/>
+        */
+        letter && <div className="letter">
+            <div className="letter__header">
+                <h2 className="letter__tittle">{letter.title}</h2>
+                <div className="letter__flag">{letter.flag || 'Письмо без категории'}</div>
+            </div>
+            <div className="letter__head">
+                <ReadMark isRead={letter.read}/>
+                <div className="letter__info">
+                    <UserAvatar avatar={letter.author.avatar}/>
+                    <div className="letter__info__info">
+                        <div className="letter__info__info__tittle">
+                            <div className="name">{letter.author.name} {letter.author.surname}</div>
+                            <div className="time">{getDateString(letter.date)}</div>
                         </div>
-
-                    </div>
-                    <div className="attaches">
-                        {isDoc ?
-                            isDocArray ?
-                                letter.doc.forEach(doc =>
-                                    <img className="attach__img" src={doc.img} alt="Вложение"/>
-                                )
-                                : <img className="attach__img" src={letter.doc.img} alt="Вложение"/>
-                            : null
-                        }
-                    </div>
-                    <div className="text">
-                        <div className="text__text">
-                            {letter.text}
+                        <div className="letter__info__info__users">
+                            <span className="users">{users}</span>
                         </div>
                     </div>
                 </div>
-                : null
-            }
+
+            </div>
+            <div className="attaches">
+                {isDoc ?
+                    isDocArray ?
+                        letter.doc.forEach(doc =>
+                            <img className="attach__img" src={doc.img} alt="Вложение"/>
+                        )
+                        : <img className="attach__img" src={letter.doc.img} alt="Вложение"/>
+                    : null
+                }
+            </div>
+            <div className="text">
+                <div className="text__text">
+                    {letter.text}
+                </div>
+            </div>
         </div>
+
+        // </div>
     );
 };
 
