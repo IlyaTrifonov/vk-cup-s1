@@ -1,15 +1,16 @@
 const http = require('http');
 const fs = require('fs');
 const url = require('url');
+const path = require("path");
 
-const HOSTNAME = '127.0.0.1';
-const PORT = 3010;
+const HOSTNAME = process.env.HOSTNAME || '127.0.0.1';
+const PORT = process.env.PORT || 3000;
 
 const IS_PRODUCTION = false;
 
 
 /*
-* Блок чтения входного файла с письмами, создание папок и ресурсов из писем.
+* Блок чтения входного файла с письмами, создание папок.
 * */
 //TODO Файла может не оказаться, нужно выводить ошибку
 const rawData = fs.readFileSync('db.json');
@@ -26,7 +27,7 @@ if (fs.existsSync('./files')) {
 fs.mkdirSync('./files');
 fs.mkdirSync('./files/attachments');
 fs.mkdirSync('./files/avatars');
-console.log('Папка ресурсов создана');
+console.log('Папки ресурсов создана');
 
 const pictureTypes = {
     attachments: 'attachments',
@@ -42,9 +43,9 @@ let pictureNumber = 1;
 const makePictureAndUrl = (image, type) => {
     const base64img = image.split(',')[1];
     const buff = Buffer.from(base64img, 'base64');
-    const path = `/files/${type}/picture_${pictureNumber++}.png`
+    const path = `/files/${type}/picture_${pictureNumber++}.png`;// тут поменял
     fs.writeFileSync(`.${path}`, buff);
-    return `http://${HOSTNAME}:${PORT}${path}`
+    return `http://${HOSTNAME}:${PORT}/backend${path}`
 }
 
 
@@ -174,74 +175,107 @@ const server = http.createServer((req, res) => {
     console.log('Request:', parsedURL.path)
 
 
-    const path = parsedURL.pathname.split('/');
-    console.log('path:', path)
+    const pathL = parsedURL.pathname.split('/');
+    console.log('path:', pathL)
 
-    if (IS_PRODUCTION) {
-        let pagePath = ''
+    const newPathArr = parsedURL.pathname.split('/').slice(1);
 
+    if (IS_PRODUCTION && !req.url.includes('/backend')) {
+        console.log('Обращение к фронтенду')
+        let filePath = '.' + req.url;
+        if (routes.includes(req.url) || (req.url.includes('/letter'))) {
+            filePath = './index.html';
+        }
+        const extname = String(path.extname(filePath)).toLowerCase();
+        const contentType = mimeTypes[extname] || 'octet-stream';
+
+        fs.readFile(filePath, function(error, content) {
+            if (error) {
+                if(error.code === 'ENOENT') {
+                    fs.readFile('./404.html', function(error, content) {
+                        res.writeHead(200, { 'Content-Type': contentType });
+                        res.end(content, 'utf-8');
+                    });
+                }
+                else {
+                    res.writeHead(500);
+                    res.end('Sorry, check with the site admin for error: '+error.code+' ..\n');
+                    res.end();
+                }
+            }
+            else {
+                res.writeHead(200, { 'Content-Type': contentType });
+                res.end(content, 'utf-8');
+            }
+        });
     }
 
-    const path1 = parsedURL.pathname.split('/')[1]
-    if (Object.keys(folders).includes(path1)) {
-        try {
-            const offset = parsedURL.query.offset
-            const limit = parsedURL.query.limit
-            let myData = []
-            res.setHeader('x-folder', path1)
-            if (path1 === 'inbox') {
-                myData = data.filter(letter => !letter.hasOwnProperty('folder'));
-            } else {
-                myData = data.filter(letter => letter.folder === folders[path1]);
+    if (newPathArr[0] === 'backend') {
+        console.log('Обращение к бэкенду')
+        const path1 = newPathArr[1]
+        if (Object.keys(folders).includes(path1)) {
+            try {
+                const offset = parsedURL.query.offset
+                const limit = parsedURL.query.limit
+                let myData = []
+                res.setHeader('x-folder', path1)
+                // В папку входящие(inbox) попадают все письма у которых нет поля folder
+                if (path1 === 'inbox') {
+                    myData = data.filter(letter => !letter.hasOwnProperty('folder'));
+                } else {
+                    myData = data.filter(letter => letter.folder === folders[path1]);
+                }
+                res.setHeader('x-total-letters-count', myData.length)
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify(myData.slice(offset, limit)));
+            } catch (e) {
+                console.log('Not Found')
+                res.writeHead(404, {'Content-Type': 'text/html'});
+                return res.end("404 Not Found");
             }
-            res.setHeader('x-total-letters-count', myData.length)
-            res.writeHead(200, {'Content-Type': 'application/json'});
-            res.end(JSON.stringify(myData.slice(offset, limit)));
-        } catch (e) {
-            console.log('Not Found')
-            res.writeHead(404, {'Content-Type': 'text/html'});
-            return res.end("404 Not Found");
-        }
-    } else
-    switch (path[1]) {
-        case 'files': {
-            fs.readFile(`.${parsedURL.pathname}`, (err, data) => {
-                if (err) {
+        } else {
+            switch (newPathArr[1]) {
+                case 'files': {
+                    fs.readFile(`.${parsedURL.pathname.replace('/backend', '')}`, (err, data) => {
+                        if (err) {
+                            console.log('Not Found')
+                            res.writeHead(404, {'Content-Type': 'text/html'});
+                            return res.end("404 Not Found");
+                        }
+                        res.writeHead(200, {'Content-Type': 'image/png'});
+                        res.write(data);
+                        return res.end();
+                    })
+                    break;
+                }
+                case 'letter': {
+                    const letterNumber = newPathArr[2]
+                    console.log('Letter number: ', letterNumber)
+                    let letter = null
+                    data.forEach(dataLetter => {
+                        if (dataLetter.id.toString() === letterNumber) {
+                            letter = dataLetter
+                        }
+                    })
+                    if (!letter) {
+                        console.log('Not Found')
+                        console.log('Всего писем', data.length)
+                        res.writeHead(404, {'Content-Type': 'text/html'});
+                        return res.end("404 Not Found");
+                    }
+                    res.writeHead(200, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify(letter));
+                    break;
+                }
+                default: {
                     console.log('Not Found')
                     res.writeHead(404, {'Content-Type': 'text/html'});
                     return res.end("404 Not Found");
                 }
-                res.writeHead(200, {'Content-Type': 'image/png'});
-                res.write(data);
-                return res.end();
-            })
-            break;
-        }
-        case 'letter': {
-            const letterNumber = path[2]
-            console.log('Letter number: ', letterNumber)
-            let letter = null
-            data.forEach(dataLetter => {
-                if (dataLetter.id.toString() === letterNumber) {
-                    letter = dataLetter
-                }
-            })
-            if (!letter) {
-                console.log('Not Found')
-                console.log('Всего писем', data.length)
-                res.writeHead(404, {'Content-Type': 'text/html'});
-                return res.end("404 Not Found");
             }
-            res.writeHead(200, {'Content-Type': 'application/json'});
-            res.end(JSON.stringify(letter));
-            break;
-        }
-        default: {
-            console.log('Not Found')
-            res.writeHead(404, {'Content-Type': 'text/html'});
-            return res.end("404 Not Found");
         }
     }
+
 })
 
 server.listen(PORT, HOSTNAME, () => {

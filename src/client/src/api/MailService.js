@@ -2,9 +2,10 @@ import {folders} from "../components/sidebar/folders";
 
 export default class MailService {
 
-    static hostname = process.env.HOSTNAME || '127.0.0.1'
-    static port = process.env.PORT || 3010
-    static url = `http://${MailService.hostname}:${MailService.port}`
+    // static hostname = process.env.HOSTNAME || '127.0.0.1'
+    // static port = process.env.PORT || 3010
+    // static url = `http://${MailService.hostname}:${MailService.port}`
+    static url = process.env.REACT_APP_API_URL;
 
 /*
     static async getOneLetterT() {
