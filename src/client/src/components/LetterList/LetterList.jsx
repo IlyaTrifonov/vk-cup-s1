@@ -26,7 +26,7 @@ const LetterList = ({folder}) => {
 */
 
     return (
-        <div className="letter-list">
+        <div className="letter-list" id="letter-list-id">
             {myLetters ?
                 myLetters.map((letter, index) =>
                     <LetterItem letter={letter} key={index}/>

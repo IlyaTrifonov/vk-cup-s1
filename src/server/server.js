@@ -242,6 +242,8 @@ const server = http.createServer((req, res) => {
                             res.writeHead(404, {'Content-Type': 'text/html'});
                             return res.end("404 Not Found");
                         }
+                        const fileStats = fs.statSync(`.${parsedURL.pathname.replace('/backend', '')}`);
+                        res.setHeader('x-total-size-in-bytes', fileStats.size);
                         res.writeHead(200, {'Content-Type': 'image/png'});
                         res.write(data);
                         return res.end();
