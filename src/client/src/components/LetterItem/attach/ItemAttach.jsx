@@ -1,40 +1,64 @@
-import React, {createRef, useMemo, useState} from 'react';
+import React, {createRef, useEffect, useMemo, useState} from 'react';
 import {flagsIcons} from "../../../assets/icons";
 import Icons from "../../../assets/icons/Icons";
 import './ItemAttach.sass';
 import Portal from "./Portal";
 import AttachDropdown from "./AttachDropdown";
 import classes from "./AttachDropdown.module.css";
+import {useFetching} from "../../../hooks/useFetching";
+import AttachmentService from "../../../api/AttachmentService";
 
+/**
+ * Компонент иконки-кнопки для отображения вложений письма.
+ *
+ * При клике открывает оверлей со списком вложений в письмо.
+ * @param {number} letterID - идентификатор письма
+ * @param {object[], object} letterDoc - массив вложений или вложение
+ * @returns {JSX.Element}
+ * @constructor
+ */
+const ItemAttach = ({letterID, letterDoc}) => {
+    /*
+            const rootEl = useRef(null);
+            useEffect(() => {
+                if (isShownDropdown) {
+                    const onClick = e => rootEl.current.contains(e.target) || setIsShownDropdown(false);
+                    document.addEventListener('click', onClick);
+                    return () => document.removeEventListener('click', onClick);
+                }
+            }, [isShownDropdown]);
+            const portalRootElement = document.getElementById("portal-overlay");
 
-const ItemAttach = ({letterID}) => {
-    /*
-        const rootEl = useRef(null);
-        useEffect(() => {
-            if (isShownDropdown) {
-                const onClick = e => rootEl.current.contains(e.target) || setIsShownDropdown(false);
-                document.addEventListener('click', onClick);
-                return () => document.removeEventListener('click', onClick);
-            }
-        }, [isShownDropdown]);
+            const myDropdown = useMemo(() => document.createElement("div"))
+            const myDropdown = document.createElement("div")
+            myDropdown.innerText = letter;
+            useEffect(() => {
+                portalRootElement.appendChild(myDropdown);
+                console.log("Вмонтировался дропдаун")
+                return () => {
+                    portalRootElement.removeChild(myDropdown);
+                    console.log("Размонтировался дропдаун")
+                }
+            }, [])
     */
-    /*
-        const portalRootElement = document.getElementById("portal-overlay");
 
-        const myDropdown = useMemo(() => document.createElement("div"))
-        const myDropdown = document.createElement("div")
-        myDropdown.innerText = letter;
-    */
-    /*
-        useEffect(() => {
-            portalRootElement.appendChild(myDropdown);
-            console.log("Вмонтировался дропдаун")
-            return () => {
-                portalRootElement.removeChild(myDropdown);
-                console.log("Размонтировался дропдаун")
-            }
-        }, [])
-    */
+    const [docs, setDocs] = useState(null);
+
+    const [attachDoc, isAttachDocLoading, attachDocError] = useFetching(async (letterDocX) => {
+        const attachParams = await AttachmentService.getAttachParams(letterDocX.img);
+        console.log(attachParams)
+        setDocs(attachParams)
+    })
+
+    useEffect(() => {
+        // console.log('Аттачим док')
+        // attachDoc(letterDoc)
+    }, [])
+
+    useEffect(() => {
+        // console.warn(docs)
+    }, [docs])
+
 
     const [coords, setCoords] = useState({});
     const [isOn, setOn] = useState(false);
@@ -74,29 +98,30 @@ const ItemAttach = ({letterID}) => {
     const attachIconArr = document.getElementsByClassName('attach-item');
     // console.log(attachIconArr)
     const onClick = (e) => {
-        // console.log(e.target)
-        // console.log(elem)
-        // console.warn("Кликнутые равны", e.target.contains(elem), elem.contains(e.target))
-        // if (e.target !== elem) {
-        // setOn(!isOn)
-
+        /*
+                console.log(e.target)
+                console.log(elem)
+                console.warn("Кликнутые равны", e.target.contains(elem), elem.contains(e.target))
+                if (e.target !== elem) {
+                setOn(!isOn)
+        */
         if (!(e.target.contains(elem) || elem.contains(e.target))) {
             // console.log('клик вне компонента');
             setOn(!isOn)
             console.log('Скрываем поповер')
 
 
-        } else {
+        } /*else {
             // console.log('клик в компонент')
             // setOn(!isOn)
-        }
+        }*/
         document.removeEventListener('click', onClick);
         Object.entries(attachIconArr)
             // .filter(([k, v]) => elem.contains(v))
             .map(([k, v]) => {
                 v.removeEventListener('click', onClick)
             })
-        console.log('DEBUG Все слушатели удалены')
+        // console.log('DEBUG Все слушатели удалены')
     }
     useMemo(() => {
         // console.log('Зависимости обновились')
@@ -110,7 +135,7 @@ const ItemAttach = ({letterID}) => {
                     // if (v !== elem)
                     v.addEventListener('click', onClick)
                 })
-            console.log('DEBUG Все слушатели установлены')
+            // console.log('DEBUG Все слушатели установлены')
         } /*else {
             document.removeEventListener('click', onClick);
             Object.entries(attachIconArr).map(([k, v]) => {
@@ -135,12 +160,14 @@ const ItemAttach = ({letterID}) => {
     */
 
 
+    // console.log(docs)
     return (
         <div className="attach-item" ref={iconRef} id={classes.my_attachM}>
             <div className="attach-item__icon"
                  onClick={(event) => {
                      event.stopPropagation();
                      if (!isOn) {
+                         attachDoc(letterDoc)
                          updateTooltipCoords(iconRef.current)
                          setElem(event.target)
                          // setElem(iconRef)
@@ -163,7 +190,12 @@ const ItemAttach = ({letterID}) => {
                                     }
                                     closeTooltip={() => setOn(!isOn)}
                     >
-                        {letterID}
+                        {docs ?
+                            `${docs.name} ${docs.size}`
+                            : 'Загрузка...'
+                        }
+                        {/*{docs && }*/}
+                        {/*{!docs && 'Грузится'}*/}
                     </AttachDropdown>
                 </Portal>
             }

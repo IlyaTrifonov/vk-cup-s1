@@ -1,9 +1,6 @@
-import React, {useEffect, useMemo, useRef} from "react";
-// import classes from './AttachDropdown.module.css';
+import React, {useEffect} from "react";
 
 const AttachDropdown = ({children, coords, updateTooltipCoords, closeTooltip}) => {
-    // const elem = useRef()
-    // console.log(coords)
 
     const parent = document.getElementById('letter-list-id')
     useEffect(() => {
@@ -15,21 +12,10 @@ const AttachDropdown = ({children, coords, updateTooltipCoords, closeTooltip}) =
         };
     }, []);
 
-/*
-    const handleMouseClick = (e) => {
-        if (e.target !== elem) {
-            closeTooltip()
-        }
-    }
-*/
-
-
     return (
         <div
             style={{...coords}}
             className={`my-tooltip `}
-            // id={`${classes.my_attachM}`}
-            // ref={elem}
         >
             {children}
         </div>
