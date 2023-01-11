@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import AttachDropdownItem from "./AttachDropdownItem";
 import './AttachDropdown.sass';
 
@@ -17,13 +17,34 @@ const AttachDropdown = ({
         };
     }, []);
 
+    const parentDropdown = useRef()
+    const [newCoords, setNewCoords] = useState({})
+
+    const updateMyCoords = (ref) => {
+        // console.log('Обновление координат')
+        const rect = ref.getBoundingClientRect();
+        setNewCoords({
+            left: rect.x,
+            top: rect.y + rect.height
+        });
+    };
+
+    useEffect(() => {
+        if (parentDropdown.current)
+            updateMyCoords(parentDropdown.current)
+    }, [parentDropdown])
+
     return (
         <div
             style={{...coords}}
             className="attach-dropdown-overlay"
+            ref={parentDropdown}
         >
             {attachments && attachments.map((attach, index) =>
-                <AttachDropdownItem attach={attach} key={index}/>
+                <AttachDropdownItem attach={attach}
+                                    key={index}
+                                    newCoords={newCoords}
+                                    updateCoords={() => updateMyCoords(parentDropdown.current)}/>
             )}
         </div>
     );
