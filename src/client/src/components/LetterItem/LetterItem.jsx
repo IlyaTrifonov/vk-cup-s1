@@ -44,7 +44,7 @@ const LetterItem = ({letter}) => {
                                    height="20"
                                    className="secondary-data__flag-icon"/>
                         }
-                        {letter.doc && <ItemAttach letterID={letter.id} letterDoc={letter.doc}/>}
+                        {letter.doc && <ItemAttach letterDoc={letter.doc}/>}
                     </div>
                     <div className="item-date">{getDateString(letter.date)}</div>
                 </div>

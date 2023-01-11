@@ -3,8 +3,7 @@ import {flagsIcons} from "../../../assets/icons";
 import Icons from "../../../assets/icons/Icons";
 import './ItemAttach.sass';
 import Portal from "./Portal";
-import AttachDropdown from "./AttachDropdown";
-import classes from "./AttachDropdown.module.css";
+import AttachDropdown from "../attachDropdown/AttachDropdown";
 import {useFetching} from "../../../hooks/useFetching";
 import AttachmentService from "../../../api/AttachmentService";
 
@@ -12,26 +11,24 @@ import AttachmentService from "../../../api/AttachmentService";
  * Компонент иконки-кнопки для отображения вложений письма в списке писем.
  *
  * При клике открывает оверлей со списком вложений в письмо.
- * @param {number} letterID - идентификатор письма
- * @param {object[], object} letterDoc - массив вложений или вложение
+ * @param {object} letterDoc - массив вложений или вложение
  * @returns {JSX.Element}
  * @constructor
  */
-const ItemAttach = ({letterID, letterDoc}) => {
+const ItemAttach = ({letterDoc}) => {
 
-    const [docs, setDocs] = useState(null);
     const [coords, setCoords] = useState({});
     const [isOn, setOn] = useState(false);
     const iconRef = createRef();
     const [elem, setElem] = useState(null);
 
-    const [attachDoc, isAttachDocLoading, attachDocError] = useFetching(async (letterDocX) => {
-        const attachParams = await AttachmentService.getAttachParams(letterDocX.img);
-        console.log(attachParams)
-        setDocs(attachParams)
+    const [attachments, setAttachments] = useState(null)
+    const [attachDoc, isAttachDocLoading, attachDocError] = useFetching(async (myDoc) => {
+        const attachParams = await AttachmentService.getAttachesParams(myDoc);
+        setAttachments(attachParams)
     })
 
-    const updateTooltipCoords = (ref) => {
+    const updateDropdownCoords = (ref) => {
         console.log('Обновление координат')
         const rect = ref.getBoundingClientRect();
         setCoords({
@@ -42,19 +39,27 @@ const ItemAttach = ({letterID, letterDoc}) => {
 
     const attachIconArr = document.getElementsByClassName('attach-item');
     const onClick = (e) => {
-        if (!(e.target.contains(elem) || elem.contains(e.target))) {
+        // setOn(!isOn)
+        if (!(/*e.target.contains(elem) ||*/ elem.contains(e.target))) {
             setOn(!isOn)
             console.log('Скрываем поповер')
-        }
+            // console.log(e.target.contains(elem), elem.contains(e.target))
+        } /*else {
+            // setOn(!isOn)
+            console.log(e.target.contains(elem), elem.contains(e.target))
+            console.log('Клик не в элемент')
+        }*/
         document.removeEventListener('click', onClick);
         Object.entries(attachIconArr)
             .map(([k, v]) => {
                 v.removeEventListener('click', onClick)
             })
         // console.log('DEBUG Все слушатели удалены')
-    }
+    };
+
     useMemo(() => {
         if (isOn) {
+            attachDoc(letterDoc.img)
             document.addEventListener('click', onClick);
             Object.entries(attachIconArr)
                 .map(([k, v]) => {
@@ -62,23 +67,26 @@ const ItemAttach = ({letterID, letterDoc}) => {
                 })
             // console.log('DEBUG Все слушатели установлены')
         }
-    }, [attachIconArr, isOn])
+    }, [attachIconArr, isOn]);
+
+    const onItemAttachClick = (event) => {
+        event.stopPropagation();
+        if (!isOn) {
+            updateDropdownCoords(iconRef.current)
+            setElem(event.target)
+            console.log('Показываем поповер')
+        } else {
+            console.log('Скрываем поповер')
+        }
+        setOn(!isOn)
+    };
 
     return (
-        <div className="attach-item" ref={iconRef} id={classes.my_attachM}>
-            <div className="attach-item__icon"
-                 onClick={(event) => {
-                     event.stopPropagation();
-                     if (!isOn) {
-                         attachDoc(letterDoc)
-                         updateTooltipCoords(iconRef.current)
-                         setElem(event.target)
-                         console.log('Показываем поповер')
-                     } else {
-                         console.log('Скрываем поповер')
-                     }
-                     setOn(!isOn)
-                 }}>
+        <div className="attach-item" ref={iconRef}>
+            <div className={`attach-item__icon ${isOn && "active"}`}
+                 onClick={(event) =>
+                     onItemAttachClick(event)
+                 }>
                 <Icons name={flagsIcons.attach}
                        width="20"
                        height="20"
@@ -86,17 +94,13 @@ const ItemAttach = ({letterID, letterDoc}) => {
             </div>
             {isOn &&
                 <Portal>
-                    <AttachDropdown coords={coords}
-                                    updateTooltipCoords={() =>
-                                        updateTooltipCoords(iconRef.current)
+                    <AttachDropdown attachments={attachments}
+                                    coords={coords}
+                                    updateDropdownCoords={() =>
+                                        updateDropdownCoords(iconRef.current)
                                     }
-                                    closeTooltip={() => setOn(!isOn)}
-                    >
-                        {docs ?
-                            `${docs.name} ${docs.size}`
-                            : 'Загрузка...'
-                        }
-                    </AttachDropdown>
+                                    closeDropdown={() => setOn(!isOn)}
+                    />
                 </Portal>
             }
         </div>

@@ -1,4 +1,4 @@
-import { createPortal } from "react-dom";
+import {createPortal} from "react-dom";
 import {useEffect} from "react";
 
 const Portal = ({children}) => {
@@ -7,7 +7,9 @@ const Portal = ({children}) => {
 
     useEffect(() => {
         mount.appendChild(el);
-        return () => mount.removeChild(el);
+        return () => {
+            mount.removeChild(el);
+        }
     }, [el, mount]);
 
     return createPortal(children, el)

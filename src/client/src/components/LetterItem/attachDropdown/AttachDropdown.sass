@@ -1,0 +1,49 @@
+.attach-dropdown-overlay
+  border-radius: 12px
+  cursor: default
+  background-color: var(--colorBackgroundModal)
+  padding: 8px 0
+  position: absolute
+  //top: 0
+  //left: 0
+  z-index: 100000
+
+  transform: translate(calc(-100% - 4px), -50%)
+
+  box-shadow: var(--elevation2)
+
+  .attach-dropdown-overlay__item
+    max-width: 300px
+    //width: 300px
+    padding: 10px 16px 10px 52px
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+    cursor: pointer
+    position: relative
+    .attach-dropdown-overlay__item__icon
+      background-color: var(--colorBackgroundSecondary)
+      position: absolute
+      top: 4px
+      left: 12px
+      width: 32px
+      height: 32px
+      border-radius: 4px
+
+      display: flex
+      align-items: center
+      justify-content: center
+      overflow: hidden
+      img
+        width: 100%
+        height: 100%
+        object-fit: cover
+    .attach-dropdown-overlay__item__text
+      max-height: 20px
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+      color: var(--colorTextPrimary)
+      font-size: 15px
+      line-height: 20px
+      font-weight: 400

@@ -27,24 +27,37 @@ export default class AttachmentService {
     }
 
     /**
-     * Функция получения параметров файла вложения в письмо.
-     * @param {string} letterDoc - строка со ссылкой на вложение
-     * @returns {Promise<{name: string, size: string}>} - объект с именем и размером файла
+     * Функция получения параметров вложений в письмо.
+     *
+     * @param {string, string[]} letterDoc - строка со ссылкой на вложение или массив строк со ссылками на вложение
+     * @returns {Promise<*[{name: string, size: string, url: string}]>} - массив объектов с параметрами вложений
      */
-    static async getAttachParams(letterDoc) {
-        const attach = {name: '', size: ''};
-        attach.name = letterDoc.split('/').pop();
+    static async getAttachesParams(letterDoc) {
+        // Если вложение одно, то оно приводится к массиву для удобства обработки
+        if (!Array.isArray(letterDoc))
+            letterDoc = [letterDoc];
 
-        const response = await fetch(letterDoc, {
-            method: 'HEAD',
-            headers: {
-                accept: 'application/json',
-            },
-        });
-        const size = response.headers.get('x-total-size-in-bytes')
-        attach.size = AttachmentService.getHumanFileSize(Number.parseInt(size))
+        const attachesWithParamsArray = [];
+        for (let i = 0; i < letterDoc.length; i++) {
+            const attachURL = new URL(letterDoc[i]);
 
-        return attach
+            const attach = {
+                name: attachURL.pathname.split('/').pop(),
+                size: '',
+                url: attachURL.toString()
+            };
+
+            const response = await fetch(attach.url, {
+                method: 'HEAD',
+                headers: {
+                    accept: 'application/json',
+                },
+            });
+            const size = response.headers.get('x-total-size-in-bytes');
+            attach.size = AttachmentService.getHumanFileSize(Number.parseInt(size));
+            attachesWithParamsArray.push(attach);
+        }
+        return attachesWithParamsArray;
     }
 
 }

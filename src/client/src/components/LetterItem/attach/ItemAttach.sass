@@ -8,9 +8,13 @@
     display: flex
     align-items: center
     justify-content: center
-    background-color: #005FF9
+    //background-color: #005FF9
     border-radius: 8px
     &:hover
-      background-color: red
+      background-color: var(--colorTransparentHover)
+    &:active
+      background-color: var(--colorTransparentActive)
   .attach-item__icon__icon
     fill: var(--colorIconPrimary)
+  .attach-item__icon.active
+    background-color: var(--colorTransparentActive)

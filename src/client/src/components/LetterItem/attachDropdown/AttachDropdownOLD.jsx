@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 
-const AttachDropdown = ({children, coords, updateTooltipCoords, closeTooltip}) => {
+const AttachDropdownOLD = ({children, coords, updateTooltipCoords, closeTooltip}) => {
 
     const parent = document.getElementById('letter-list-id')
     useEffect(() => {
@@ -22,4 +22,4 @@ const AttachDropdown = ({children, coords, updateTooltipCoords, closeTooltip}) =
     );
 };
 
-export default AttachDropdown;
+export default AttachDropdownOLD;
