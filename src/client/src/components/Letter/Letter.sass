@@ -45,13 +45,28 @@
       //font-family: var(--vkui--octavius_font_family_mail_sans,var(--vkui--font_family_accent,MailSans,Helvetica,Arial,sans-serif));
       font-weight: 700
     .letter__flag
+      display: flex
+      flex-direction: row
+      align-items: center
+      gap: 8px
+      padding: 2px 12px
+      height: 32px
+
       flex-shrink: 0
       justify-self: flex-end
       margin-left: auto
-      padding-top: 2px
-      padding-left: 20px
+      //padding-top: 2px
+      //padding-left: 20px
       //временно
-      color: var(--colorTextPrimary)
+      .letter__flag__text
+        color: var(--colorTextPrimary)
+        font-weight: 400
+        font-size: 13px
+        line-height: 20px
+
+
+
+
   .letter__head
     display: flex
     flex-direction: row
