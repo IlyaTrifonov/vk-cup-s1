@@ -26,5 +26,7 @@ export const flagsIcons = {
     ticket_outline: 'ticket_outline',
     government_outline: 'government_outline',
     attach: 'attach',
-    checkbox_check_mark: 'checkbox_check_mark'
+    checkbox_check_mark: 'checkbox_check_mark',
+    ru_flag: 'ru_flag',
+    us_flag: 'us_flag'
 }

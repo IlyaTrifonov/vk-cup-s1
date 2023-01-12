@@ -1,0 +1,42 @@
+.settings-menu-sidebar
+  user-select: none
+  display: flex
+  flex-direction: column
+  overflow-x: hidden
+  overflow-y: auto
+  flex-shrink: 0
+  margin-left: 20px
+  // TODO бордер с прода
+  border-right: 1px solid var(--colorSeparatorPrimaryAlpha)
+  &::-webkit-scrollbar
+    width: 8px
+  &::-webkit-scrollbar-thumb
+    background: var(--octaviusColorContentScrollbarAlpha)
+    border-radius: 4px
+  .settings-menu-sidebar__header
+    min-height: 20px
+  .settings-menu-sidebar__footer
+    min-height: 60px
+  .settings-menu-sidebar__content
+    padding-right: 16px
+    .settings-menu-sidebar__button
+      width: 223px
+      height: 40px
+      padding: 0 16px
+      display: flex
+      position: relative
+      align-items: center
+      border-radius: 8px
+      &:hover
+        background: var(--colorTransparentHover)
+      &:active
+        background: var(--colorTransparentActive)
+      .settings-menu-sidebar__button__container
+        display: flex
+        gap: 8px
+        align-items: center
+        .settings-menu-sidebar__button__text
+          color: var(--colorTextPrimary)
+          overflow: hidden
+          white-space: nowrap
+          text-overflow: ellipsis

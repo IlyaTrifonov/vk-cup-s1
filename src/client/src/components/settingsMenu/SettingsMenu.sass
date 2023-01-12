@@ -1,14 +1,12 @@
 .settings-menu
   //display: none
-  display: flex
-
+  display: block
   z-index: 9999999
   height: 0
   width: 100%
   background-color: var(--colorBackgroundModal)
   position: absolute
   bottom: 0
-
   transition-property: height
   transition-duration: .15s
   transition-timing-function: cubic-bezier(0.3, 0.3, 0.5, 1)
@@ -16,6 +14,7 @@
   .settings-menu-container
     width: 100%
     height: 100%
+    display: flex
     position: relative
     .settings-menu__controls
       position: absolute
@@ -41,19 +40,7 @@
         &:active
           background: var(--colorTransparentActive)
 
-.settings-menu-sidebar
-  width: 100px
-  height: 100%
 
-  overflow-x: hidden
-  overflow-y: auto
-  flex-shrink: 0
-  margin-left: 20px
-  // TODO бордер с прода
-  border-right: 1px solid var(--colorSeparatorPrimaryAlpha)
 
-  &::-webkit-scrollbar
-    width: 8px
-    &::-webkit-scrollbar-thumb
-      background: var(--octaviusColorContentScrollbarAlpha)
-      border-radius: 4px
+
+
