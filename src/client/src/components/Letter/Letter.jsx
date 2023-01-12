@@ -22,13 +22,31 @@ const Letter = ({/*folder*/}) => {
         setLetter(data)
     })
 
+
+/*
+    const letter = {
+        to: [
+            {name: 'Peter', surname: "Parker"},
+            {name: 'Johrn', surname: "Veight"},
+            {name: 'Peter2', surname: "Parker3"},
+        ]
+    }
+*/
     // Тому кто это смотрит: обычно я так не делаю, но тут уже не было времени
     // Прости, если тебе больно смотреть на такое соединение строк
+/*
     let users = "Кому: "
     if (letter) {
         letter.to.forEach(user => users += `${user.name} ${user.surname}, `)
     }
     users = users.slice(0, -2) + '.'
+*/
+
+    let users = "Кому: ";
+    if (letter) {
+        users += letter.to.map(user =>
+            `${user.name} ${user.surname}`).join(', ') + '.';
+    }
 
     useEffect(() => {
         fetchLetters(params.id)
