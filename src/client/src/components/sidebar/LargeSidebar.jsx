@@ -9,7 +9,7 @@ import {folders} from "../../api/FoldersService";
 import SidebarFolder from "./sidebarFolder/SidebarFolder";
 
 
-const LargeSidebar = () => {
+const LargeSidebar = ({setSettingsIsOpen}) => {
     return (
         <ThemeContext.Consumer>
             {({theme, setTheme}) => (
@@ -36,6 +36,13 @@ const LargeSidebar = () => {
                                          if (theme === themes.dark) setTheme(themes.light)
                                      }}>
                             {theme === themes.light ? "Тема: светлая" : "Тема: тёмная"}
+                        </SidebarItem>
+                        <SidebarItem icon={folderIcons.gear}
+                                     onClick={() => {
+                                         console.log('Настройки нажаты')
+                                         setSettingsIsOpen(true)
+                                     }}>
+                            Настройки
                         </SidebarItem>
                     </div>
                 </div>

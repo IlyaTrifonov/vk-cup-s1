@@ -15,7 +15,7 @@ html[data-theme="light"]
 
   --octaviusColorContentScrollbarAlpha: rgba(0, 16, 61, 0.08)
 
-  // Background
+  // BackgroundWithProvider
   --octaviusColorBackground: #F6F7F8
   --colorTransparentHover: rgba(0, 16, 61, 0.04)
   --colorTransparentActive: rgba(0, 16, 61, 0.08)
@@ -80,7 +80,7 @@ html[data-theme="dark"]
   --octaviusColorContentScrollbarAlpha: rgba(255, 255, 255, 0.24)
 
 
-  // Background
+  // BackgroundWithProvider
   --octaviusColorBackground: #19191A
   --colorTransparentHover: rgba(255, 255, 255, 0.04)
   --colorTransparentActive: rgba(255, 255, 255, 0.08)
@@ -165,6 +165,8 @@ html[data-theme="dark"]
   height: 100vh
   font-weight: 400
   position: relative
+  transition: transform 0.1s ease 0s
+
 
 
 .portal-overlay
@@ -286,7 +288,7 @@ html[data-theme="dark"]
   border-radius: 12px
   background-color: var(--colorBackgroundModal)
   box-shadow: var(--elevation2)
-  z-index: 10000000
+  z-index: 1000000
   top: 0
   left: 0
   //transform: translate(calc(-100% - 4px), -50%)

@@ -7,7 +7,9 @@ export const folderIcons = {
     sent_folder: 'sent_folder',
     spam_folder: 'spam_folder',
     theme_palette: 'theme_palette',
-    waste_folder: 'waste_folder'
+    waste_folder: 'waste_folder',
+    gear: 'gear',
+    cross: 'cross'
 }
 
 export const bookmarkIcons = {
