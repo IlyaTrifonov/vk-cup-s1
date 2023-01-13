@@ -13,17 +13,23 @@ const LetterList = ({folder}) => {
         setMyLetters(data)
     })
 
+    const thisComponent = document.getElementById('letter-list-id');
+
     useEffect(() => {
+        if (thisComponent) {
+            thisComponent.scrollTo(0, 0);
+            // console.log('rerendering letter list');
+        }
         fetchLetters()
     }, [folder])
 
-/*
-    if (isLettersLoading || isLetterLoading) {
-        return (
-            <span>Грузится</span>
-        )
-    }
-*/
+    /*
+        if (isLettersLoading || isLetterLoading) {
+            return (
+                <span>Грузится</span>
+            )
+        }
+    */
 
     return (
         <div className="letter-list" id="letter-list-id">
