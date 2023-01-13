@@ -1,8 +1,5 @@
 .idea
-/src/client/src/assets/icons/bookmark
-/src/client/src/assets/icons/catrgories
-/src/client/src/assets/icons/files
-/src/client/src/assets/icons/iconsBackup.svg
+/src/client/src/assets/icons/dev_svg
 /src/client/src/assets/index2.js
 /src/client/src/components/sidebar/sprite.svg
 
