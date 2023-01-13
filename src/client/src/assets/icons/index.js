@@ -28,5 +28,6 @@ export const flagsIcons = {
     attach: 'attach',
     checkbox_check_mark: 'checkbox_check_mark',
     ru_flag: 'ru_flag',
-    us_flag: 'us_flag'
+    us_flag: 'us_flag',
+    done_sign: 'done_sign'
 }
