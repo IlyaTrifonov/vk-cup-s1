@@ -10,6 +10,7 @@ root.render(
     <ThemeProvider>
         <BackgroundWithProvider>
             <App/>
+            <div className="portal-overlay" id="portal-overlay"/>
             <SettingsMenu/>
         </BackgroundWithProvider>
     </ThemeProvider>

@@ -1,15 +1,17 @@
-// import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './SettingsMenu.sass';
-// import {SettingsContext} from "./context/SettingsContext";
-import React, {useContext, useEffect} from "react";
 import {SettingsContext} from "../../context/SettingsContext";
 import Icons from "../../assets/icons/Icons";
 import {folderIcons} from "../../assets/icons";
-import SettingsMenuSidebar from "./SettingsMenuSidebar";
+import SettingsMenuSidebar from "./settingsMenuSidebar/SettingsMenuSidebar";
+import SettingsMenuMain from "./settingsMenuMain/SettingsMenuMain";
+import {menuPages} from "./MenuPages";
 
 const SettingsMenu = () => {
 
     const {settingsIsOpen, setSettingsIsOpen} = useContext(SettingsContext);
+
+    const [currentPage, setCurrentPage] = useState(menuPages.appearance)
 
     const closeSettingsMenu = () => {
         document.removeEventListener('click', closeSettingsMenu);
@@ -37,9 +39,9 @@ const SettingsMenu = () => {
                         />
                     </div>
                 </div>
-                <SettingsMenuSidebar/>
-
-
+                <SettingsMenuSidebar currentPage={currentPage}
+                                     setCurrentPage={setCurrentPage}/>
+                <SettingsMenuMain currentPage={currentPage}/>
             </div>
         </div>
     );

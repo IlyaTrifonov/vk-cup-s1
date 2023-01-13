@@ -1,21 +1,32 @@
 import React from 'react';
-import {flagsIcons, folderIcons} from "../../assets/icons";
-import Icons from "../../assets/icons/Icons";
+import {flagsIcons} from "../../../assets/icons";
+import Icons from "../../../assets/icons/Icons";
 import './SettingsMenuSidebar.sass';
+import {menuPages} from "../MenuPages";
 
-const SettingsMenuSidebar = () => {
+const SettingsMenuSidebar = ({currentPage, setCurrentPage}) => {
+
+    const activeAppearance = currentPage === menuPages.appearance ? 'active' : '';
+    const activeLanguage = currentPage === menuPages.language ? 'active' : '';
+
     return (
         <div className="settings-menu-sidebar">
             <div className="settings-menu-sidebar__header"></div>
             <div className="settings-menu-sidebar__content">
-                <div className="settings-menu-sidebar__button">
+                <div className={`settings-menu-sidebar__button ${activeAppearance}`}
+                     onClick={() => {
+                         setCurrentPage(menuPages.appearance)
+                     }}>
                     <div className="settings-menu-sidebar__button__container">
                         <div className="settings-menu-sidebar__button__text">
                             Внешний вид
                         </div>
                     </div>
                 </div>
-                <div className="settings-menu-sidebar__button">
+                <div className={`settings-menu-sidebar__button ${activeLanguage}`}
+                     onClick={() => {
+                         setCurrentPage(menuPages.language)
+                     }}>
                     <div className="settings-menu-sidebar__button__container">
                         <div className="settings-menu-sidebar__button__text">
                             Язык: русский

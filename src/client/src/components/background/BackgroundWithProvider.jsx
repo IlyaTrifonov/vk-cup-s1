@@ -8,7 +8,7 @@ const BackgroundWithProvider = ({children}) => {
 
     return (
         <SettingsContext.Provider value={{settingsIsOpen, setSettingsIsOpen}}>
-            <div className="app-background-element" style={{position: 'relative'}}>
+            <div className="app-background-element">
                 {children}
             </div>
         </SettingsContext.Provider>

@@ -11,7 +11,7 @@ import SidebarFolder from "./sidebarFolder/SidebarFolder";
 
 const LargeSidebar = ({setSettingsIsOpen}) => {
 
-    const {theme, setTheme} = useContext(ThemeContext)
+    // const {theme, setTheme} = useContext(ThemeContext)
 
     return (
         <div className="large-sidebar">
@@ -30,6 +30,7 @@ const LargeSidebar = ({setSettingsIsOpen}) => {
                 <Button icon={folderIcons.new_folder} type={buttonTypes.flat} iconSize='16'>Новая папка</Button>
             </div>
             <div className="sidebar-bottom-menu">
+{/*
                 <SidebarItem icon={folderIcons.theme_palette}
                              className='theme_palette'
                              onClick={() => {
@@ -38,6 +39,7 @@ const LargeSidebar = ({setSettingsIsOpen}) => {
                              }}>
                     {theme === themes.light ? "Тема: светлая" : "Тема: тёмная"}
                 </SidebarItem>
+*/}
                 <SidebarItem icon={folderIcons.gear}
                              onClick={(e) => {
                                  e.stopPropagation()

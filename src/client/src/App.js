@@ -19,7 +19,6 @@ function App() {
                     <AppRouter/>
                 </div>
             </BrowserRouter>
-            <div className="portal-overlay" id="portal-overlay"/>
         </div>
     );
 }
