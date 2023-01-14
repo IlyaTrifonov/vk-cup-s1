@@ -1,16 +1,14 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import './ThemeMenu.sass';
 import {ReactComponent as Logo} from "../../../../assets/svg/logo.svg";
 import AnimeThemePreview from "../../../../assets/pictures/anime_theme_preview.png";
 import ThemeMenuItem from "./ThemeMenuItem";
-import {themeColors} from "./ThemeColors";
-import {ThemeContext, defaultThemes} from "../../../../context/ThemeContext";
+import {accents, defaultThemes, ThemeContext} from "../../../../context/ThemeContext";
+import {darkThemeColors, lightThemeColors} from "./ThemeColors";
 
 const ThemeMenu = () => {
 
-    const {theme, setTheme} = useContext(ThemeContext)
-
-    const [activeTheme, setActiveTheme] = useState(null)
+    const {themeObj} = useContext(ThemeContext)
 
     return (
         <div className="settings-menu__theme-menu">
@@ -18,44 +16,44 @@ const ThemeMenu = () => {
                 Настройки внешнего вида вашей почты и темы оформления
             </div>
             <div className="colors">
-                {Object.entries(themeColors).map(
-                    ([key, color], index) =>
+                {Object.entries(darkThemeColors).map(
+                    ([key, color]) =>
                         <ThemeMenuItem backgroundColor={color}
-                                       key={index}
-                                       active={key === activeTheme}
-                                       onClick={() => {
-                                           console.log('Нажата', color)
-                                           setActiveTheme(key)
-                                       }}
+                                       key={key}
+                                       color={key}
+                                       accent={accents.light}
+                                       themeObj={themeObj}
+                        />
+                )}
+                {Object.entries(lightThemeColors).map(
+                    ([key, color]) =>
+                        <ThemeMenuItem backgroundColor={color}
+                                       key={key}
+                                       color={key}
+                                       accent={accents.dark}
+                                       themeObj={themeObj}
                         />
                 )}
             </div>
             <div className="themes">
                 <ThemeMenuItem backgroundColor="#000000"
-                               active={'dark' === activeTheme}
-                               onClick={() => {
-                                   setActiveTheme('dark')
-                                   setTheme(defaultThemes.dark)
-                               }}>
+                               theme={defaultThemes.dark}
+                               themeObj={themeObj}
+                >
                     <Logo fill="#FFFFFF"/>
                 </ThemeMenuItem>
                 <ThemeMenuItem backgroundColor="#FFFFFF"
-                               active={'light' === activeTheme}
-                               onClick={() => {
-                                   setActiveTheme('light')
-                                   setTheme(defaultThemes.light)
-                               }}>
+                               theme={defaultThemes.light}
+                               themeObj={themeObj}
+                >
                     <Logo fill="#005FF9"/>
                 </ThemeMenuItem>
-                <ThemeMenuItem active={'anime' === activeTheme}
-                               onClick={() => {
-                                   setActiveTheme('anime')
-                                   console.log('Нажали аниме')
-                               }}>
+                <ThemeMenuItem theme={defaultThemes.anime}
+                               themeObj={themeObj}
+                >
                     <img src={AnimeThemePreview} alt=""/>
                 </ThemeMenuItem>
             </div>
-
         </div>
     );
 };

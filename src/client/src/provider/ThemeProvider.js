@@ -9,20 +9,6 @@ import {
     ThemeContext
 } from '../context/ThemeContext'
 
-const getTheme = () => {
-    const theme = `${window?.localStorage?.getItem('theme')}`
-    if (Object.values(defaultThemes).includes(theme)) return theme
-
-/*
-    const userMedia = window.matchMedia('(prefers-color-scheme: light)')
-    if (userMedia.matches) return defaultThemes.light
-*/
-
-    const userMediaD = window.matchMedia('(prefers-color-scheme: dark)')
-    if (userMediaD.matches) return defaultThemes.dark
-
-    return defaultThemes.light
-}
 
 const getThemeObj = () => {
     const themeObj = window?.localStorage?.getItem('themeObj')
@@ -30,13 +16,13 @@ const getThemeObj = () => {
         let parsedThemeObj = {}
         try {
             parsedThemeObj = JSON.parse(themeObj)
-            if (Object.values(defaultThemes).includes(parsedThemeObj.theme)
-                && parsedThemeObj.accent === ''
-                && parsedThemeObj.color === '')
+            if (Object.values(defaultThemes).includes(parsedThemeObj.theme) &&
+                parsedThemeObj.accent === '' &&
+                parsedThemeObj.color === '')
                 return parsedThemeObj
-            if (parsedThemeObj.theme === coloredThemesBase
-                && Object.values(accents).includes(parsedThemeObj.accent)
-                && Object.values(colors).includes(parsedThemeObj.color))
+            if (parsedThemeObj.theme === coloredThemesBase &&
+                Object.values(accents).includes(parsedThemeObj.accent) &&
+                Object.values(colors).includes(parsedThemeObj.color))
                 return parsedThemeObj
         } catch (e) {
             return defaultThemeObjLight
@@ -50,38 +36,31 @@ const getThemeObj = () => {
 }
 
 const ThemeProvider = ({children}) => {
-    const [theme, setTheme] = React.useState(getTheme)
 
     const [themeObj, setThemeObj] = React.useState(getThemeObj)
 
-
-/*
-    const myTheme = {
-        theme: "base",
-        accent: "dark",
-        color: "red",
+    const setTheme = (theme, accent = '', color = '') => {
+        if (theme === coloredThemesBase &&
+            (accent === '' || color === '')) {
+            setThemeObj(defaultThemeObjLight)
+            return
+        }
+        setThemeObj({
+            theme: theme,
+            accent: accent,
+            color: color
+        })
     }
-*/
-
-    /*
-        how to switch colored theme
-
-        theme to base
-
-        accent
-    */
 
     React.useEffect(() => {
         document.documentElement.dataset.theme = themeObj.theme
-        document.documentElement.dataset.themeObjT = themeObj.theme
-        document.documentElement.dataset.themeObjA = themeObj.accent
-        document.documentElement.dataset.themeObjC = themeObj.color
-        localStorage.setItem('theme', theme)
+        document.documentElement.dataset.accent = themeObj.accent
+        document.documentElement.dataset.color = themeObj.color
         localStorage.setItem('themeObj', JSON.stringify(themeObj))
-    }, [theme, themeObj])
+    }, [themeObj])
 
     return (
-        <ThemeContext.Provider value={{theme, setTheme}}>
+        <ThemeContext.Provider value={{themeObj, setTheme}}>
             {children}
         </ThemeContext.Provider>
     )

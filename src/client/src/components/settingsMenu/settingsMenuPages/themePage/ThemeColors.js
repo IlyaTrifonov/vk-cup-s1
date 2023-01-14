@@ -1,4 +1,4 @@
-export const themeColors = {
+export const darkThemeColors = {
     DarkLava: 'var(--colorCommonDarkLava)',
     Arsenic: 'var(--colorCommonArsenic)',
     JapaneseViolet: 'var(--colorCommonJapaneseViolet)',
@@ -6,8 +6,10 @@ export const themeColors = {
     VioletBlue: 'var(--colorCommonVioletBlue)',
     ParadisePink: 'var(--colorCommonParadisePink)',
     CoralRed: 'var(--colorCommonCoralRed)',
-    MayGreen: 'var(--colorCommonMayGreen)',
+    MayGreen: 'var(--colorCommonMayGreen)'
+}
 
+export const lightThemeColors = {
     MiddleBlueGreen: 'var(--colorCommonMiddleBlueGreen)',
     WhiteCoffee: 'var(--colorCommonWhiteCoffee)',
     BlanchedAlmond: 'var(--colorCommonBlanchedAlmond)',

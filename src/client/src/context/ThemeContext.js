@@ -2,7 +2,8 @@ import React from 'react'
 
 export const defaultThemes = {
     dark: 'dark',
-    light: 'light'
+    light: 'light',
+    anime: 'anime'
 }
 
 export const coloredThemesBase = 'base';

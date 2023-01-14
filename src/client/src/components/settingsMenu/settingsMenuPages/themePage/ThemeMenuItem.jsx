@@ -1,20 +1,29 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {flagsIcons} from "../../../../assets/icons";
 import Icons from "../../../../assets/icons/Icons";
+import {coloredThemesBase, ThemeContext} from "../../../../context/ThemeContext";
 
-const ThemeMenuItem = ({children, backgroundColor, onClick, active}) => {
+const ThemeMenuItem = ({
+                           children, backgroundColor,
+                           theme = coloredThemesBase,
+                           accent = '',
+                           color = '',
+                           themeObj
+                       }) => {
 
-    const isActive = false
+    const {setTheme} = useContext(ThemeContext)
 
+    const isActive = JSON.stringify({theme, accent, color}) === JSON.stringify(themeObj);
 
     return (
         <div className="theme-menu-item-container">
             <div className="theme-menu-item"
                  style={{backgroundColor: backgroundColor}}
-                 onClick={onClick}>
+                 onClick={() => {
+                     setTheme(theme, accent, color)
+                 }}>
                 {children}
-
-                {active &&
+                {isActive &&
                     <div className="selected-mark">
                         <Icons
                             name={flagsIcons.done_sign}
