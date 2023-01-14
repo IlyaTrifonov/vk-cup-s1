@@ -1,7 +1,6 @@
 import React, {useContext} from 'react';
 import './Sidebar.sass';
 import {folderIcons} from "../../assets/icons";
-import {ThemeContext, themes} from "../../context/ThemeContext";
 import SidebarItem from "./SidebarItem";
 import Button from "../UI/buttons/Button";
 import {buttonTypes} from "../UI/buttons";

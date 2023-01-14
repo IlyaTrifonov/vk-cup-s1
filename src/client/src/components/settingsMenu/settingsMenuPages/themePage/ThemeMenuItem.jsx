@@ -2,7 +2,7 @@ import React from 'react';
 import {flagsIcons} from "../../../../assets/icons";
 import Icons from "../../../../assets/icons/Icons";
 
-const ThemeMenuItem = ({children, backgroundColor, onClick}) => {
+const ThemeMenuItem = ({children, backgroundColor, onClick, active}) => {
 
     const isActive = false
 
@@ -14,15 +14,16 @@ const ThemeMenuItem = ({children, backgroundColor, onClick}) => {
                  onClick={onClick}>
                 {children}
 
-                <div className="selected-mark">
-                    <Icons
-                        name={flagsIcons.done_sign}
-                        width='40'
-                        height='40'
-                        className='selected-mark__mark'
-                    />
-                </div>
-
+                {active &&
+                    <div className="selected-mark">
+                        <Icons
+                            name={flagsIcons.done_sign}
+                            width='40'
+                            height='40'
+                            className='selected-mark__mark'
+                        />
+                    </div>
+                }
             </div>
         </div>
     );
