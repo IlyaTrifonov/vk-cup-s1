@@ -1,21 +1,25 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Icons from "../../../assets/icons/Icons";
 import {NavLink} from "react-router-dom";
 import './SidebarFolder.sass'
+import {LanguageContext} from "../../../context/LanguageContext";
 
 
-const SidebarFolder = ({children, icon, route}) => {
+const SidebarFolder = ({folder}) => {
+
+    const {language} = useContext(LanguageContext)
+
     return (
         <NavLink className={({isActive}) =>
             isActive ? "sidebar-folder active" : "sidebar-folder"}
-                 to={route}>
+                 to={folder.path}>
             <Icons
-                name={icon}
+                name={folder.icon}
                 width="20"
                 height="20"
                 className="sidebar-folder__icon"
             />
-            <span className="sidebar-folder__text">{children}</span>
+            <span className="sidebar-folder__text">{language.letterList.sidebar[folder.name]}</span>
         </NavLink>
     );
 }

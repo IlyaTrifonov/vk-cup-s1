@@ -5,15 +5,17 @@ import AnimeThemePreview from "../../../../assets/pictures/anime_theme_preview.p
 import ThemeMenuItem from "./ThemeMenuItem";
 import {accents, animeColor, defaultThemes, ThemeContext} from "../../../../context/ThemeContext";
 import {darkThemeColors, lightThemeColors} from "./ThemeColors";
+import {LanguageContext} from "../../../../context/LanguageContext";
 
 const ThemeMenu = () => {
 
     const {themeObj} = useContext(ThemeContext)
+    const {language} = useContext(LanguageContext)
 
     return (
         <div className="settings-menu__theme-menu">
             <div className="menu-title">
-                Настройки внешнего вида вашей почты и темы оформления
+                {language.settings.appearanceMenu.menuTitle}
             </div>
             <div className="colors">
                 {Object.entries(darkThemeColors).map(

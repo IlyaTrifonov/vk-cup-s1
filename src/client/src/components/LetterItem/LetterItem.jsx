@@ -39,7 +39,7 @@ const LetterItem = ({letter}) => {
                     </div>
                     <div className="secondary-data">
                         {letter.flag &&
-                            <Icons name={flags[letter.flag]}
+                            <Icons name={flags[letter.flag].icon}
                                    width="20"
                                    height="20"
                                    className="secondary-data__flag-icon"/>

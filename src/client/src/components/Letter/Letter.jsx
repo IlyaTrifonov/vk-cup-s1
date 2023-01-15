@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './Letter.sass'
 import {useParams} from "react-router-dom";
 import {useFetching} from "../../hooks/useFetching";
@@ -8,9 +8,13 @@ import UserAvatar from "../LetterItem/UserAvatar";
 import {getDateString} from "../dateParse";
 import {flags} from "../LetterItem/flags";
 import Icons from "../../assets/icons/Icons";
+import {LanguageContext} from "../../context/LanguageContext";
+import {textKeys} from "../../translations";
 
 const Letter = ({/*folder*/}) => {
     // const [selectedFolder, setSelectedFolder] = useState(folder)
+
+    const {language} = useContext(LanguageContext)
 
     const params = useParams()
 
@@ -42,7 +46,7 @@ const Letter = ({/*folder*/}) => {
     users = users.slice(0, -2) + '.'
 */
 
-    let users = "Кому: ";
+    let users = language.letterPage.letterToWord;
     if (letter) {
         users += letter.to.map(user =>
             `${user.name} ${user.surname}`).join(', ') + '.';
@@ -72,18 +76,18 @@ const Letter = ({/*folder*/}) => {
                 <h2 className="letter__tittle">{letter.title}</h2>
                 {letter.flag ?
                     <div className="letter__flag">
-                        <Icons name={flags[letter.flag]}
+                        <Icons name={flags[letter.flag].icon}
                                width="16"
                                height="16"
                                className="secondary-data__flag-icon"/>
                         <div className="letter__flag__text">
-                            {letter.flag}
+                            {language.common.letterCategories[flags[letter.flag].name]}
                         </div>
                     </div>
                     :
                     <div className="letter__flag">
                         <div className="letter__flag__text">
-                            Письмо без категории
+                            {language.common.letterCategories.noCategory}
                         </div>
                     </div>
                 }

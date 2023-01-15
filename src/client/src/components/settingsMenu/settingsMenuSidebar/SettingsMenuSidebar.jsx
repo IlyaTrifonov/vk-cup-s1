@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {flagsIcons} from "../../../assets/icons";
 import Icons from "../../../assets/icons/Icons";
 import './SettingsMenuSidebar.sass';
 import {menuPages} from "../MenuPages";
+import {LanguageContext} from "../../../context/LanguageContext";
 
 const SettingsMenuSidebar = ({currentPage, setCurrentPage}) => {
+
+    const {language} = useContext(LanguageContext)
 
     const activeAppearance = currentPage === menuPages.appearance ? 'active' : '';
     const activeLanguage = currentPage === menuPages.language ? 'active' : '';
@@ -19,7 +22,7 @@ const SettingsMenuSidebar = ({currentPage, setCurrentPage}) => {
                      }}>
                     <div className="settings-menu-sidebar__button__container">
                         <div className="settings-menu-sidebar__button__text">
-                            Внешний вид
+                            {language.settings.sidebar.appearanceButtonName}
                         </div>
                     </div>
                 </div>
@@ -29,7 +32,7 @@ const SettingsMenuSidebar = ({currentPage, setCurrentPage}) => {
                      }}>
                     <div className="settings-menu-sidebar__button__container">
                         <div className="settings-menu-sidebar__button__text">
-                            Язык: русский
+                            {language.settings.sidebar.languageButtonName}
                         </div>
                         <Icons
                             name={flagsIcons.ru_flag}
