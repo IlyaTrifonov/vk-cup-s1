@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import './Sidebar.sass';
 import {folderIcons} from "../../assets/icons";
 import SidebarItem from "./SidebarItem";
@@ -29,7 +29,7 @@ const LargeSidebar = ({setSettingsIsOpen}) => {
                 <Button icon={folderIcons.new_folder} type={buttonTypes.flat} iconSize='16'>Новая папка</Button>
             </div>
             <div className="sidebar-bottom-menu">
-{/*
+                {/*
                 <SidebarItem icon={folderIcons.theme_palette}
                              className='theme_palette'
                              onClick={() => {

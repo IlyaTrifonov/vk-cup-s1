@@ -3,7 +3,7 @@ import './ThemeMenu.sass';
 import {ReactComponent as Logo} from "../../../../assets/svg/logo.svg";
 import AnimeThemePreview from "../../../../assets/pictures/anime_theme_preview.png";
 import ThemeMenuItem from "./ThemeMenuItem";
-import {accents, defaultThemes, ThemeContext} from "../../../../context/ThemeContext";
+import {accents, animeColor, defaultThemes, ThemeContext} from "../../../../context/ThemeContext";
 import {darkThemeColors, lightThemeColors} from "./ThemeColors";
 
 const ThemeMenu = () => {
@@ -48,7 +48,8 @@ const ThemeMenu = () => {
                 >
                     <Logo fill="#005FF9"/>
                 </ThemeMenuItem>
-                <ThemeMenuItem theme={defaultThemes.anime}
+                <ThemeMenuItem color={animeColor}
+                               accent={accents.light}
                                themeObj={themeObj}
                 >
                     <img src={AnimeThemePreview} alt=""/>

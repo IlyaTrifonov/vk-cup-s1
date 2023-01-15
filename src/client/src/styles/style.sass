@@ -1,6 +1,9 @@
 @import "LightThemeTokens"
 @import "DarkThemeTokens"
 @import "CommonColorTokens"
+@import "BaseThemeTokens"
+@import "AccentThemesTokens"
+@import "ColorThemesTokens"
 
 *
   margin: 0
@@ -15,10 +18,6 @@ html
 //  background: var(--octaviusColorBackground)
 
 
-
-
-
-
 .sidebar_item
   .item_container
     span
@@ -29,100 +28,50 @@ html
 //  fill: var(--color)
 
 .App
-  background: var(--octaviusColorBackground)
+  //background: var(--octaviusColorBackground)
+  background: transparent
   height: 100vh
   font-weight: 400
   position: relative
   transition: transform 0.1s ease 0s
-
-
 
 .portal-overlay
   position: absolute
   top: 0
   left: 0
   z-index: 1000000
-  //max-width: 100%
-  //max-height: 100%
-  //overflow-x: hidden
-  //width: 100%
-  //height: 100%
-
 
 .content
   width: 100%
   height: calc(100vh - 56px)
   display: flex
   z-index: 1
-  //паддинг не нужен потому что контент идёт после блока навбара
-  //padding-top: 56px
-  //display: flex
-  //flex-direction: row
-  //height: calc(100% - 56px)
-  //height: 100%
-  //position: absolute
-  //top: 56px
-  //min-width: 380px
-  //transition-duration: 0.5s
-  //transition-timing-function: ease
-  //transition-delay: 0s
-  //transition-property: width, background
-
 
 .letter-list
-  //display: none
-  width: calc(100% - 232px - 12px)
-  //width: auto
-  //height: 300px
-  max-height: calc(100% - 13px - 56px)
+  position: absolute
+  left: 232px
+  width: calc(100% - 232px - 8px)
+  max-height: calc(100% - 56px)
   min-height: 100px
   overflow: auto
-  //position: relative
-  //padding-right: 2px
-  //@if height > max-height
-  //  padding-right: 2px
   &::-webkit-scrollbar
-    //box-sizing: border-box
-    //width: 8px
-    width: 10px
-    //margin-left: 2px
-    //padding: 8px 8px
-    //margin-top: 20px
+    width: 8px
   &::-webkit-scrollbar-thumb
     background: var(--octaviusColorContentScrollbarAlpha)
-    //background: red
-    //padding-top: 20px
-    //top: 12px
-    border-left: 2px solid var(--octaviusColorLetterListBackground)
-    //border-top: 12px solid var(--octaviusColorLetterListBackground)
-    //border-right: 12px solid var(--octaviusColorLetterListBackground)
-
-    //padding-left: 2px
-    //width: 10px
     border-radius: 5px
-    //border-radius: 4px
   &::-webkit-scrollbar-track
-    //padding-top: 2px
-    background: var(--octaviusColorLetterListBackground)
-    //background: red
-    border-top-right-radius: 12px
-    border-bottom-right-radius: 12px
+    margin-top: 13px
+  .letter-list__header
+    height: 13px
 
-    //width: 15px
-  //margin-top: 10px
-  //overflow-y: scroll
+
+.letter-list__list
+  margin-right: 4px
   background: var(--octaviusColorLetterListBackground)
-  margin-top: 13px
-  margin-right: 12px
-  //padding: 0 12px 0 0
   display: flex
   flex-direction: column
   align-items: flex-start
   border-radius: 12px
-  z-index: 10
-
-  position: absolute
-  left: 232px
 
 .letter
   position: absolute
@@ -135,24 +84,10 @@ html
   margin-top: 13px
   margin-right: 12px
   border-radius: 12px
-  z-index: 10
-
-
-//.my-tooltip
-//  position: absolute
-//  width: 200px
-//  height: 80px
-//  border-radius: 12px
-//  transform: translate(calc(-100% - 4px), -50%)
-//  background: red
-//  display: flex
-//  align-items: center
-//  justify-content: center
 
 .attach-dropdown-overlay__item__preview
   display: none
   position: absolute
-  //border-radius: 8px
   border-radius: 12px
   background-color: var(--colorBackgroundModal)
   box-shadow: var(--elevation2)

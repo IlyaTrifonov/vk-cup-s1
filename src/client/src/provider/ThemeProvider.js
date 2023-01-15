@@ -1,6 +1,7 @@
 import React from 'react'
 import {
     accents,
+    animeColor,
     coloredThemesBase,
     colors,
     defaultThemeObjDark,
@@ -22,7 +23,8 @@ const getThemeObj = () => {
                 return parsedThemeObj
             if (parsedThemeObj.theme === coloredThemesBase &&
                 Object.values(accents).includes(parsedThemeObj.accent) &&
-                Object.values(colors).includes(parsedThemeObj.color))
+                (Object.values(colors).includes(parsedThemeObj.color)) ||
+                parsedThemeObj.color === animeColor)
                 return parsedThemeObj
         } catch (e) {
             return defaultThemeObjLight
@@ -53,6 +55,7 @@ const ThemeProvider = ({children}) => {
     }
 
     React.useEffect(() => {
+        // console.log(themeObj)
         document.documentElement.dataset.theme = themeObj.theme
         document.documentElement.dataset.accent = themeObj.accent
         document.documentElement.dataset.color = themeObj.color

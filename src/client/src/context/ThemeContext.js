@@ -3,10 +3,12 @@ import React from 'react'
 export const defaultThemes = {
     dark: 'dark',
     light: 'light',
-    anime: 'anime'
+    // anime: 'anime'
 }
 
 export const coloredThemesBase = 'base';
+
+export const animeColor = 'Anime';
 
 export const accents = {
     dark: 'dark',

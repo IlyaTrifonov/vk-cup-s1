@@ -33,11 +33,14 @@ const LetterList = ({folder}) => {
 
     return (
         <div className="letter-list" id="letter-list-id">
-            {myLetters ?
-                myLetters.map((letter, index) =>
-                    <LetterItem letter={letter} key={index}/>
-                ) : null
-            }
+            <div className="letter-list__header"></div>
+            <div className="letter-list__list">
+                {myLetters ?
+                    myLetters.map((letter, index) =>
+                        <LetterItem letter={letter} key={index}/>
+                    ) : null
+                }
+            </div>
         </div>
     );
 };
