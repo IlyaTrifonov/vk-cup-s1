@@ -2,9 +2,15 @@ import React from 'react';
 import Icons from "../../../assets/icons/Icons";
 import './Button.sass'
 
+export const buttonTypes = {
+    default: 'default',
+    flat: 'flat',
+    burger: 'burger'
+}
+
 const Button = ({children, className, icon, iconSize, type, ...props}) => {
 
-    const buttonType = type ? type : 'default'
+    const buttonType = type ? type : buttonTypes.default
 
     return (
         <button className={`button ${buttonType}`} {...props}>
@@ -19,7 +25,8 @@ const Button = ({children, className, icon, iconSize, type, ...props}) => {
                     :
                     null
             }
-            {children}
+            <div className="button__text">{children}</div>
+            {/*{children}*/}
         </button>
     );
 };

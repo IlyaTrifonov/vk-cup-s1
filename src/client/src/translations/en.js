@@ -2,7 +2,7 @@ export const enLang = {
     languageName: 'en',
     letterList: {
         sidebar: {
-            writeLetterButtonName: 'Write an email',
+            writeLetterButtonName: 'Compose',
             incomingFolderName: 'Inbox',
             importantFolderName: 'Important',
             sentFolderName: 'Sent',

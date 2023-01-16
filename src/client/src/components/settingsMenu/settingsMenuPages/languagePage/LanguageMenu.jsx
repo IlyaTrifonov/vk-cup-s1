@@ -64,7 +64,7 @@ const LanguageMenu = () => {
             <div className="confirm-button__container">
                 <button className="confirm-button__button"
                         onClick={() => {
-                            console.log('Установлен язык: ', currentLang)
+                            // console.log('Установлен язык: ', currentLang)
                             changeLanguage(currentLang)
                         }}>
                     {language.settings.languageMenu.selectLanguageButtonName}

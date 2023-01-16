@@ -60,4 +60,24 @@
       background: var(--colorTransparentActive)
       cursor: pointer
 
+  &.burger
+    display: none
+    width: 36px
+    height: 36px
+    border-radius: 8px
+    //display: flex
+    flex-direction: column
+    justify-content: center
+    cursor: pointer
+    &:hover
+      background: var(--colorTransparentHover)
+    &:active
+      background: var(--colorTransparentActive)
+    svg
+      flex-shrink: 0
+      fill: var(--octaviusColorSidebarItemTextPrimary)
+
+  &.burger.active
+    background: var(--colorTransparentActive)
+
 

@@ -9,7 +9,9 @@ export const folderIcons = {
     theme_palette: 'theme_palette',
     waste_folder: 'waste_folder',
     gear: 'gear',
-    cross: 'cross'
+    cross: 'cross',
+    burger_menu: 'burger_menu',
+    pencil: 'pencil'
 }
 
 export const bookmarkIcons = {
