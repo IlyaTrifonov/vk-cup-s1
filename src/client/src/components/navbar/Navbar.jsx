@@ -1,6 +1,7 @@
 import React from 'react';
 import './Navbar.sass'
 import {ReactComponent as Logo} from "../../assets/svg/logo.svg";
+import FilterButton from "./FilterButton";
 
 const Navbar = () => {
     return (
@@ -9,6 +10,7 @@ const Navbar = () => {
                 <a className="navbar__logo" href="/">
                     <Logo/>
                 </a>
+                <FilterButton/>
             </div>
         </div>
     );

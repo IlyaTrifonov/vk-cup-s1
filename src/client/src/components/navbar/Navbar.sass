@@ -8,6 +8,7 @@
   position: relative
   .navbar-container
     display: flex
+    align-items: center
     justify-content: space-between
     width: 100%
     height: 100%
@@ -19,6 +20,17 @@
         width: 96px
         height: 32px
         fill: var(--logoWord)
+    .filter-button
+      //background: cyan
+      display: flex
+      align-items: center
+      padding: 10px 12px
+      gap: 4px
+      color: var(--colorHeaderFilter)
+      fill: var(--colorHeaderFilter)
+      border-radius: 8px
+      &:hover
+        background: var(--colorHeaderFilterHover)
 
 
 @media only screen and (max-width: 768px)

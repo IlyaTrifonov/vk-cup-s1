@@ -29,7 +29,6 @@ const ItemAttach = ({letterDoc}) => {
     })
 
     const updateDropdownCoords = (ref) => {
-        console.log('Обновление координат')
         const rect = ref.getBoundingClientRect();
         setCoords({
             left: rect.x,
@@ -39,16 +38,9 @@ const ItemAttach = ({letterDoc}) => {
 
     const attachIconArr = document.getElementsByClassName('attach-item');
     const onClick = (e) => {
-        // setOn(!isOn)
-        if (!(/*e.target.contains(elem) ||*/ elem.contains(e.target))) {
+        if (!elem.contains(e.target)) {
             setOn(!isOn)
-            console.log('Скрываем поповер')
-            // console.log(e.target.contains(elem), elem.contains(e.target))
-        } /*else {
-            // setOn(!isOn)
-            console.log(e.target.contains(elem), elem.contains(e.target))
-            console.log('Клик не в элемент')
-        }*/
+        }
         document.removeEventListener('click', onClick);
         Object.entries(attachIconArr)
             .map(([k, v]) => {
@@ -74,9 +66,9 @@ const ItemAttach = ({letterDoc}) => {
         if (!isOn) {
             updateDropdownCoords(iconRef.current)
             setElem(event.target)
-            console.log('Показываем поповер')
+            // console.log('Показываем поповер')
         } else {
-            console.log('Скрываем поповер')
+            // console.log('Скрываем поповер')
         }
         setOn(!isOn)
     };
