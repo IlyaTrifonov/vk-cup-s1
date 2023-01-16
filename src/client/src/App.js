@@ -6,6 +6,11 @@ import AppRouter from "./components/AppRouter";
 import {SettingsContext} from "./context/SettingsContext";
 import {useContext} from "react";
 
+/**
+ * Компонент-контейнер интерфейса приложения.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function App() {
 
     const {settingsIsOpen, setSettingsIsOpen} = useContext(SettingsContext);

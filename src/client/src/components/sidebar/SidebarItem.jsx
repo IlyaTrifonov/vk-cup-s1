@@ -2,10 +2,19 @@ import React from 'react';
 import Icons from "../../assets/icons/Icons";
 import './SidebarItem.sass'
 
-const SidebarItem = ({children, icon, className, onClick, selectedFolder, folderName, ...props}) => {
+/**
+ * Универсальный элемент сайдбара почты. В данный момент используется для отображения кнопки настроек.
+ * @param children
+ * @param icon
+ * @param className
+ * @param onClick
+ * @param selectedFolder
+ * @param folderName
+ * @returns {JSX.Element}
+ * @constructor
+ */
+const SidebarItem = ({children, icon, className, onClick, selectedFolder, folderName}) => {
     const active = selectedFolder ? selectedFolder === folderName ? 'active' : '' : ''
-    // console.log('Информация из', folderName, 'Активный', selectedFolder)
-    // console.log('Активный', className)
     return (
         <button className={`sidebar-item ${active}`} onClick={onClick}>
             <Icons

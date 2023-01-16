@@ -3,6 +3,15 @@ import './FilterDropdown.sass'
 import Icons from "../../../assets/icons/Icons";
 import {bookmarkIcons, flagsIcons} from "../../../assets/icons";
 
+/**
+ * Компонент дропдауна фильтров. Используется для выбора фильтрации.
+ * На данный момент функционал неполный.
+ * @param coords
+ * @param updateDropdownCoords
+ * @param closeDropdown
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const FilterDropdown = ({
                             coords,
                             updateDropdownCoords, closeDropdown

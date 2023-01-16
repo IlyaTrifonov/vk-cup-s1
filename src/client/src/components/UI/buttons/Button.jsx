@@ -8,6 +8,17 @@ export const buttonTypes = {
     burger: 'burger'
 }
 
+/**
+ * Универсальный элемент кнопки.
+ * @param children
+ * @param className
+ * @param icon
+ * @param iconSize
+ * @param type
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Button = ({children, className, icon, iconSize, type, ...props}) => {
 
     const buttonType = type ? type : buttonTypes.default
@@ -26,7 +37,6 @@ const Button = ({children, className, icon, iconSize, type, ...props}) => {
                     null
             }
             <div className="button__text">{children}</div>
-            {/*{children}*/}
         </button>
     );
 };

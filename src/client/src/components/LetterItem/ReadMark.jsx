@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 
+/**
+ * Компонент метки прочитывания письма. Используется в компоненте списка писем для отображения статуса прочитывания.
+ * @param isRead
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ReadMark = ({isRead}) => {
     const [isLetterRead, setIsLetterRead] = useState(isRead || false)
-
-/*
-    useEffect(() => {
-        console.log(`Теперь: ${isLetterRead}`)
-    }, [isLetterRead])
-*/
 
     return (
         <div className="read-mark"

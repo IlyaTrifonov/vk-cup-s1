@@ -7,6 +7,11 @@ import {accents, animeColor, defaultThemes, ThemeContext} from "../../../../cont
 import {darkThemeColors, lightThemeColors} from "./ThemeColors";
 import {LanguageContext} from "../../../../context/LanguageContext";
 
+/**
+ * Меню настройки темы почты. Оборачивается в SettingsMenuMain для отображения.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ThemeMenu = () => {
 
     const {themeObj} = useContext(ThemeContext)

@@ -3,6 +3,9 @@ import {folders} from "../api/FoldersService";
 import LetterList from "../components/LetterList/LetterList";
 
 
+/**
+ * Доступные роуты для перехода. Используется для компонента AppRouter.
+ */
 export const routes = [
     {path: folders.incoming.path, element: <LetterList folder={folders.incoming.name}/>},
     {path: folders.important.path, element: <LetterList folder={folders.important.name}/>},

@@ -1,3 +1,6 @@
+/**
+ * Текстовые переменные пакета английского языка.
+ */
 export const enLang = {
     languageName: 'en',
     letterList: {

@@ -7,6 +7,9 @@ import AppBackground from "./components/appBackground/AppBackground";
 import SettingsProvider from "./provider/SettingsProvider";
 import LanguageProvider from "./provider/LanguageProvider";
 
+/**
+ * Главный рут-контейнер всего приложения.
+ */
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <LanguageProvider>

@@ -2,6 +2,15 @@ import React, {useEffect, useRef, useState} from "react";
 import AttachDropdownItem from "./AttachDropdownItem";
 import './AttachDropdown.sass';
 
+/**
+ * Дропдаун-поповер для отображения списка вложений в письмо на экране списка писем.
+ * @param attachments
+ * @param coords
+ * @param updateDropdownCoords
+ * @param closeDropdown
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const AttachDropdown = ({
                             attachments,
                             coords,

@@ -8,6 +8,13 @@ import SidebarFolder from "./sidebarFolder/SidebarFolder";
 import {LanguageContext} from "../../context/LanguageContext";
 
 
+/**
+ * Компонент сайдбара почты. Используется для отображения папок в ящике, кнопки написания письма и кнопки настроек.
+ * Адаптивен к ширине экрана.
+ * @param setSettingsIsOpen
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Sidebar = ({setSettingsIsOpen}) => {
 
     const {language} = useContext(LanguageContext)

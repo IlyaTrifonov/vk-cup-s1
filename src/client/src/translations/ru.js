@@ -1,3 +1,6 @@
+/**
+ * Текстовые переменные пакета русского языка языка.
+ */
 export const ruLang = {
     languageName: 'ru',
     letterList: {

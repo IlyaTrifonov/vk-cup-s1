@@ -4,6 +4,11 @@ import './LanguageMenu.sass';
 import {flagsIcons} from "../../../../assets/icons";
 import Icons from "../../../../assets/icons/Icons";
 
+/**
+ * Страница настроек языка в почте. Оборачивается в SettingsMenuMain для отображения.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const LanguageMenu = () => {
 
     const {language, changeLanguage} = useContext(LanguageContext)
@@ -64,7 +69,6 @@ const LanguageMenu = () => {
             <div className="confirm-button__container">
                 <button className="confirm-button__button"
                         onClick={() => {
-                            // console.log('Установлен язык: ', currentLang)
                             changeLanguage(currentLang)
                         }}>
                     {language.settings.languageMenu.selectLanguageButtonName}

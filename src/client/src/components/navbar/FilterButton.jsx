@@ -4,6 +4,11 @@ import {bookmarkIcons, flagsIcons} from "../../assets/icons";
 import Portal from "../LetterItem/attach/Portal";
 import FilterDropdown from "./filterDropdown/FilterDropdown";
 
+/**
+ * Компонент кнопки фильтров. Открывает список фильтров в компоненте FilterDropdown.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const FilterButton = () => {
 
     const [isOpen, setIsOpen] = useState(false)

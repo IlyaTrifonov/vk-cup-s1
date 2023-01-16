@@ -1,28 +1,19 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Portal from "../attach/Portal";
 
+/**
+ * Компонент списка AttachDropdown. Отображает данные вложения. При наведении открывает предпросмотр вложения.
+ * @param attach
+ * @param newCoords
+ * @param updateCoords
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const AttachDropdownItem = ({attach, newCoords, updateCoords}) => {
 
     const itemRef = useRef()
 
-    // const [coords, setCoords] = useState({});
     const [isPreviewShown, setIsPreviewShown] = useState(false);
-
-/*
-    const updateItemCoords = (ref) => {
-        // console.log('Обновление координат')
-        const rect = ref.getBoundingClientRect();
-        setCoords({
-            left: rect.x,
-            top: rect.y + rect.height / 2
-        });
-    };
-
-    useEffect(() => {
-        if (itemRef.current)
-            updateItemCoords(itemRef.current)
-    }, [isPreviewShown])
-*/
 
     useEffect(() => {
         updateCoords()
@@ -36,15 +27,11 @@ const AttachDropdownItem = ({attach, newCoords, updateCoords}) => {
                 // console.log('!!! Слушатели установлены')
             }
         }, 100);
-        return () => {
-            // console.log('REF Размонтированиe', !!itemRef.current)
-        }
-    },[itemRef])
+    }, [itemRef])
 
     return (
         <div ref={itemRef}
              className="attach-dropdown-overlay__item"
-             // id="attach-dropdown-overlay__item__preview__ID"
         >
             <div className="attach-dropdown-overlay__item__icon">
                 <img src={attach.url} alt=""/>

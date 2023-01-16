@@ -9,10 +9,13 @@ import {getDateString} from "../dateParse";
 import {flags} from "../LetterItem/flags";
 import Icons from "../../assets/icons/Icons";
 import {LanguageContext} from "../../context/LanguageContext";
-import {textKeys} from "../../translations";
 
-const Letter = ({/*folder*/}) => {
-    // const [selectedFolder, setSelectedFolder] = useState(folder)
+/**
+ * Компонент страницы письма.
+ * @returns {unknown}
+ * @constructor
+ */
+const Letter = () => {
 
     const {language} = useContext(LanguageContext)
 
@@ -25,26 +28,6 @@ const Letter = ({/*folder*/}) => {
         const data = await response.json();
         setLetter(data)
     })
-
-
-/*
-    const letter = {
-        to: [
-            {name: 'Peter', surname: "Parker"},
-            {name: 'Johrn', surname: "Veight"},
-            {name: 'Peter2', surname: "Parker3"},
-        ]
-    }
-*/
-    // Тому кто это смотрит: обычно я так не делаю, но тут уже не было времени
-    // Прости, если тебе больно смотреть на такое соединение строк
-/*
-    let users = "Кому: "
-    if (letter) {
-        letter.to.forEach(user => users += `${user.name} ${user.surname}, `)
-    }
-    users = users.slice(0, -2) + '.'
-*/
 
     let users = language.letterPage.letterToWord;
     if (letter) {
@@ -63,14 +46,9 @@ const Letter = ({/*folder*/}) => {
         isDoc = !!letter.doc
         isDocArray = isDoc ? Array.isArray(letter.doc) : false
     }
-    console.log('isDoc', isDoc, 'isDocArray', isDocArray)
+    // console.log('isDoc', isDoc, 'isDocArray', isDocArray)
 
     return (
-        /*
-                <div className="content">
-                    <LargeSidebar selectedFolder={selectedFolder}
-                                  setSelectedFolder={setSelectedFolder}/>
-        */
         letter && <div className="letter">
             <div className="letter__header">
                 <h2 className="letter__tittle">{letter.title}</h2>
@@ -91,7 +69,6 @@ const Letter = ({/*folder*/}) => {
                         </div>
                     </div>
                 }
-
             </div>
             <div className="letter__head">
                 <ReadMark isRead={letter.read}/>
@@ -125,8 +102,6 @@ const Letter = ({/*folder*/}) => {
                 </div>
             </div>
         </div>
-
-        // </div>
     );
 };
 

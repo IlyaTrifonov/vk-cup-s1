@@ -5,6 +5,15 @@ import './SettingsMenuSidebar.sass';
 import {menuPages} from "../MenuPages";
 import {LanguageContext, languages} from "../../../context/LanguageContext";
 
+/**
+ * Компонент сайдбара меню настроек почты. Отображает доступные категории настроек.
+ * В данной реализации компоненты меню захардкожены потому что каждый тип компонента используется всего
+ * один раз и ради этого нет смысла создавать отдельный компонент.
+ * @param currentPage
+ * @param setCurrentPage
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const SettingsMenuSidebar = ({currentPage, setCurrentPage}) => {
 
     const {language} = useContext(LanguageContext)

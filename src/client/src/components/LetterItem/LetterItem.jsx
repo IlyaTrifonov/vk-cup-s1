@@ -10,6 +10,12 @@ import {useNavigate} from "react-router-dom";
 import {getDateString} from "../dateParse";
 import ItemAttach from "./attach/ItemAttach";
 
+/**
+ * Компонент письма в списке писем. Отображает все данные о письме.
+ * @param letter
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const LetterItem = ({letter}) => {
 
     const [isCheckedLetter, setIsCheckedLetter] = useState(false)

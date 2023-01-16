@@ -23,6 +23,13 @@ const getLanguage = (lang) => {
     return resultLang;
 }
 
+/**
+ * Компонент провайдера языка всей почты. Сохраняет данные о выбранном языке в localStorage и достаёт их оттуда
+ * при повторном открытии страницы.
+ * @param children
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const LanguageProvider = ({children}) => {
 
     const [language, setLanguage] = useState(getLanguage())

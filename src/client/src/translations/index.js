@@ -1,3 +1,6 @@
+/**
+ * Текстовые переменные пакета отладки.
+ */
 export const textKeys = {
     languageName: 'languageName',
     letterList: {

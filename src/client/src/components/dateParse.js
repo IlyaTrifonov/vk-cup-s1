@@ -1,3 +1,8 @@
+/**
+ * Функция выдачи относительной даты.
+ * @param date
+ * @returns {string}
+ */
 export const getDateString = (date) => {
     const nowDate = new Date()
     const letterDate = new Date(date)

@@ -1,3 +1,6 @@
+/**
+ * Цвета, используемые для темизации почты. Значения передаются в переключатели тем и задают их цвета.
+ */
 export const darkThemeColors = {
     DarkLava: 'var(--colorCommonDarkLava)',
     Arsenic: 'var(--colorCommonArsenic)',

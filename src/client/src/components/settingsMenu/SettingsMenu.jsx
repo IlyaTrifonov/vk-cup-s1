@@ -7,6 +7,11 @@ import SettingsMenuSidebar from "./settingsMenuSidebar/SettingsMenuSidebar";
 import SettingsMenuMain from "./settingsMenuMain/SettingsMenuMain";
 import {menuPages} from "./MenuPages";
 
+/**
+ * Компонент меню настроек почты. Является контейнером для всех компонентов настроек.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const SettingsMenu = () => {
 
     const {settingsIsOpen, setSettingsIsOpen} = useContext(SettingsContext);

@@ -37,6 +37,14 @@ const getThemeObj = () => {
     return defaultThemeObjLight
 }
 
+/**
+ * Провайдер темы почты. Управляет темами и отправляет данные о теме компонентам.
+ * Сохраняет выбранную тему в localStorage и достаёт её оттуда при повторном открытии страницы.
+ * При первом открытии сайта определяется тема установленная в системе (тёмная/светлая).
+ * @param children
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ThemeProvider = ({children}) => {
 
     const [themeObj, setThemeObj] = React.useState(getThemeObj)
@@ -55,7 +63,6 @@ const ThemeProvider = ({children}) => {
     }
 
     React.useEffect(() => {
-        // console.log(themeObj)
         document.documentElement.dataset.theme = themeObj.theme
         document.documentElement.dataset.accent = themeObj.accent
         document.documentElement.dataset.color = themeObj.color

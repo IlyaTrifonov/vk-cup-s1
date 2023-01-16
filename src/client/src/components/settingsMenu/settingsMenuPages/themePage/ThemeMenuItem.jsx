@@ -3,6 +3,17 @@ import {flagsIcons} from "../../../../assets/icons";
 import Icons from "../../../../assets/icons/Icons";
 import {coloredThemesBase, ThemeContext} from "../../../../context/ThemeContext";
 
+/**
+ * Элемент меню настроек темы почты. Отображает цвет темы и выбирает тему по нажатию.
+ * @param children
+ * @param backgroundColor
+ * @param theme
+ * @param accent
+ * @param color
+ * @param themeObj
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ThemeMenuItem = ({
                            children, backgroundColor,
                            theme = coloredThemesBase,

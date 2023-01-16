@@ -5,4 +5,8 @@ export const languages = {
     en: 'en'
 }
 
+/**
+ * Контекст для хранения данных о выбранном языке.
+ * @type {React.Context<{}>}
+ */
 export const LanguageContext = React.createContext({})

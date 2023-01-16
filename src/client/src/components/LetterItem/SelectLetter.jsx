@@ -2,6 +2,13 @@ import React from 'react';
 import Icons from "../../assets/icons/Icons";
 import {flagsIcons} from "../../assets/icons";
 
+/**
+ * Компонент выбора письма. Используется для выбора письма в списке писем.
+ * @param isCheckedLetter
+ * @param setIsCheckedLetter
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const SelectLetter = ({isCheckedLetter, setIsCheckedLetter}) => {
     return (
         <div className={`select-letter ${isCheckedLetter && 'show-select-letter'}`}

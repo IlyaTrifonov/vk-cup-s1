@@ -2,6 +2,11 @@ import React from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
 import {routes} from "../router/router";
 
+/**
+ * Главный апп роутер приложения для роутинга папок писем и отображения их содержимого.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const AppRouter = () => {
     return (
         <Routes>

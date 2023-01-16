@@ -4,6 +4,12 @@ import {useFetching} from "../../hooks/useFetching";
 import MailService from "../../api/MailService";
 
 
+/**
+ * Компонент списка писем. Используется для отображения списка писем в папках.
+ * @param folder
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const LetterList = ({folder}) => {
 
     const [myLetters, setMyLetters] = useState([])
@@ -18,18 +24,10 @@ const LetterList = ({folder}) => {
     useEffect(() => {
         if (thisComponent) {
             thisComponent.scrollTo(0, 0);
-            // console.log('rerendering letter list');
         }
         fetchLetters()
     }, [folder])
 
-    /*
-        if (isLettersLoading || isLetterLoading) {
-            return (
-                <span>Грузится</span>
-            )
-        }
-    */
 
     return (
         <div className="letter-list" id="letter-list-id">
