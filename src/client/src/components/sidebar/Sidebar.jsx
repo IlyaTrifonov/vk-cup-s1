@@ -8,7 +8,7 @@ import SidebarFolder from "./sidebarFolder/SidebarFolder";
 import {LanguageContext} from "../../context/LanguageContext";
 
 
-const LargeSidebar = ({setSettingsIsOpen}) => {
+const Sidebar = ({setSettingsIsOpen}) => {
 
     const {language} = useContext(LanguageContext)
 
@@ -49,4 +49,4 @@ const LargeSidebar = ({setSettingsIsOpen}) => {
     );
 };
 
-export default LargeSidebar;
+export default Sidebar;

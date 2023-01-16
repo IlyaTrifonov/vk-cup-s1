@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import LargeSidebar from "./sidebar/LargeSidebar";
+import Sidebar from "./sidebar/Sidebar";
 import LetterList from "./LetterList/LetterList";
 
 const Content = ({folder}) => {
@@ -8,8 +8,8 @@ const Content = ({folder}) => {
 
     return (
         <div className="content">
-            <LargeSidebar selectedFolder={selectedFolder}
-                          setSelectedFolder={setSelectedFolder}/>
+            <Sidebar selectedFolder={selectedFolder}
+                     setSelectedFolder={setSelectedFolder}/>
             <LetterList folder={selectedFolder}/>
         </div>
     );

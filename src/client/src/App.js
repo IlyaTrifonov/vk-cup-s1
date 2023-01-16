@@ -1,5 +1,5 @@
 import './styles/style.sass'
-import LargeSidebar from "./components/sidebar/LargeSidebar";
+import Sidebar from "./components/sidebar/Sidebar";
 import Navbar from "./components/navbar/Navbar";
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
@@ -15,7 +15,7 @@ function App() {
             <BrowserRouter>
                 <Navbar/>
                 <div className="content">
-                    <LargeSidebar setSettingsIsOpen={setSettingsIsOpen}/>
+                    <Sidebar setSettingsIsOpen={setSettingsIsOpen}/>
                     <AppRouter/>
                 </div>
             </BrowserRouter>
