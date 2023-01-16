@@ -8,26 +8,43 @@ const PORT = process.env.PORT || 3000;
 
 const IS_PRODUCTION = false;
 
-
 /*
 * Блок чтения входного файла с письмами, создание папок.
 * */
-//TODO Файла может не оказаться, нужно выводить ошибку
-const rawData = fs.readFileSync('db.json');
-//TODO Может быть ошибка парсинга, её нужно обработать
-const data = JSON.parse(rawData);
 
-if (fs.existsSync('./files')) {
-    console.log('Папка ресурсов обнаружена');
-    fs.rmSync('./files', {recursive: true});
-    console.log('Папка ресурсов удалена')
-} else {
-    console.log('Папка ресурсов не найдена');
+let data;
+try {
+    const rawData = fs.readFileSync('db.json');
+    data = JSON.parse(rawData);
+} catch (err) {
+    if (err.code === 'ENOENT') {
+        console.error('Ошибка! Файл db.json не найден!');
+    } else {
+        console.error('Ошибка парсинга JSON:', err.message);
+    }
 }
-fs.mkdirSync('./files');
-fs.mkdirSync('./files/attachments');
-fs.mkdirSync('./files/avatars');
-console.log('Папки ресурсов создана');
+
+try {
+    if (fs.existsSync('./files')) {
+        console.log('Найдена старая папка ресурсов.');
+        fs.rmSync('./files', {recursive: true});
+        console.log('Старая папка ресурсов удалена.')
+    } else {
+        console.log('Старых папок ресурсов не обнаружено.');
+    }
+} catch (err) {
+    console.error('Ошибка проверки папки ресурсов:', err.message);
+}
+
+try {
+    fs.mkdirSync('./files');
+    fs.mkdirSync('./files/attachments');
+    fs.mkdirSync('./files/avatars');
+    console.log('Папки ресурсов созданы.');
+} catch (err) {
+    console.error('Ошибка создания папок ресурсов:', err.message);
+}
+
 
 const pictureTypes = {
     attachments: 'attachments',
@@ -57,27 +74,6 @@ const sortFunctionByDate = (a, b) => {
     const dateB = Date.parse(b.date)
     return dateA - dateB
 }
-
-/*
-const setFlag = (flag) => {
-    switch (flag) {
-        case 'Заказы':
-            return 'orders'
-        case 'Финансы':
-            return 'finances'
-        case 'Регистрации':
-            return 'registrations'
-        case 'Путешествия':
-            return 'travels'
-        case 'Билеты':
-            return 'tickets'
-        case 'Штрафы и налоги':
-            return 'government'
-        default:
-            return null
-    }
-}
-*/
 
 
 /*
@@ -114,9 +110,9 @@ data.forEach((letter, index) => {
             letter.flag = 'Путешествия' // Какие данные дали, так и адаптируемся)))
     }
 })
-console.log('Ресурсы созданы');
+console.log('Ресурсы созданы и помещены в папки.');
 data.sort(sortFunctionByDate).reverse();
-console.log('Письма отсортированы');
+console.log('Письма обработаны и отсортированы.');
 
 
 /*
@@ -146,7 +142,7 @@ const routes = [
     '/waste'
 ];
 
-// Мимтайпс для файлов TODO сократить
+// Мимтайпс для файлов
 const mimeTypes = {
     '.html': 'text/html',
     '.js': 'text/javascript',
@@ -172,7 +168,7 @@ const server = http.createServer((req, res) => {
     console.log('')
     console.log(`Request (${req.method}):`, req.url);
 
-    const parsedURL = url.parse(req.url, true); //todo убрать это отсюда и переделать
+    const parsedURL = url.parse(req.url, true);
     console.log('Request:', parsedURL.path)
 
 
@@ -200,7 +196,7 @@ const server = http.createServer((req, res) => {
                 }
                 else {
                     res.writeHead(500);
-                    res.end('Sorry, check with the site admin for error: '+error.code+' ..\n');
+                    res.end('Ошибка сервера: '+error.code+' ..\n');
                     res.end();
                 }
             }

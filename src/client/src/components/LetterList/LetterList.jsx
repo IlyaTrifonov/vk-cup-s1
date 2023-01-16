@@ -14,7 +14,7 @@ const LetterList = ({folder}) => {
 
     const [myLetters, setMyLetters] = useState([])
     const [fetchLetters, isLettersLoading, lettersError] = useFetching(async () => {
-        const response = await MailService.getLettersFromFolder(folder, 500, 0);
+        const response = await MailService.getLettersFromFolder(folder, 1500, 0);
         const data = await response.json();
         setMyLetters(data)
     })
