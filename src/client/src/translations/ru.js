@@ -1,4 +1,5 @@
 export const ruLang = {
+    languageName: 'ru',
     letterList: {
         sidebar: {
             writeLetterButtonName: 'Написать письмо',

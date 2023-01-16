@@ -3,7 +3,7 @@ import {flagsIcons} from "../../../assets/icons";
 import Icons from "../../../assets/icons/Icons";
 import './SettingsMenuSidebar.sass';
 import {menuPages} from "../MenuPages";
-import {LanguageContext} from "../../../context/LanguageContext";
+import {LanguageContext, languages} from "../../../context/LanguageContext";
 
 const SettingsMenuSidebar = ({currentPage, setCurrentPage}) => {
 
@@ -34,12 +34,22 @@ const SettingsMenuSidebar = ({currentPage, setCurrentPage}) => {
                         <div className="settings-menu-sidebar__button__text">
                             {language.settings.sidebar.languageButtonName}
                         </div>
-                        <Icons
-                            name={flagsIcons.ru_flag}
-                            width='15'
-                            height='12'
-                            className='settings-menu-sidebar__button__flag-icon'
-                        />
+                        {language.languageName === languages.ru &&
+                            <Icons
+                                name={flagsIcons.ru_flag}
+                                width='15'
+                                height='12'
+                                className='settings-menu-sidebar__button__flag-icon'
+                            />
+                        }
+                        {language.languageName === languages.en &&
+                            <Icons
+                                name={flagsIcons.us_flag}
+                                width='15'
+                                height='12'
+                                className='settings-menu-sidebar__button__flag-icon'
+                            />
+                        }
                     </div>
                 </div>
             </div>

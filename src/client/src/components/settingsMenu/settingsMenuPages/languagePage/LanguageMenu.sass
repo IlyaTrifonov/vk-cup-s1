@@ -1,0 +1,60 @@
+.settings-menu__language-menu
+  display: flex
+  flex-direction: column
+  .menu-title
+    position: sticky
+    top: 0
+    z-index: 1
+    flex-basis: 100%
+    padding: 26px 38px 20px 0
+    background-color: var(--colorBackgroundModal)
+    line-height: 20px
+
+  .languages-selector
+    user-select: none
+    display: flex
+    flex-direction: column
+    gap: 16px
+    .lang-selector__selector
+      display: flex
+      gap: 12px
+      input
+        display: none
+      .radio-icon
+        width: 16px
+        height: 16px
+        background: #FFFFFF
+        border: 1px solid rgba(0, 16, 61, 0.12)
+        border-radius: 8px
+      .radio-icon.active
+        background: #FFFFFF
+        border: 5px solid #005FF9
+      label
+        display: flex
+        gap: 12px
+        align-items: center
+
+
+  .confirm-button__container
+    margin-top: 32px
+    .confirm-button__button
+      display: flex
+      justify-content: center
+      align-items: center
+      padding: 8px 20px
+      width: 137px
+      height: 36px
+      background: #005FF9
+      border-radius: 8px
+      border: none
+      outline: none
+      cursor: pointer
+      // Text
+      font-weight: 400
+      font-size: 15px
+      line-height: 20px
+      color: #FFFFFF
+      &:hover
+        background: #0050E9
+      &:active
+        opacity: .7

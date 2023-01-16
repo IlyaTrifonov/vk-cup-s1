@@ -1,8 +1,8 @@
 import React from 'react'
 
 export const languages = {
-    ru: 'russian',
-    en: 'english'
+    ru: 'ru',
+    en: 'en'
 }
 
 export const LanguageContext = React.createContext({})

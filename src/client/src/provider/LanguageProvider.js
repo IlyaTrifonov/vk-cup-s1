@@ -1,29 +1,46 @@
 import React, {useEffect, useState} from 'react';
 import {LanguageContext, languages} from "../context/LanguageContext";
-import {textKeys} from "../translations";
 import {ruLang} from "../translations/ru";
+import {enLang} from "../translations/en";
 
 
 const getLanguage = (lang) => {
-    // TODO Функционал временный для отладки
-    console.log('Вы выбрали язык:', lang);
-    return ruLang;
-    // return textKeys;
+
+    let resultLang = ruLang;
+
+    if (lang) {
+        if (lang === languages.en)
+            resultLang = enLang
+        return resultLang
+    }
+
+    const localStorageLang = window?.localStorage?.getItem('language');
+    if (Object.values(languages).includes(localStorageLang)) {
+        if (localStorageLang === languages.en)
+            resultLang = enLang
+    }
+
+    return resultLang;
 }
 
 const LanguageProvider = ({children}) => {
 
-    const [language, setLanguage] = useState(getLanguage(languages.ru))
+    const [language, setLanguage] = useState(getLanguage())
 
-/*
+    const changeLanguage = (language) => {
+        if (Object.values(languages).includes(language)) {
+            setLanguage(getLanguage(language));
+        } else {
+            setLanguage(getLanguage(languages.ru))
+        }
+    }
+
     useEffect(() => {
-        // console.log(language)
-        // console.log(languages.ru)
+        localStorage.setItem('language', language.languageName)
     }, [language])
-*/
 
     return (
-        <LanguageContext.Provider value={{language}}>
+        <LanguageContext.Provider value={{language, changeLanguage}}>
             {children}
         </LanguageContext.Provider>
     );

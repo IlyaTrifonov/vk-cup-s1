@@ -1,4 +1,5 @@
 export const textKeys = {
+    languageName: 'languageName',
     letterList: {
         sidebar: {
             writeLetterButtonName: 'writeLetterButtonName',
