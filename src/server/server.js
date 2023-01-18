@@ -22,6 +22,7 @@ try {
     } else {
         console.error('Ошибка парсинга JSON:', err.message);
     }
+    process.exit()
 }
 
 try {
@@ -34,6 +35,7 @@ try {
     }
 } catch (err) {
     console.error('Ошибка проверки папки ресурсов:', err.message);
+    process.exit()
 }
 
 try {
@@ -43,6 +45,7 @@ try {
     console.log('Папки ресурсов созданы.');
 } catch (err) {
     console.error('Ошибка создания папок ресурсов:', err.message);
+    process.exit()
 }
 
 
