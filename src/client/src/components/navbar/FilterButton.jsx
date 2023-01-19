@@ -1,7 +1,7 @@
 import React, {createRef, useMemo, useState} from 'react';
 import Icons from "../../assets/icons/Icons";
-import {bookmarkIcons, flagsIcons} from "../../assets/icons";
-import Portal from "../LetterItem/attach/Portal";
+import {bookmarkIcons, uiIcons} from "../../assets/icons";
+import Portal from "../Portal";
 import FilterDropdown from "./filterDropdown/FilterDropdown";
 
 /**
@@ -62,7 +62,7 @@ const FilterButton = () => {
              }}>
             {filter.isWithAttachment &&
                 <div className="filter-flag">
-                    <Icons name={flagsIcons.attach}
+                    <Icons name={uiIcons.attach}
                            width="16"
                            height="16"
                            className="filter-flag__attach"/>
@@ -82,7 +82,7 @@ const FilterButton = () => {
                 </div>
             }
             Фильтр
-            <Icons name={flagsIcons.chevron_down}
+            <Icons name={uiIcons.chevron_down}
                    width="20"
                    height="20"
                    className="sidebar-folder__icon"

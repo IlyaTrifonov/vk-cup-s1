@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import './Sidebar.sass';
-import {folderIcons} from "../../assets/icons";
+import {uiIcons} from "../../assets/icons";
 import SidebarItem from "./SidebarItem";
 import Button, {buttonTypes} from "../UI/buttons/Button";
 import {folders} from "../../api/FoldersService";
@@ -23,14 +23,14 @@ const Sidebar = ({setSettingsIsOpen}) => {
         <div className="large-sidebar">
             <div className="sidebar-header">
                 <Button type={buttonTypes.default}
-                        icon={folderIcons.pencil}
+                        icon={uiIcons.pencil}
                         className="sidebar-write-icon" iconSize="16">
                     {language.letterList.sidebar.writeLetterButtonName}
                 </Button>
             </div>
             <div className="sidebar-scrollable-container">
                 <Button type={buttonTypes.burger}
-                        icon={folderIcons.burger_menu}
+                        icon={uiIcons.burger_menu}
                         className="sidebar-burger-icon"
                         iconSize="20"/>
                 <div className="sidebar-folders-container">
@@ -39,12 +39,12 @@ const Sidebar = ({setSettingsIsOpen}) => {
                     )}
                 </div>
                 <hr className="sidebar-divider"/>
-                <Button icon={folderIcons.new_folder} type={buttonTypes.flat} iconSize='16'>
+                <Button icon={uiIcons.new_folder} type={buttonTypes.flat} iconSize='16'>
                     {language.letterList.sidebar.newFolderButtonName}
                 </Button>
             </div>
             <div className="sidebar-bottom-menu">
-                <SidebarItem icon={folderIcons.gear}
+                <SidebarItem icon={uiIcons.gear}
                              onClick={(e) => {
                                  e.stopPropagation()
                                  setSettingsIsOpen(true)

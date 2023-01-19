@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import './SettingsMenu.sass';
 import {SettingsContext} from "../../context/SettingsContext";
 import Icons from "../../assets/icons/Icons";
-import {folderIcons} from "../../assets/icons";
+import {uiIcons} from "../../assets/icons";
 import SettingsMenuSidebar from "./settingsMenuSidebar/SettingsMenuSidebar";
 import SettingsMenuMain from "./settingsMenuMain/SettingsMenuMain";
 import {menuPages} from "./MenuPages";
@@ -37,7 +37,7 @@ const SettingsMenu = () => {
                     <div className="settings-menu__controls__control"
                          onClick={() => setSettingsIsOpen(false)}>
                         <Icons
-                            name={folderIcons.cross}
+                            name={uiIcons.cross}
                             width='16'
                             height='16'
                             className='s_icon'

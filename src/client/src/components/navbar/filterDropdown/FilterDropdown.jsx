@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './FilterDropdown.sass'
 import Icons from "../../../assets/icons/Icons";
-import {bookmarkIcons, flagsIcons} from "../../../assets/icons";
+import {bookmarkIcons, uiIcons} from "../../../assets/icons";
 
 /**
  * Компонент дропдауна фильтров. Используется для выбора фильтрации.
@@ -52,7 +52,7 @@ const FilterDropdown = ({
             </div>
             <div className="filter-item">
                 <div className="filter-item__icon">
-                    <Icons name={flagsIcons.attach}
+                    <Icons name={uiIcons.attach}
                            width="16"
                            height="16"
                            className="filter-flag__attach"/>

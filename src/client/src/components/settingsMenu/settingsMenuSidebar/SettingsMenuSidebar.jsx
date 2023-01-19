@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {flagsIcons} from "../../../assets/icons";
+import {uiIcons} from "../../../assets/icons";
 import Icons from "../../../assets/icons/Icons";
 import './SettingsMenuSidebar.sass';
 import {menuPages} from "../MenuPages";
@@ -45,7 +45,7 @@ const SettingsMenuSidebar = ({currentPage, setCurrentPage}) => {
                         </div>
                         {language.languageName === languages.ru &&
                             <Icons
-                                name={flagsIcons.ru_flag}
+                                name={uiIcons.ru_flag}
                                 width='15'
                                 height='12'
                                 className='settings-menu-sidebar__button__flag-icon'
@@ -53,7 +53,7 @@ const SettingsMenuSidebar = ({currentPage, setCurrentPage}) => {
                         }
                         {language.languageName === languages.en &&
                             <Icons
-                                name={flagsIcons.us_flag}
+                                name={uiIcons.us_flag}
                                 width='15'
                                 height='12'
                                 className='settings-menu-sidebar__button__flag-icon'

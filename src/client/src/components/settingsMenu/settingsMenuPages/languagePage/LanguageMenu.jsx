@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {LanguageContext, languages} from "../../../../context/LanguageContext";
 import './LanguageMenu.sass';
-import {flagsIcons} from "../../../../assets/icons";
+import {uiIcons} from "../../../../assets/icons";
 import Icons from "../../../../assets/icons/Icons";
 
 /**
@@ -14,7 +14,6 @@ const LanguageMenu = () => {
     const {language, changeLanguage} = useContext(LanguageContext)
 
     const [currentLang, setCurrentLang] = useState(language.languageName);
-
 
 
     return (
@@ -36,7 +35,7 @@ const LanguageMenu = () => {
                            readOnly/>
                     <label htmlFor={languages.ru}>
                         <Icons
-                            name={flagsIcons.ru_flag}
+                            name={uiIcons.ru_flag}
                             width='15'
                             height='12'
                             className='lang-selector__selector__flag-icon'
@@ -57,7 +56,7 @@ const LanguageMenu = () => {
                            readOnly/>
                     <label htmlFor={languages.en}>
                         <Icons
-                            name={flagsIcons.us_flag}
+                            name={uiIcons.us_flag}
                             width='15'
                             height='12'
                             className='lang-selector__selector__flag-icon'

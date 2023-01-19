@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import Portal from "../attach/Portal";
+import Portal from "../../Portal";
 
 /**
  * Компонент списка AttachDropdown. Отображает данные вложения. При наведении открывает предпросмотр вложения.

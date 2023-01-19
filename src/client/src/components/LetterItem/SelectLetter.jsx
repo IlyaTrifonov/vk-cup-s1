@@ -1,6 +1,6 @@
 import React from 'react';
 import Icons from "../../assets/icons/Icons";
-import {flagsIcons} from "../../assets/icons";
+import {uiIcons} from "../../assets/icons";
 
 /**
  * Компонент выбора письма. Используется для выбора письма в списке писем.
@@ -21,7 +21,7 @@ const SelectLetter = ({isCheckedLetter, setIsCheckedLetter}) => {
                    checked={isCheckedLetter}
                    readOnly/>
             <div className="select-letter__checkbox__checkbox">
-                <Icons name={flagsIcons.checkbox_check_mark}
+                <Icons name={uiIcons.checkbox_check_mark}
                        width="8"
                        height="6"
                        className="select-letter__checkbox__checkbox__checkmark"/>

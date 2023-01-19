@@ -1,8 +1,8 @@
 import React, {createRef, useMemo, useState} from 'react';
-import {flagsIcons} from "../../../assets/icons";
+import {uiIcons} from "../../../assets/icons";
 import Icons from "../../../assets/icons/Icons";
 import './ItemAttach.sass';
-import Portal from "./Portal";
+import Portal from "../../Portal";
 import AttachDropdown from "../attachDropdown/AttachDropdown";
 import {useFetching} from "../../../hooks/useFetching";
 import AttachmentService from "../../../api/AttachmentService";
@@ -79,7 +79,7 @@ const ItemAttach = ({letterDoc}) => {
                  onClick={(event) =>
                      onItemAttachClick(event)
                  }>
-                <Icons name={flagsIcons.attach}
+                <Icons name={uiIcons.attach}
                        width="20"
                        height="20"
                        className="attach-item__icon__icon"/>

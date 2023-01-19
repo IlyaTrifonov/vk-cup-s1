@@ -1,18 +1,21 @@
 import React from 'react';
-import IconsSVG from './iconsSprite.svg';
+import FolderIconsSVG from './folderIconsSprite.svg';
 import BookmarkIconsSVG from './bookmarkIconsSprite.svg';
 import CategoriesIconsSVG from './flagsIconsSprite.svg';
-import {bookmarkIcons, flagsIcons, folderIcons} from "./index";
+import UiIconsSVG from './uiIconsSprite.svg';
+import {bookmarkIcons, categoryIcons, folderIcons, uiIcons} from "./index";
 
 const Icons = ({name, color, width, height, size, className}) => {
 
     let source = null
     if (name in folderIcons) {
-        source = IconsSVG
+        source = FolderIconsSVG
     } else if (name in bookmarkIcons) {
         source = BookmarkIconsSVG
-    } else if (name in flagsIcons) {
+    } else if (name in categoryIcons) {
         source = CategoriesIconsSVG
+    } else if (name in uiIcons) {
+        source = UiIconsSVG
     }
 
     return (
