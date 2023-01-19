@@ -16,10 +16,30 @@
     .navbar__logo
       display: flex
       align-items: center
+      cursor: pointer
       svg
         width: 96px
         height: 32px
         fill: var(--logoWord)
+    .go-back-button
+      display: flex
+      color: var(--colorHeaderFilter)
+      fill: var(--colorHeaderFilter)
+      padding: 10px 12px
+      border-radius: 8px
+      flex-direction: row
+      align-items: center
+      gap: 12px
+      cursor: pointer
+      // Text
+      font-weight: 500
+      font-size: 15px
+      line-height: 20px
+      &:hover
+        //background: var(--colorHeaderFilterHover)
+        background: var(--colorTransparentHover)
+      &:active
+        background: var(--colorTransparentActive)
     .filter-button
       display: flex
       align-items: center
@@ -38,3 +58,6 @@
       .navbar__logo
         svg
           fill: none
+      .go-back-button
+        .go-back-button__text
+          display: none
