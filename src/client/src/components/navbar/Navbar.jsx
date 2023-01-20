@@ -18,10 +18,6 @@ const Navbar = () => {
     const match = useMatch('/letter/:id');
     const navigate = useNavigate()
 
-    useEffect(() => {
-        console.log('Мы в письме:', match)
-    }, [match])
-
     return (
         <div className="navbar">
             <div className="navbar-container">

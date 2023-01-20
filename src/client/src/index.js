@@ -6,6 +6,7 @@ import SettingsMenu from "./components/settingsMenu/SettingsMenu";
 import AppBackground from "./components/appBackground/AppBackground";
 import SettingsProvider from "./provider/SettingsProvider";
 import LanguageProvider from "./provider/LanguageProvider";
+import MailProvider from "./provider/MailProvider";
 
 /**
  * Главный рут-контейнер всего приложения.
@@ -15,11 +16,13 @@ root.render(
     <LanguageProvider>
         <ThemeProvider>
             <SettingsProvider>
-                <AppBackground>
-                    <App/>
-                    <div className="portal-overlay" id="portal-overlay"/>
-                    <SettingsMenu/>
-                </AppBackground>
+                <MailProvider>
+                    <AppBackground>
+                        <App/>
+                        <div className="portal-overlay" id="portal-overlay"/>
+                        <SettingsMenu/>
+                    </AppBackground>
+                </MailProvider>
             </SettingsProvider>
         </ThemeProvider>
     </LanguageProvider>
