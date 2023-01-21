@@ -18,6 +18,7 @@ export const textKeys = {
         },
         filter: {
             filterButtonName: 'filterButtonName',
+            filterButtonNameSeveral: 'filterButtonNameSeveral',
             allLettersFilterName: 'allLettersFilterName',
             unreadFilterName: 'unreadFilterName',
             withFlagFilterName: 'withFlagFilterName',

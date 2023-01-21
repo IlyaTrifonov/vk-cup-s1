@@ -1,8 +1,10 @@
-import React, {createRef, useMemo, useState} from 'react';
+import React, {createRef, useContext, useMemo, useState} from 'react';
 import Icons from "../../assets/icons/Icons";
-import {bookmarkIcons, uiIcons} from "../../assets/icons";
+import {uiIcons} from "../../assets/icons";
 import Portal from "../Portal";
 import FilterDropdown from "./filterDropdown/FilterDropdown";
+import {LanguageContext} from "../../context/LanguageContext";
+import {MailContext, noFilterKey} from "../../context/MailContext";
 
 /**
  * Компонент кнопки фильтров. Открывает список фильтров в компоненте FilterDropdown.
@@ -11,16 +13,11 @@ import FilterDropdown from "./filterDropdown/FilterDropdown";
  */
 const FilterButton = () => {
 
-    const [isOpen, setIsOpen] = useState(false)
+    const {language} = useContext(LanguageContext);
+    const {filters, filterButtonName} = useContext(MailContext);
 
     const filterRef = createRef();
-
-    const [filter, setFilter] = useState({
-        isUnread: false,
-        isFlagged: false,
-        isWithAttachment: false
-    })
-
+    const [isOpen, setIsOpen] = useState(false)
     const [coords, setCoords] = useState({});
 
     const updateDropdownCoords = (ref) => {
@@ -60,28 +57,19 @@ const FilterButton = () => {
              onClick={(event) => {
                  onFilterButtonClick(event)
              }}>
-            {filter.isWithAttachment &&
-                <div className="filter-flag">
-                    <Icons name={uiIcons.attach}
+            {Object.entries(filters).map(([filterKey, params]) =>
+                params.value && filterKey !== noFilterKey &&
+                <div className="filter-flag" key={filterKey}>
+                    <Icons name={params.icon}
                            width="16"
                            height="16"
-                           className="filter-flag__attach"/>
+                           className={`filter-flag__icon__${filterKey}`}/>
                 </div>
-            }
-            {filter.isFlagged &&
-                <div className="filter-flag">
-                    <Icons name={bookmarkIcons.bookmark}
-                           width="16"
-                           height="16"
-                           className="filter-flag__bookmark"/>
-                </div>
-            }
-            {filter.isUnread &&
-                <div className="filter-flag">
-                    <div className="filter-flag__unread">Н</div>
-                </div>
-            }
-            Фильтр
+            )}
+            <div className="filter-button__text">
+                {/*{language.letterList.filter.filterButtonName}*/}
+                {filterButtonName}
+            </div>
             <Icons name={uiIcons.chevron_down}
                    width="20"
                    height="20"
@@ -90,8 +78,7 @@ const FilterButton = () => {
             {isOpen &&
                 <Portal>
                     <FilterDropdown coords={coords}
-                                    filter={filter}
-                                    setFilter={setFilter}
+                                    filters={filters}
                                     updateDropdownCoords={() =>
                                         updateDropdownCoords(filterRef.current)
                                     }

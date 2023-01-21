@@ -18,6 +18,7 @@ export const enLang = {
         },
         filter: {
             filterButtonName: 'Filter',
+            filterButtonNameSeveral: 'Filters',
             allLettersFilterName: 'All messages',
             unreadFilterName: 'Unread',
             withFlagFilterName: 'Flagged',

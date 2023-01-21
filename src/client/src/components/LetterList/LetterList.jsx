@@ -1,7 +1,5 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import LetterItem from "../LetterItem/LetterItem";
-import {useFetching} from "../../hooks/useFetching";
-import MailService from "../../api/MailService";
 import {MailContext} from "../../context/MailContext";
 
 
@@ -13,7 +11,7 @@ import {MailContext} from "../../context/MailContext";
  */
 const LetterList = ({folder}) => {
 
-    const {letters, getLetters} = useContext(MailContext);
+    const {letters, getLetters, filters} = useContext(MailContext);
 
     const thisComponent = document.getElementById('letter-list-id');
 
@@ -22,7 +20,7 @@ const LetterList = ({folder}) => {
             thisComponent.scrollTo(0, 0);
         }
         getLetters(folder)
-    }, [folder])
+    }, [folder, filters])
 
 
     return (

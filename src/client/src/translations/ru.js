@@ -1,5 +1,5 @@
 /**
- * Текстовые переменные пакета русского языка языка.
+ * Текстовые переменные пакета русского языка.
  */
 export const ruLang = {
     languageName: 'ru',
@@ -18,6 +18,7 @@ export const ruLang = {
         },
         filter: {
             filterButtonName: 'Фильтр',
+            filterButtonNameSeveral: 'Фильтры',
             allLettersFilterName: 'Все письма',
             unreadFilterName: 'Непрочитанные',
             withFlagFilterName: 'С флажком',
