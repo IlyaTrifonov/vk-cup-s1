@@ -1,26 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {LanguageContext, languages} from "../context/LanguageContext";
-import {ruLang} from "../translations/ru";
-import {enLang} from "../translations/en";
+import {useFetchTranslations} from "../hooks/useFetchTranslations";
 
 
-const getLanguage = (lang) => {
-
-    let resultLang = ruLang;
-
-    if (lang) {
-        if (lang === languages.en)
-            resultLang = enLang
-        return resultLang
+const getLanguageName = (lang) => {
+    if (languages[lang]) {
+        return languages[lang];
     }
-
-    const localStorageLang = window?.localStorage?.getItem('language');
-    if (Object.values(languages).includes(localStorageLang)) {
-        if (localStorageLang === languages.en)
-            resultLang = enLang
+    if (window && window.localStorage) {
+        const localStorageLang = window.localStorage.getItem('language');
+        if (languages[localStorageLang]) {
+            return localStorageLang;
+        }
     }
-
-    return resultLang;
+    return languages.ru;
 }
 
 /**
@@ -32,14 +25,11 @@ const getLanguage = (lang) => {
  */
 const LanguageProvider = ({children}) => {
 
-    const [language, setLanguage] = useState(getLanguage())
+    const [languageName, setLanguageName] = useState(getLanguageName());
+    const language = useFetchTranslations(languageName);
 
-    const changeLanguage = (language) => {
-        if (Object.values(languages).includes(language)) {
-            setLanguage(getLanguage(language));
-        } else {
-            setLanguage(getLanguage(languages.ru))
-        }
+    const changeLanguage = (langName) => {
+        setLanguageName(languages[langName] || languages.ru)
     }
 
     useEffect(() => {
