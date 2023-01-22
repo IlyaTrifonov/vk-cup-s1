@@ -66,7 +66,6 @@ const MailProvider = ({children}) => {
     Object.entries(filters).filter(([filterKey, params]) =>
         params.value === true && filterKey !== noFilterKey
     ).map(([_, params]) => selectedFilters.push(params.name))
-    // console.log(selectedFilters)
 
     let filterButtonName = language.letterList.filter.filterButtonName
     if (selectedFilters.length === 1)
@@ -93,7 +92,7 @@ const MailProvider = ({children}) => {
 
     return (
         <MailContext.Provider
-            value={{letters, getLetters, filters, /*filtersDispatch,*/ setFilterByName, filterButtonName}}>
+            value={{letters, getLetters, filters, setFilterByName, filterButtonName}}>
             {children}
         </MailContext.Provider>
     );
