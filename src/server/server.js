@@ -215,8 +215,19 @@ const server = http.createServer((req, res) => {
         const path1 = newPathArr[1]
         if (Object.keys(folders).includes(path1)) {
             try {
-                const offset = parsedURL.query.offset
-                const limit = parsedURL.query.limit
+                const offset = parseInt(parsedURL.query.offset)
+                const limit = parseInt(parsedURL.query.limit)
+
+                const isUnread = parseInt(parsedURL.query.isUnread)
+                const isFlagged = parseInt(parsedURL.query.isFlagged)
+                const isWithAttachment = parseInt(parsedURL.query.isWithAttachment)
+                console.log('DEBUG!')
+                console.log('isUnread', isUnread)
+                console.log('isFlagged', isFlagged)
+                console.log('isWithAttachment', isWithAttachment)
+
+
+
                 let myData = []
                 res.setHeader('x-folder', path1)
                 // В папку входящие(inbox) попадают все письма у которых нет поля folder
@@ -225,9 +236,25 @@ const server = http.createServer((req, res) => {
                 } else {
                     myData = data.filter(letter => letter.folder === folders[path1]);
                 }
+
+                if (isUnread) {
+                    console.log('Выбрали только непрочитанные')
+                    console.log(isUnread)
+                    console.log(typeof isUnread)
+                    myData = myData.filter(letter => letter.read === false);
+                }
+                if (isFlagged) {
+                    console.log('Выбрали только с букмарком')
+                    myData = myData.filter(letter => letter.bookmark === true);
+                }
+                if (isWithAttachment) {
+                    console.log('Выбрали только с вложением')
+                    myData = myData.filter(letter => letter.hasOwnProperty('doc'));
+                }
+
                 res.setHeader('x-total-letters-count', myData.length)
                 res.writeHead(200, {'Content-Type': 'application/json'});
-                res.end(JSON.stringify(myData.slice(offset, limit)));
+                res.end(JSON.stringify(myData.slice(offset, limit + offset)));
             } catch (e) {
                 console.log('Not Found')
                 res.writeHead(404, {'Content-Type': 'text/html'});

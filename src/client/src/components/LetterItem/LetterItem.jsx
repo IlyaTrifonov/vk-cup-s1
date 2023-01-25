@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './LetterItem.sass';
 import ReadMark from "./ReadMark";
 import ItemFlag from "./ItemFlag";
@@ -16,7 +16,7 @@ import ItemAttach from "./attach/ItemAttach";
  * @returns {JSX.Element}
  * @constructor
  */
-const LetterItem = ({letter}) => {
+const LetterItem = React.forwardRef(({letter}, ref) => {
 
     const [isCheckedLetter, setIsCheckedLetter] = useState(false)
     const router = useNavigate()
@@ -24,6 +24,7 @@ const LetterItem = ({letter}) => {
     return (
         <div className={`letter-item ${isCheckedLetter ? 'checked-letter' : ''}`}
              onClick={() => router(`/letter/${letter.id}`)}
+             ref={ref}
         >
             <ReadMark isRead={letter.read}/>
             <UserAvatar avatar={letter.author.avatar} isHidden={isCheckedLetter}/>
@@ -60,6 +61,6 @@ const LetterItem = ({letter}) => {
             </div>
         </div>
     );
-};
+});
 
 export default LetterItem;

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import LetterItem from "../LetterItem/LetterItem";
 import {MailContext} from "../../context/MailContext";
 
@@ -11,25 +11,54 @@ import {MailContext} from "../../context/MailContext";
  */
 const LetterList = ({folder}) => {
 
-    const {letters, getLetters, filters} = useContext(MailContext);
-
-    const thisComponent = document.getElementById('letter-list-id');
+    const {letters, getLetters, filters, limit, isNoMoreLetters} = useContext(MailContext);
+    const letterListRef = useRef(null);
 
     useEffect(() => {
-        if (thisComponent) {
-            thisComponent.scrollTo(0, 0);
+        if (letterListRef) {
+            letterListRef.current.scrollTo(0, 0);
         }
-        getLetters(folder)
+        getLetters(folder);
     }, [folder, filters])
 
+    const observer = useRef(null);
+    const observerItemRef = useRef(null);
+
+    useEffect(() => {
+        if (letters) {
+            if (observer.current) {
+                observer.current.disconnect();
+                console.log("Обсервер удалён");
+            }
+            if (!isNoMoreLetters) {
+                observer.current = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        console.log('Запрашиваем ещё...');
+                        getLetters(folder);
+                    }
+                });
+
+                if (observerItemRef.current) {
+                    observer.current.observe(observerItemRef.current);
+                }
+                console.log("Обсервер установлен");
+            }
+        }
+    }, [letters])
+
+    const observerIndex = letters.length > 3 ? letters.length - 3 : letters.length - 1;
 
     return (
-        <div className="letter-list" id="letter-list-id">
+        <div className="letter-list" ref={letterListRef}>
             <div className="letter-list__header"></div>
             <div className="letter-list__list">
                 {letters ?
                     letters.map((letter, index) =>
-                        <LetterItem letter={letter} key={index}/>
+                        <LetterItem
+                            letter={letter}
+                            key={letter.id}
+                            ref={index === observerIndex ? observerItemRef : null}
+                        />
                     ) : null
                 }
             </div>

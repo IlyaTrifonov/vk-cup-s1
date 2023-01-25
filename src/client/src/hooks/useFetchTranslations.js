@@ -22,8 +22,8 @@ export  const useFetchTranslations = (language) => {
         fetchTranslations();
     }, [language]);
 */
-    console.log('Фетч языка', language)
-    console.log(typeof availableLanguages[language])
+    // console.log('Фетч языка', language)
+    // console.log(typeof availableLanguages[language])
 
     return availableLanguages[language]
 

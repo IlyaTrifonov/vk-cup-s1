@@ -35,12 +35,10 @@ const MailProvider = ({children}) => {
     const [filters, setFilters] = useState(filtersInit);
 
     const setFilterByName = (filterName) => {
-
         if (filterName === noFilterKey) {
             setFilters(filtersInit)
             return;
         }
-
         const newState = {
             ...filters,
             noFilter: {
@@ -52,13 +50,11 @@ const MailProvider = ({children}) => {
                 value: !filters[filterName].value
             }
         }
-
         if (!(newState.noFilter.value || newState.isUnread.value ||
             newState.isFlagged.value || newState.isWithAttachment.value)) {
             setFilters(filtersInit)
             return;
         }
-
         setFilters(newState)
     }
 
@@ -75,15 +71,44 @@ const MailProvider = ({children}) => {
 
     const [letters, setLetters] = useState([])
 
-    const [fetchLetters, isLettersLoading, lettersError] = useFetching(async (folder) => {
-        const response = await MailService.getLettersFromFolder(folder, 1500, 0);
-        const data = await response.json();
-        setLetters(data)
+
+    const [limit, setLimit] = useState(20)
+    const [offset, setOffset] = useState(0)
+    const [fetchingFolderName, setFetchingFolderName] = useState(null);
+    const [fetchingFilters, setFetchingFilters] = useState(null);
+    const [isNoMoreLetters, setIsNoMoreLetters] = useState(false);
+
+
+    const [fetchLetters, isLettersLoading, lettersError] = useFetching(async (folder, filtersValues) => {
+        console.log(folder)
+        if (fetchingFolderName !== folder || fetchingFilters !== filtersValues.toString()) {
+            console.log('Загружаем новую папку')
+            setFetchingFolderName(folder);
+            setFetchingFilters(filtersValues.toString());
+            const response = await MailService.getLettersFromFolder(folder, limit, 0, filtersValues);
+            const lettersTotalCount = response.headers.get('x-total-letters-count');
+            const data = await response.json();
+
+            console.log(data.length.toString(), lettersTotalCount, data.length.toString() === lettersTotalCount)
+            setIsNoMoreLetters(data.length.toString() === lettersTotalCount);
+            setLetters(data)
+        } else {
+            const response = await MailService.getLettersFromFolder(folder, limit, letters.length, filtersValues);
+            const lettersTotalCount = response.headers.get('x-total-letters-count');
+            const data = await response.json();
+
+            console.log((letters.length + data.length).toString(), lettersTotalCount, (letters.length + data.length).toString() === lettersTotalCount)
+            setIsNoMoreLetters((letters.length + data.length).toString() === lettersTotalCount);
+            setLetters([...letters, ...data]);
+        }
     })
 
     const getLetters = (folder) => {
-        console.log('Фетч писем')
-        fetchLetters(folder)
+        const filtersValues = {};
+        Object.entries(filters).filter(([filterKey, _]) =>
+            filterKey !== noFilterKey
+        ).map(([filterKey, params]) => filtersValues[filterKey] = params.value)
+        fetchLetters(folder, filtersValues)
     }
 
     useEffect(() => {
@@ -92,7 +117,7 @@ const MailProvider = ({children}) => {
 
     return (
         <MailContext.Provider
-            value={{letters, getLetters, filters, setFilterByName, filterButtonName}}>
+            value={{letters, getLetters, filters, setFilterByName, filterButtonName, limit, isNoMoreLetters}}>
             {children}
         </MailContext.Provider>
     );

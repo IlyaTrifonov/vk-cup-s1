@@ -12,12 +12,17 @@ export default class MailService {
         return route
     }
 
-    static async getLettersFromFolder(folderName = 'Входящие', limit = 20, offset = 0) {
-        const folder = MailService.getFolderPathByName(folderName)
+    static async getLettersFromFolder(folderName = folders.incoming.name, limit = 20, offset = 0, filtersValues) {
+        const folderPath = MailService.getFolderPathByName(folderName)
         const _limit = `limit=${limit}`
         const _offset = `offset=${offset}`
+        const _isUnread = `isUnread=${filtersValues.isUnread | 0}`
+        const _isFlagged = `isFlagged=${filtersValues.isFlagged | 0}`
+        const _isWithAttachment = `isWithAttachment=${filtersValues.isWithAttachment | 0}`
+        const filters = `&${_isUnread}&${_isFlagged}&${_isWithAttachment}`
 
-        const queryURL = `${MailService.url}/backend${folder}?${_limit}&${_offset}`// тут тоже поменял
+        const queryURL = `${MailService.url}/backend${folderPath}?${_limit}&${_offset}${filters}`// тут тоже поменял
+        // console.log(queryURL)
 
         const response = await fetch(queryURL, {
             method: 'GET',
