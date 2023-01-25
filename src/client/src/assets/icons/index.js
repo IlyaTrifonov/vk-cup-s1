@@ -40,5 +40,5 @@ export const uiIcons = {
     chevron_down: 'chevron_down',
     chevron_left: 'chevron_left',
     read_on_mark: 'read_on_mark',
-
+    empty_search_list: 'empty_search_list'
 }

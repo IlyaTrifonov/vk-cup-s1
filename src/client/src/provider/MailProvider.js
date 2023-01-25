@@ -73,18 +73,11 @@ const MailProvider = ({children}) => {
 
 
     const [limit, setLimit] = useState(20)
-    const [offset, setOffset] = useState(0)
-    const [fetchingFolderName, setFetchingFolderName] = useState(null);
-    const [fetchingFilters, setFetchingFilters] = useState(null);
     const [isNoMoreLetters, setIsNoMoreLetters] = useState(false);
 
 
-    const [fetchLetters, isLettersLoading, lettersError] = useFetching(async (folder, filtersValues) => {
-        console.log(folder)
-        if (fetchingFolderName !== folder || fetchingFilters !== filtersValues.toString()) {
-            console.log('Загружаем новую папку')
-            setFetchingFolderName(folder);
-            setFetchingFilters(filtersValues.toString());
+    const [fetchLetters, isLettersLoading, lettersError] = useFetching(async (folder, filtersValues, isClear) => {
+        if (isClear) {
             const response = await MailService.getLettersFromFolder(folder, limit, 0, filtersValues);
             const lettersTotalCount = response.headers.get('x-total-letters-count');
             const data = await response.json();
@@ -103,12 +96,17 @@ const MailProvider = ({children}) => {
         }
     })
 
-    const getLetters = (folder) => {
+    /**
+     * Функция вызова фетча писем.
+     * @param {string} folder - папка
+     * @param {boolean} isClear - сделать фетч с нуля
+     */
+    const getLetters = (folder, isClear) => {
         const filtersValues = {};
         Object.entries(filters).filter(([filterKey, _]) =>
             filterKey !== noFilterKey
         ).map(([filterKey, params]) => filtersValues[filterKey] = params.value)
-        fetchLetters(folder, filtersValues)
+        fetchLetters(folder, filtersValues, isClear)
     }
 
     useEffect(() => {
@@ -117,7 +115,7 @@ const MailProvider = ({children}) => {
 
     return (
         <MailContext.Provider
-            value={{letters, getLetters, filters, setFilterByName, filterButtonName, limit, isNoMoreLetters}}>
+            value={{letters, getLetters, filters, setFilterByName, filterButtonName, isNoMoreLetters, isLettersLoading}}>
             {children}
         </MailContext.Provider>
     );
