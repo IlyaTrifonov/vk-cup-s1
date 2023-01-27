@@ -1,11 +1,11 @@
 import React, {useContext} from 'react';
 import './ThemeMenu.sass';
 import {ReactComponent as Logo} from "../../../../assets/svg/logo.svg";
-import AnimeThemePreview from "../../../../assets/pictures/anime_theme_preview.png";
 import ThemeMenuItem from "./ThemeMenuItem";
 import {accents, animeColor, defaultThemes, ThemeContext} from "../../../../context/ThemeContext";
 import {darkThemeColors, lightThemeColors} from "./ThemeColors";
 import {LanguageContext} from "../../../../context/LanguageContext";
+import ServerStaticsService from "../../../../api/ServerStaticsService";
 
 /**
  * Меню настройки темы почты. Оборачивается в SettingsMenuMain для отображения.
@@ -59,7 +59,7 @@ const ThemeMenu = () => {
                                accent={accents.light}
                                themeObj={themeObj}
                 >
-                    <img src={AnimeThemePreview} alt=""/>
+                    <img src={ServerStaticsService.animeBackgroundThumbnail} alt=""/>
                 </ThemeMenuItem>
             </div>
         </div>

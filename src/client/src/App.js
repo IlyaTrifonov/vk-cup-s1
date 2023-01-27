@@ -16,7 +16,7 @@ function App() {
     const {settingsIsOpen, setSettingsIsOpen} = useContext(SettingsContext);
 
     return (
-        <div className={`App ${settingsIsOpen && 'app-minimized'}`}>
+        <div className={`App${settingsIsOpen ? ' app-minimized' : ''}`}>
             <BrowserRouter>
                 <Navbar/>
                 <div className="content">

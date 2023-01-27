@@ -39,6 +39,16 @@ try {
 }
 
 try {
+    if (fs.existsSync('./server_statics')) {
+        console.log('Папка статических ресурсов сервера найдена.')
+    }
+} catch (err) {
+    console.error('Ошибка поиска папки статических ресурсов сервера (server_statics):', err.message);
+    process.exit()
+    // console.error('Внимание! Статические ресурсы не будут загружены!');
+}
+
+try {
     fs.mkdirSync('./files');
     fs.mkdirSync('./files/attachments');
     fs.mkdirSync('./files/avatars');
@@ -189,22 +199,20 @@ const server = http.createServer((req, res) => {
         const extname = String(path.extname(filePath)).toLowerCase();
         const contentType = mimeTypes[extname] || 'octet-stream';
 
-        fs.readFile(filePath, function(error, content) {
+        fs.readFile(filePath, function (error, content) {
             if (error) {
-                if(error.code === 'ENOENT') {
-                    fs.readFile('./404.html', function(error, content) {
-                        res.writeHead(200, { 'Content-Type': contentType });
+                if (error.code === 'ENOENT') {
+                    fs.readFile('./404.html', function (error, content) {
+                        res.writeHead(200, {'Content-Type': contentType});
                         res.end(content, 'utf-8');
                     });
-                }
-                else {
+                } else {
                     res.writeHead(500);
-                    res.end('Ошибка сервера: '+error.code+' ..\n');
+                    res.end('Ошибка сервера: ' + error.code + ' ..\n');
                     res.end();
                 }
-            }
-            else {
-                res.writeHead(200, { 'Content-Type': contentType });
+            } else {
+                res.writeHead(200, {'Content-Type': contentType});
                 res.end(content, 'utf-8');
             }
         });
@@ -225,7 +233,6 @@ const server = http.createServer((req, res) => {
                 console.log('isUnread', isUnread)
                 console.log('isFlagged', isFlagged)
                 console.log('isWithAttachment', isWithAttachment)
-
 
 
                 let myData = []
@@ -270,6 +277,26 @@ const server = http.createServer((req, res) => {
                             return res.end("404 Not Found");
                         }
                         const fileStats = fs.statSync(`.${parsedURL.pathname.replace('/backend', '')}`);
+                        res.setHeader('x-total-size-in-bytes', fileStats.size);
+                        res.writeHead(200, {'Content-Type': 'image/png'});
+                        res.write(data);
+                        return res.end();
+                    })
+                    break;
+                }
+                // http://127.0.0.1:3000/backend/files/attachments/picture_303.png
+                // http://127.0.0.1:3000/backend/server_statics/pictures/anime_theme_background.png
+                // /backend/server_statics/pictures/anime_theme_background.png
+                // Расположение относительно сервера
+                case 'server_statics': {
+                    const filePath = parsedURL.pathname.replace('/backend', '');
+                    fs.readFile(`.${filePath}`, (err, data) => {
+                        if (err) {
+                            console.log('Not Found')
+                            res.writeHead(404, {'Content-Type': 'text/html'});
+                            return res.end("404 Not Found");
+                        }
+                        const fileStats = fs.statSync(`.${filePath}`);
                         res.setHeader('x-total-size-in-bytes', fileStats.size);
                         res.writeHead(200, {'Content-Type': 'image/png'});
                         res.write(data);

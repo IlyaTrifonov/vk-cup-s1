@@ -4,6 +4,8 @@ import {MailContext} from "../../context/MailContext";
 import {LanguageContext} from "../../context/LanguageContext";
 import Icons from "../../assets/icons/Icons";
 import {uiIcons} from "../../assets/icons";
+import {defaultThemes, ThemeContext} from "../../context/ThemeContext";
+import ServerStaticsService from "../../api/ServerStaticsService";
 
 
 /**
@@ -52,6 +54,20 @@ const LetterList = ({folder}) => {
 
     const observerIndex = letters.length > 3 ? letters.length - 3 : letters.length - 1;
 
+    const {themeObj} = useContext(ThemeContext);
+    let emptyBackgroundImage = {}
+    if (themeObj.theme === defaultThemes.light) {
+        const picUrl = ServerStaticsService.emptyLetterListLightPicture
+        emptyBackgroundImage = {
+            background: `url(${picUrl})`
+        }
+    } else if (themeObj.theme === defaultThemes.dark) {
+        const picUrl = ServerStaticsService.emptyLetterListDarkPicture
+        emptyBackgroundImage = {
+            background: `url(${picUrl})`
+        }
+    }
+
     return (
         <div className="letter-list" id="letter-list-id" ref={letterListRef}>
             <div className="letter-list__header"/>
@@ -75,7 +91,9 @@ const LetterList = ({folder}) => {
                             height='100'
                             className="empty-letter-list-image-svg"
                         />
-                        <div className="empty-letter-list-image-png"/>
+                        <div className="empty-letter-list-image-png"
+                             style={emptyBackgroundImage}
+                        />
                     </div>
                     <div className="empty-letter-list-text">
                         {language.letterList.emptyLetterListErrorMessage}
