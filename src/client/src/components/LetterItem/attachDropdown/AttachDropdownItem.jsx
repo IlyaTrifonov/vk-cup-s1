@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Portal from "../../Portal";
+import AttachmentService from "../../../api/AttachmentService";
 
 /**
  * Компонент списка AttachDropdown. Отображает данные вложения. При наведении открывает предпросмотр вложения.
@@ -37,7 +38,7 @@ const AttachDropdownItem = ({attach, newCoords, updateCoords}) => {
                 <img src={attach.url} alt=""/>
             </div>
             <div className="attach-dropdown-overlay__item__text">
-                <span>{`${attach.name} ${attach.size}`}</span>
+                <span>{`${attach.name} ${AttachmentService.getHumanFileSize(Number.parseInt(attach.size))}`}</span>
             </div>
             <Portal>
                 <div style={{...newCoords}}

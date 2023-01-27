@@ -53,7 +53,7 @@ const LetterList = ({folder}) => {
     const observerIndex = letters.length > 3 ? letters.length - 3 : letters.length - 1;
 
     return (
-        <div className="letter-list" ref={letterListRef}>
+        <div className="letter-list" id="letter-list-id" ref={letterListRef}>
             <div className="letter-list__header"/>
             <div className="letter-list__list">
                 {letters ?

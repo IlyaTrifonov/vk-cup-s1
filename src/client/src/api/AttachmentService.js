@@ -54,7 +54,8 @@ export default class AttachmentService {
                 },
             });
             const size = response.headers.get('x-total-size-in-bytes');
-            attach.size = AttachmentService.getHumanFileSize(Number.parseInt(size));
+            attach.size = size
+            // attach.size = AttachmentService.getHumanFileSize(Number.parseInt(size));
             attachesWithParamsArray.push(attach);
         }
         return attachesWithParamsArray;

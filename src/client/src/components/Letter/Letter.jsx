@@ -9,6 +9,9 @@ import {getDateString} from "../dateParse";
 import {flags} from "../LetterItem/flags";
 import Icons from "../../assets/icons/Icons";
 import {LanguageContext} from "../../context/LanguageContext";
+import ItemFlag from "../LetterItem/ItemFlag";
+import AttachmentService from "../../api/AttachmentService";
+import LetterAttachments from "./letterAttach/LetterAttachments";
 
 /**
  * Компонент страницы письма.
@@ -22,11 +25,16 @@ const Letter = () => {
     const params = useParams()
 
     const [letter, setLetter] = useState(null)
+    const [attachments, setAttachments] = useState(null)
 
-    const [fetchLetters, isLettersLoading, lettersError] = useFetching(async (id) => {
+    const [fetchLetter, isLetterLoading, letterError] = useFetching(async (id) => {
         const response = await MailService.getLetterById(id);
         const data = await response.json();
         setLetter(data)
+        if (!!data.doc?.img) {
+            const attachParams = await AttachmentService.getAttachesParams(data.doc.img);
+            setAttachments(attachParams)
+        }
     })
 
     let users = language.letterPage.letterToWord;
@@ -36,73 +44,65 @@ const Letter = () => {
     }
 
     useEffect(() => {
-        fetchLetters(params.id)
+        fetchLetter(params.id)
     }, [])
 
-
-    let isDoc = false
-    let isDocArray = false
-    if (letter) {
-        isDoc = !!letter.doc
-        isDocArray = isDoc ? Array.isArray(letter.doc) : false
-    }
-    // console.log('isDoc', isDoc, 'isDocArray', isDocArray)
-
     return (
-        letter && <div className="letter">
-            <div className="letter__header">
-                <h2 className="letter__tittle">{letter.title}</h2>
-                {letter.flag ?
-                    <div className="letter__flag">
-                        <Icons name={flags[letter.flag].icon}
-                               width="16"
-                               height="16"
-                               className="secondary-data__flag-icon"/>
-                        <div className="letter__flag__text">
-                            {language.common.letterCategories[flags[letter.flag].name]}
+        letter &&
+        <div className="letter">
+            <div className="letter-container">
+
+                <div className="letter__header">
+                    <h2 className="letter__tittle">{letter.title}</h2>
+                    {letter.flag ?
+                        <div className="letter__flag">
+                            <Icons name={flags[letter.flag].icon}
+                                   width="16"
+                                   height="16"
+                                   className="secondary-data__flag-icon"/>
+                            <div className="letter__flag__text">
+                                {language.common.letterCategories[flags[letter.flag].name]}
+                            </div>
                         </div>
-                    </div>
-                    :
-                    <div className="letter__flag">
-                        <div className="letter__flag__text">
-                            {language.common.letterCategories.noCategory}
+                        :
+                        <div className="letter__flag">
+                            <div className="letter__flag__text">
+                                {language.common.letterCategories.noCategory}
+                            </div>
                         </div>
-                    </div>
-                }
-            </div>
-            <div className="letter__head">
-                <ReadMark isRead={letter.read}/>
-                <div className="letter__info">
-                    <UserAvatar avatar={letter.author.avatar}/>
-                    <div className="letter__info__info">
-                        <div className="letter__info__info__tittle">
-                            <div className="name">{letter.author.name} {letter.author.surname}</div>
-                            <div className="time">{getDateString(letter.date)}</div>
-                        </div>
-                        <div className="letter__info__info__users">
-                            <span className="users">{users}</span>
+                    }
+                </div>
+
+                <div className="letter__head">
+                    <ReadMark isRead={letter.read}/>
+                    <div className="letter__info">
+                        <UserAvatar avatar={letter.author.avatar}/>
+                        <div className="letter__info__info">
+                            <div className="letter__info__info__tittle">
+                                <div className="name">{letter.author.name} {letter.author.surname}</div>
+                                <div className="time">{getDateString(letter.date)}</div>
+                                <ItemFlag bookmark={letter.bookmark} important={letter.important}/>
+                            </div>
+                            <div className="letter__info__info__users">
+                                <span className="users">{users}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-            </div>
-            <div className="attaches">
-                {isDoc ?
-                    isDocArray ?
-                        letter.doc.forEach(doc =>
-                            <img className="attach__img" src={doc.img} alt="Вложение"/>
-                        )
-                        : <img className="attach__img" src={letter.doc.img} alt="Вложение"/>
-                    : null
+                {attachments &&
+                    <LetterAttachments attachments={attachments}/>
                 }
-            </div>
-            <div className="text">
-                <div className="text__text">
-                    {letter.text}
+
+                <div className="text">
+                    <div className="text__text">
+                        {letter.text}
+                    </div>
                 </div>
             </div>
         </div>
-    );
+    )
+        ;
 };
 
 export default Letter;

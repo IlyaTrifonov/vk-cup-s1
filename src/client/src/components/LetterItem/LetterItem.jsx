@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './LetterItem.sass';
 import ReadMark from "./ReadMark";
 import ItemFlag from "./ItemFlag";

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 /**
  * Компонент метки прочитывания письма. Используется в компоненте списка писем для отображения статуса прочитывания.
