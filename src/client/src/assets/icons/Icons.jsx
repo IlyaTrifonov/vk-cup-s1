@@ -19,8 +19,7 @@ const Icons = ({name, color, width, height, size, className}) => {
     }
 
     return (
-        <svg className={`${className}`} /*fill={color}*/ /*stroke={color}*/ width={width}
-             height={height}>>
+        <svg className={`${className}`} /*fill={color}*/ /*stroke={color}*/ width={width} height={height}>
             <use xlinkHref={`${source}#${name}`}/>
         </svg>
     );

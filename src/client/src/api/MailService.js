@@ -2,7 +2,7 @@ import {folders} from "./FoldersService";
 
 
 export default class MailService {
-    static url = process.env.REACT_APP_API_URL;
+    static url = import.meta.env.VITE_API_URL;
 
     static getFolderPathByName = (folderName) => {
         let route = ''
