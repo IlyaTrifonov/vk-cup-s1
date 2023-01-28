@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {SettingsContext} from "../context/SettingsContext";
+import {SettingsContext} from '../context/SettingsContext';
 
 /**
  * Компонент провайдера статуса открытия настроек. Необходим для масштабирования интерфейса.
@@ -9,13 +9,13 @@ import {SettingsContext} from "../context/SettingsContext";
  */
 const SettingsProvider = ({children}) => {
 
-    const [settingsIsOpen, setSettingsIsOpen] = useState(false);
+	const [settingsIsOpen, setSettingsIsOpen] = useState(false);
 
-    return (
-        <SettingsContext.Provider value={{settingsIsOpen, setSettingsIsOpen}}>
-            {children}
-        </SettingsContext.Provider>
-    );
+	return (
+		<SettingsContext.Provider value={{settingsIsOpen, setSettingsIsOpen}}>
+			{children}
+		</SettingsContext.Provider>
+	);
 };
 
 export default SettingsProvider;

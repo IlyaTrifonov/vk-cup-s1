@@ -46,13 +46,17 @@ html
   max-height: calc(100% - 56px)
   min-height: 100px
   overflow: auto
+
   &::-webkit-scrollbar
     width: 8px
+
   &::-webkit-scrollbar-thumb
     background: var(--octaviusColorContentScrollbarAlpha)
     border-radius: 5px
+
   &::-webkit-scrollbar-track
     margin-top: 13px
+
   .letter-list__header
     height: 13px
 
@@ -64,10 +68,12 @@ html
   justify-content: center
   gap: 8px
   user-select: none
+
   .empty-letter-list-image
     .empty-letter-list-image-svg
       display: var(--displayIconSVGLetterListEmpty)
       fill: var(--octaviusColorSidebarItemTextPrimary)
+
     .empty-letter-list-image-png
       display: var(--displayIconPNGLetterListEmpty)
       width: 310px
@@ -78,7 +84,6 @@ html
     font-weight: 700
     font-size: 24px
     line-height: 28px
-
 
 
 .letter-list__list
@@ -102,11 +107,13 @@ html
   padding: 4px
   box-sizing: border-box
   height: 198px
+
   img
     width: 256px
     height: 190px
     object-fit: cover
     border-radius: 12px
+
 .attach-dropdown-overlay__item__preview.show-preview
   display: block
 
