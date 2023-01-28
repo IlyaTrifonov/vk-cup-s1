@@ -1,8 +1,8 @@
 import React from 'react';
 
 export const languages = {
-	ru: 'ru',
-	en: 'en',
+  ru: 'ru',
+  en: 'en',
 };
 
 /**

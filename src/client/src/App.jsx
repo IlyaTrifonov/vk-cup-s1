@@ -13,19 +13,19 @@ import {useContext} from 'react';
  */
 function App() {
 
-	const {settingsIsOpen, setSettingsIsOpen} = useContext(SettingsContext);
+  const {settingsIsOpen, setSettingsIsOpen} = useContext(SettingsContext);
 
-	return (
-		<div className={`App${settingsIsOpen ? ' app-minimized' : ''}`}>
-			<BrowserRouter>
-				<Navbar/>
-				<div className="content">
-					<Sidebar setSettingsIsOpen={setSettingsIsOpen}/>
-					<AppRouter/>
-				</div>
-			</BrowserRouter>
-		</div>
-	);
+  return (
+    <div className={`App${settingsIsOpen ? ' app-minimized' : ''}`}>
+      <BrowserRouter>
+        <Navbar/>
+        <div className="content">
+          <Sidebar setSettingsIsOpen={setSettingsIsOpen}/>
+          <AppRouter/>
+        </div>
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;

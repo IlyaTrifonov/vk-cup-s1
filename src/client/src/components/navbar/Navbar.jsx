@@ -14,33 +14,33 @@ import {LanguageContext} from '../../context/LanguageContext';
  */
 const Navbar = () => {
 
-	const {language} = useContext(LanguageContext);
-	const match = useMatch('/letter/:id');
-	const navigate = useNavigate();
+  const {language} = useContext(LanguageContext);
+  const match = useMatch('/letter/:id');
+  const navigate = useNavigate();
 
-	return (
-		<div className="navbar">
-			<div className="navbar-container">
-				{match ?
-					<div className="go-back-button"
-						 onClick={() => navigate(-1)}>
-						<Icons name={uiIcons.chevron_left}
-							   width="20"
-							   height="20"
-							   className="go-back-button__icon"/>
-						<span className="go-back-button__text">
-							{language.letterPage.goBackButtonName}
-						</span>
-					</div>
-					:
-					<div className="navbar__logo" onClick={() => navigate('/')}>
-						<Logo/>
-					</div>
-				}
-				{!match && <FilterButton/>}
-			</div>
-		</div>
-	);
+  return (
+    <div className="navbar">
+      <div className="navbar-container">
+        {match ?
+          <div className="go-back-button"
+               onClick={() => navigate(-1)}>
+            <Icons name={uiIcons.chevron_left}
+                   width="20"
+                   height="20"
+                   className="go-back-button__icon"/>
+            <span className="go-back-button__text">
+              {language.letterPage.goBackButtonName}
+            </span>
+          </div>
+          :
+          <div className="navbar__logo" onClick={() => navigate('/')}>
+            <Logo/>
+          </div>
+        }
+        {!match && <FilterButton/>}
+      </div>
+    </div>
+  );
 };
 
 export default Navbar;

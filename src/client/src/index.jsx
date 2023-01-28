@@ -13,17 +13,17 @@ import MailProvider from './provider/MailProvider';
  */
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<LanguageProvider>
-		<ThemeProvider>
-			<SettingsProvider>
-				<MailProvider>
-					<AppBackground>
-						<App/>
-						<div className="portal-overlay" id="portal-overlay"/>
-						<SettingsMenu/>
-					</AppBackground>
-				</MailProvider>
-			</SettingsProvider>
-		</ThemeProvider>
-	</LanguageProvider>
+  <LanguageProvider>
+    <ThemeProvider>
+      <SettingsProvider>
+        <MailProvider>
+          <AppBackground>
+            <App/>
+            <div className="portal-overlay" id="portal-overlay"/>
+            <SettingsMenu/>
+          </AppBackground>
+        </MailProvider>
+      </SettingsProvider>
+    </ThemeProvider>
+  </LanguageProvider>
 );

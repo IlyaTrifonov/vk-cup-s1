@@ -12,26 +12,22 @@ import FilterDropdownItem from './FilterDropdownItem';
  * @returns {JSX.Element}
  * @constructor
  */
-const FilterDropdown = ({
-	coords,
-	updateDropdownCoords, closeDropdown,
-	filters,
-}) => {
+const FilterDropdown = ({coords, updateDropdownCoords, closeDropdown, filters}) => {
 
-	useEffect(() => {
-		window.addEventListener('resize', updateDropdownCoords);
-		return () => {
-			window.removeEventListener('resize', updateDropdownCoords);
-		};
-	}, []);
+  useEffect(() => {
+    window.addEventListener('resize', updateDropdownCoords);
+    return () => {
+      window.removeEventListener('resize', updateDropdownCoords);
+    };
+  }, []);
 
-	return (
-		<div style={{...coords}} className="filter-dropdown">
-			{Object.entries(filters).map((filter, index) =>
-				<FilterDropdownItem filter={filter} key={index}/>,
-			)}
-		</div>
-	);
+  return (
+    <div style={{...coords}} className="filter-dropdown">
+      {Object.entries(filters).map((filter, index) =>
+        <FilterDropdownItem filter={filter} key={index}/>
+      )}
+    </div>
+  );
 };
 
 export default FilterDropdown;

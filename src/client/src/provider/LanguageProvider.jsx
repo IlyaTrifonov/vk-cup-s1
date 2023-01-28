@@ -4,16 +4,16 @@ import {useFetchTranslations} from '../hooks/useFetchTranslations';
 
 
 const getLanguageName = (lang) => {
-	if (languages[lang]) {
-		return languages[lang];
-	}
-	if (window && window.localStorage) {
-		const localStorageLang = window.localStorage.getItem('language');
-		if (languages[localStorageLang]) {
-			return localStorageLang;
-		}
-	}
-	return languages.ru;
+  if (languages[lang]) {
+    return languages[lang];
+  }
+  if (window && window.localStorage) {
+    const localStorageLang = window.localStorage.getItem('language');
+    if (languages[localStorageLang]) {
+      return localStorageLang;
+    }
+  }
+  return languages.ru;
 };
 
 /**
@@ -25,22 +25,22 @@ const getLanguageName = (lang) => {
  */
 const LanguageProvider = ({children}) => {
 
-	const [languageName, setLanguageName] = useState(getLanguageName());
-	const language = useFetchTranslations(languageName);
+  const [languageName, setLanguageName] = useState(getLanguageName());
+  const language = useFetchTranslations(languageName);
 
-	const changeLanguage = (langName) => {
-		setLanguageName(languages[langName] || languages.ru);
-	};
+  const changeLanguage = (langName) => {
+    setLanguageName(languages[langName] || languages.ru);
+  };
 
-	useEffect(() => {
-		localStorage.setItem('language', language.languageName);
-	}, [language]);
+  useEffect(() => {
+    localStorage.setItem('language', language.languageName);
+  }, [language]);
 
-	return (
-		<LanguageContext.Provider value={{language, changeLanguage}}>
-			{children}
-		</LanguageContext.Provider>
-	);
+  return (
+    <LanguageContext.Provider value={{language, changeLanguage}}>
+      {children}
+    </LanguageContext.Provider>
+  );
 };
 
 export default LanguageProvider;

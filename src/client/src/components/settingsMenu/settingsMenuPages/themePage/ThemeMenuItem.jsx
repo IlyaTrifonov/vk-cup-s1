@@ -15,38 +15,37 @@ import {coloredThemesBase, ThemeContext} from '../../../../context/ThemeContext'
  * @constructor
  */
 const ThemeMenuItem = ({
-	children, backgroundColor,
-	theme = coloredThemesBase,
-	accent = '',
-	color = '',
-	themeObj,
+  children, backgroundColor,
+  theme = coloredThemesBase,
+  accent = '',
+  color = '',
+  themeObj,
 }) => {
 
-	const {setTheme} = useContext(ThemeContext);
+  const {setTheme} = useContext(ThemeContext);
 
-	const isActive = JSON.stringify({theme, accent, color}) === JSON.stringify(themeObj);
+  const isActive = JSON.stringify({theme, accent, color}) === JSON.stringify(themeObj);
 
-	return (
-		<div className="theme-menu-item-container">
-			<div className="theme-menu-item"
-				 style={{backgroundColor: backgroundColor}}
-				 onClick={() => {
-					 setTheme(theme, accent, color);
-				 }}>
-				{children}
-				{isActive &&
-					<div className="selected-mark">
-						<Icons
-							name={uiIcons.done_sign}
-							width="40"
-							height="40"
-							className="selected-mark__mark"
-						/>
-					</div>
-				}
-			</div>
-		</div>
-	);
+  return (
+    <div className="theme-menu-item-container">
+      <div className="theme-menu-item"
+           style={{backgroundColor: backgroundColor}}
+           onClick={() => {
+             setTheme(theme, accent, color);
+           }}>
+        {children}
+        {isActive &&
+          <div className="selected-mark">
+            <Icons
+              name={uiIcons.done_sign}
+              width="40"
+              height="40"
+              className="selected-mark__mark"/>
+          </div>
+        }
+      </div>
+    </div>
+  );
 };
 
 export default ThemeMenuItem;
