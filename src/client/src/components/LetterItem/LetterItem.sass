@@ -23,7 +23,7 @@
 
   &:hover
     cursor: pointer
-    background: var(--colorTransparentHover)
+    background: var(--colorTransparentHoverLetterListItem)
     .read-mark__mark
       background-color: #A5A7AD
 
@@ -40,7 +40,7 @@
     .user-avatar
       display: none
   &:active
-    background: var(--colorTransparentActive)
+    background: var(--colorTransparentActiveLetterListItem)
 
 
 
@@ -228,7 +228,67 @@
 
 
 .letter-item.checked-letter
-  background: var(--colorTransparentActive)
+  background: var(--colorTransparentActiveLetterListItem)
+
+  //&:first-of-type.checked-letter
+  //  background-color: red
+  //  border-radius: 12px 12px 0 0
+  //
+  //&:last-of-type.checked-letter
+  //  border-radius: 0 0 12px 12px
+  //
+  //& + &.checked-letter
+  //  border-top-left-radius: 0
+  //  border-top-right-radius: 0
+  //
+  ////& + &.checked-letter + &.checked-letter
+  ////  border-radius: 0
+  //
+  //&.checked-letter:not(:first-of-type):not(:last-of-type)
+  //  //border-radius: 0
+
+  //&:first-child
+  //  border-radius: 12px 12px 0 0
+  //  background-color: red
+  //
+  //&:last-child
+  //  border-radius: 0 0 12px 12px
+  //  background-color: blue
+  //
+  //& + &
+  //  //background-color: cyan
+  //  //border-radius: 0
+  //  border-top-left-radius: 0
+  //  border-top-right-radius: 0
+  //
+  //&:not(:first-child):not(:last-child)
+  //  //background-color: #6B1344
+  //  border-radius: 0
+
+//.letter-item.checked-letter + .selected
+//  background-color: #9acd32
+//  border-radius: 10px
+
+//.letter-item:first-child.checked-letter + .checked-letter
+//  border-radius: 12px 0 0 12px
+//
+//.letter-item:last-child.checked-letter + .checked-letter
+//  border-radius: 0 12px 12px 0
+//
+//.letter-item.checked-letter + .checked-letter ~ .letter-item.checked-letter + .checked-letter
+//  border-radius: 0
+
+//.letter-item:first-child.checked-letter
+//  border-radius: 12px 0 0 12px
+//
+//.letter-item:last-child.checked-letter
+//  border-radius: 0 12px 12px 0
+//
+//.letter-item.checked-letter + .letter-item.checked-letter
+//  border-radius: 0
+
+
+
 
 //.user
   //  height: 48px
