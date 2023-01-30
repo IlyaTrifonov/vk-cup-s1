@@ -15,7 +15,7 @@ import {LanguageContext} from '../../context/LanguageContext';
 const Navbar = () => {
 
   const {language} = useContext(LanguageContext);
-  const match = useMatch('/letter/:id');
+  const match = useMatch('/:folder/letter/:id');
   const navigate = useNavigate();
 
   return (

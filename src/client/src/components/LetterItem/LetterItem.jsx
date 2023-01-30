@@ -23,7 +23,7 @@ const LetterItem = React.forwardRef(({letter}, ref) => {
 
   return (
     <div className={`letter-item ${isCheckedLetter ? 'checked-letter' : ''}`}
-         onClick={() => router(`/letter/${letter.id}`)}
+         onClick={() => router(`letter/${letter.id}`)}
          ref={ref}
     >
       <ReadMark isRead={letter.read}/>
