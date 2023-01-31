@@ -1,0 +1,141 @@
+.compose-letter-popup__background
+  width: 100vw
+  height: 100vh
+  background: rgba(0, 0, 0, 0.48)
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  position: relative
+  .compose-letter-popup__container
+    --footerHeight: 68px
+
+    height: 90%
+    width: 100%
+    max-width: 880px
+    background-color: var(--colorBackgroundModal)
+    border-radius: 12px
+    overflow: hidden
+    position: relative
+    display: flex
+    flex-direction: column
+
+    .popup__controls
+      margin: 6px 16px
+
+    .popup__scroll-view
+      display: flex
+      flex-direction: column
+      height: calc(100% - var(--footerHeight))
+      overflow: auto
+      &::-webkit-scrollbar
+        width: 8px
+      &::-webkit-scrollbar-thumb
+        background: var(--octaviusColorContentScrollbarAlpha)
+        border-radius: 4px
+      &::-webkit-scrollbar-track
+        margin-top: 12px
+
+      .popup__scroll-view__head, .popup__scroll-view__subject
+        flex-shrink: 0
+        height: 48px
+        padding: 0 68px 0 20px
+        display: flex
+        align-items: center
+        position: relative
+        cursor: text
+        background-color: var(--colorBackgroundModal)
+        z-index: 2
+        .head__label, .subject__label
+          margin-right: 16px
+          color: #999
+          user-select: none
+
+        input
+          height: 20px
+          font-size: 15px
+          line-height: 20px
+          box-sizing: border-box
+          flex-grow: 1
+          border: none
+          outline: none
+          background: transparent
+          appearance: none
+          color: var(--colorTextPrimary)
+      .popup__scroll-view__head
+        &::after
+          content: ''
+          position: absolute
+          bottom: 0
+          width: calc(100% - 20px - 68px)
+          height: 1px
+          background-color: var(--colorSeparatorPrimaryAlpha)
+      .popup__scroll-view__subject
+        position: sticky
+        top: 0
+
+      .popup__scroll-view__attach
+        flex-shrink: 0
+        height: 48px
+        padding: 0 20px
+        margin-right: 48px
+        display: flex
+        align-items: center
+        position: relative
+        &::after
+          content: ''
+          position: absolute
+          top: 0
+          width: calc(100% - 40px)
+          height: 1px
+          background-color: var(--colorSeparatorPrimaryAlpha)
+
+      .popup__scroll-view__editor
+        flex-grow: 1
+        display: flex
+        flex-direction: column
+        .editor__toolbar
+          position: sticky
+          height: 48px
+          padding: 8px 10px
+          top: 48px
+          color: var(--colorTextPrimary)
+          background-color: var(--colorBackgroundModal)
+          display: flex
+          align-items: center
+          user-select: none
+          &::after
+            content: ''
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            height: 1px
+            background-color: var(--colorSeparatorPrimaryAlpha)
+        .editor__editable
+          flex-grow: 1
+          padding: 0 20px
+          cursor: text
+          background: var(--colorBackgroundEditor)
+          outline: none
+
+    .popup__footer
+      position: absolute
+      bottom: 0
+      left: 0
+      right: 0
+      height: var(--footerHeight)
+      display: flex
+      align-items: center
+      padding: 0 20px
+      .popup__footer__buttons
+        display: flex
+        gap: 8px
+      &::after
+        content: ''
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 1px
+        background-color: var(--colorSeparatorPrimaryAlpha)
