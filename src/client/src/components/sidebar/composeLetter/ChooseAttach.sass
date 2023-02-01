@@ -1,0 +1,83 @@
+.choose-attach-button
+  #file-input
+    display: none
+
+  .attach-preview
+    .attach-preview__thumbnails
+      display: flex
+      gap: 2px
+      flex-wrap: wrap
+      .thumbnail__item
+        position: relative
+        width: 104px
+        height: 112px
+        .thumbnail__item__item-container
+          margin: 8px 8px 8px 0
+          width: 96px
+          height: 96px
+          border-radius: 2px
+          overflow: hidden
+          position: relative
+          background: var(--colorBackgroundModalActive)
+          border: 1px solid var(--colorBoxShadowModalButton)
+          box-sizing: border-box
+          .thumbnail__item__item
+            width: 100%
+            height: 100%
+            object-fit: cover
+            user-select: none
+          .thumbnail__item__item-info
+            position: absolute
+            bottom: 0
+            left: 0
+            width: 100%
+            height: 44px
+            background: var(--backgroundAttachmentHover)
+            //background: rgba(0, 95, 249, 0.3)
+            //display: flex
+            display: none
+            flex-direction: row
+            align-items: center
+            padding-top: 12px
+            padding-left: 6px
+            // текст
+            color: var(--colorTextPrimary)
+            font-size: 15px
+            line-height: 20px
+            font-weight: 400
+        &:hover
+          .thumbnail__item__item-info
+            display: flex
+
+        .thumbnail__item__deselect
+          position: absolute
+          top: 0
+          right: 0
+          z-index: 1
+          width: 24px
+          height: 24px
+          box-sizing: border-box
+          //transform: translate(0, 0)
+          outline: none
+          border: none
+          background: var(--colorBackgroundModal)
+          fill: var(--colorTextPrimary)
+          display: flex
+          align-items: center
+          justify-content: center
+          box-shadow: inset 0 0 0 1px var(--colorBoxShadowModalButton)
+          border-radius: 12px
+          cursor: pointer
+
+    .attach-preview__info
+      padding-bottom: 8px
+      color: #999999
+      font-size: 13px
+      line-height: 20px
+      font-weight: 400
+      .attach-preview__info__delete-button
+        font-weight: bold
+        cursor: pointer
+        text-decoration: underline
+        &:hover
+          text-decoration: none

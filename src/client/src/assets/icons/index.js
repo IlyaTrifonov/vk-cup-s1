@@ -42,4 +42,5 @@ export const uiIcons = {
   read_on_mark: 'read_on_mark',
   empty_search_list: 'empty_search_list',
   download_alt: 'download_alt',
+  small_cross: 'small_cross',
 };

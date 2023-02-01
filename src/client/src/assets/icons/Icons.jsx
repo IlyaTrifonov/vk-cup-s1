@@ -5,7 +5,7 @@ import CategoriesIconsSVG from './flagsIconsSprite.svg';
 import UiIconsSVG from './uiIconsSprite.svg';
 import {bookmarkIcons, categoryIcons, folderIcons, uiIcons} from './index';
 
-const Icons = ({name, color, width, height, size, className}) => {
+const Icons = ({name, color, width, height, className}) => {
 
   let source = null;
   if (name in folderIcons) {

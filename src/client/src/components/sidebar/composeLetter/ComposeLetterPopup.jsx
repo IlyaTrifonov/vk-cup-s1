@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import './ComposeLetterPopup.sass';
 import ClosePopupButton from '../../UI/PopupControls/ClosePopupButton';
 import Button, {buttonTypes} from '../../UI/buttons/Button/Button';
-import {uiIcons} from '../../../assets/icons';
+import ChooseAttach from './ChooseAttach';
 
 const ComposeLetterPopup = ({closePopup}) => {
 
@@ -40,9 +40,7 @@ const ComposeLetterPopup = ({closePopup}) => {
           </label>
 
           <div className="popup__scroll-view__attach">
-            <Button type={buttonTypes.tertiary} icon={uiIcons.attach} size="20">
-              Прикрепить файл
-            </Button>
+            <ChooseAttach/>
           </div>
 
           <div className="popup__scroll-view__editor">
