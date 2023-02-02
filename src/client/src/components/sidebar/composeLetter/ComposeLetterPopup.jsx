@@ -46,9 +46,10 @@ const ComposeLetterPopup = ({closePopup}) => {
   }, []);
 
   return (
-    <div className="compose-letter-popup__background" onClick={closePopup}>
+    <div className="compose-letter-popup__background" onMouseDown={closePopup} /*onClick={closePopup}*/>
       <div className="compose-letter-popup__container"
-           onClick={(e) => e.stopPropagation()}>
+           onMouseDown={(e) => e.stopPropagation()}
+           /*onClick={(e) => e.stopPropagation()}*/>
         <ClosePopupButton closePopup={closePopup}/>
 
         <div className="popup__scroll-view">
