@@ -36,32 +36,109 @@
       &::-webkit-scrollbar-track
         margin-top: 12px
 
-      .popup__scroll-view__head, .popup__scroll-view__subject
+      .popup__scroll-view__head
         flex-shrink: 0
-        height: 48px
-        padding: 0 68px 0 20px
+        min-height: 48px
+        padding: 14px 68px 14px 20px
         display: flex
-        align-items: center
         position: relative
         cursor: text
         background-color: var(--colorBackgroundModal)
         z-index: 2
-        .head__label, .subject__label
+        .head__label
           margin-right: 16px
           color: #999
           user-select: none
-
-        input
-          height: 20px
-          font-size: 15px
+          font-size: 13px
           line-height: 20px
-          box-sizing: border-box
+          font-weight: 500
+        .head__recipients
           flex-grow: 1
-          border: none
-          outline: none
-          background: transparent
-          appearance: none
-          color: var(--colorTextPrimary)
+          display: flex
+          flex-wrap: wrap
+          position: relative
+          gap: 8px
+          .head__recipients__item
+            //margin-right: 8px
+            //margin-bottom: 8px
+            user-select: none
+            height: 24px
+            border-radius: 12px
+            box-sizing: border-box
+            display: flex
+            align-items: center
+            padding: 0 8px 0 12px
+            justify-content: center
+            gap: 8px
+            background: var(--colorBackgroundModalActiveAlpha)
+            cursor: default
+            .head__recipients__item__text
+              max-width: 150px
+              overflow: hidden
+              white-space: nowrap
+              text-overflow: ellipsis
+              font-size: 15px
+              line-height: 20px
+              font-weight: 400
+              color: var(--colorTextPrimary)
+            .head__recipients__item__deleteButton
+              border: none
+              outline: none
+              background: none
+              width: 20px
+              height: 20px
+              box-sizing: border-box
+              fill: #c7c7c7
+              cursor: pointer
+          .head__recipients__item.invalid-email
+            border: 1px solid #f10
+            background: transparent
+          .popup__scroll-view__input
+            flex-grow: 1
+            //background: blue
+            //margin-top: 2px
+            padding-top: 2px
+            min-width: 110px
+            max-width: 100%
+
+
+          //.input_div
+          //  flex-grow: 1
+          //  background: red
+          //  min-width: 200px
+          //  .popup__scroll-view__input
+              background: blue
+            //  flex-grow: 3
+
+      .popup__scroll-view__subject
+        flex-shrink: 0
+        height: 48px
+        padding: 14px 68px 14px 20px
+        display: flex
+        position: relative
+        cursor: text
+        background-color: var(--colorBackgroundModal)
+        z-index: 2
+        .subject__label
+          margin-right: 16px
+          color: #999
+          user-select: none
+          font-size: 13px
+          line-height: 20px
+          font-weight: 500
+
+      .popup__scroll-view__input
+        height: 20px
+        //width: 100%
+        font-size: 15px
+        line-height: 20px
+        box-sizing: border-box
+        flex-grow: 1
+        border: none
+        outline: none
+        background: transparent
+        appearance: none
+        color: var(--colorTextPrimary)
       .popup__scroll-view__head
         &::after
           content: ''
