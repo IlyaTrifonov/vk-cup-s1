@@ -44,3 +44,13 @@ export const uiIcons = {
   download_alt: 'download_alt',
   small_cross: 'small_cross',
 };
+
+export const editorUiIcons = {
+  editor_bold_icon: 'editor_bold_icon',
+  editor_italic_icon: 'editor_italic_icon',
+  editor_underline_icon: 'editor_underline_icon',
+  editor_strike_through_icon: 'editor_strike_through_icon',
+  editor_undo_icon: 'editor_undo_icon',
+  editor_redo_icon: 'editor_redo_icon',
+  editor_clear_format_icon: 'editor_clear_format_icon',
+};

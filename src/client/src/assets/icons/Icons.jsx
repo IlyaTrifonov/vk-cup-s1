@@ -3,9 +3,10 @@ import FolderIconsSVG from './folderIconsSprite.svg';
 import BookmarkIconsSVG from './bookmarkIconsSprite.svg';
 import CategoriesIconsSVG from './flagsIconsSprite.svg';
 import UiIconsSVG from './uiIconsSprite.svg';
-import {bookmarkIcons, categoryIcons, folderIcons, uiIcons} from './index';
+import EditorUiIconsSVG from './editorIconsSprite.svg';
+import {bookmarkIcons, categoryIcons, editorUiIcons, folderIcons, uiIcons} from './index';
 
-const Icons = ({name, color, width, height, className}) => {
+const Icons = ({name, /*color,*/ width, height, className}) => {
 
   let source = null;
   if (name in folderIcons) {
@@ -16,6 +17,8 @@ const Icons = ({name, color, width, height, className}) => {
     source = CategoriesIconsSVG;
   } else if (name in uiIcons) {
     source = UiIconsSVG;
+  } else if (name in editorUiIcons) {
+    source = EditorUiIconsSVG;
   }
 
   return (

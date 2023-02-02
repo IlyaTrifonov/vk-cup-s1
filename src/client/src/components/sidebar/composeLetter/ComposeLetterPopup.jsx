@@ -5,6 +5,7 @@ import Button, {buttonTypes} from '../../UI/buttons/Button/Button';
 import ChooseAttach from './ChooseAttach';
 import {uiIcons} from '../../../assets/icons';
 import Icons from '../../../assets/icons/Icons';
+import WysiwygEditor from './editor/WysiwygEditor';
 
 const ComposeLetterPopup = ({closePopup}) => {
 
@@ -90,14 +91,7 @@ const ComposeLetterPopup = ({closePopup}) => {
             <ChooseAttach/>
           </div>
 
-          <div className="popup__scroll-view__editor">
-            <div className="editor__toolbar">тут типо тулбар редактора</div>
-            <div className="editor__editable"
-                 contentEditable
-                 suppressContentEditableWarning>
-              а тут типо редактор уже
-            </div>
-          </div>
+          <WysiwygEditor/>
 
         </div>
 
