@@ -52,6 +52,7 @@ try {
   fs.mkdirSync('./files');
   fs.mkdirSync('./files/attachments');
   fs.mkdirSync('./files/avatars');
+  fs.mkdirSync('./files/userFiles');
   console.log('Папки ресурсов созданы.');
 } catch (err) {
   console.error('Ошибка создания папок ресурсов:', err.message);
@@ -177,6 +178,7 @@ const mimeTypes = {
 const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Expose-Headers', '*');
+  res.setHeader('Access-Control-Allow-Methods', '*');
 
   console.log('');
   console.log(`Request (${req.method}):`, req.url);
@@ -304,15 +306,88 @@ const server = http.createServer((req, res) => {
         });
         break;
       }
-      // /backend/api/save-letter
+        // /backend/api/save-letter
       case 'api': {
         if (req.method === 'POST' && req.url === '/backend/api/save-letter') {
-          console.log(req.url);
+          console.log('Вошли в проверку');
+          let body = '';
 
+          req.on('data', chunk => {
+            body += chunk.toString();
+          });
+
+          req.on('end', async () => {
+            let letterData = JSON.parse(body);
+
+            // Do something with the data, like saving it to a database
+            // console.log(`Received data: ${data.content}`);
+
+            const letterIndex = data.length;
+            letterData = {...letterData, id: letterIndex}
+
+            console.log('Собрали письмо');
+
+            data.push(letterData);
+
+            console.log('Добавили письмо');
+
+            data.sort(sortFunctionByDate).reverse();
+
+
+            res.statusCode = 200;
+            // res.setHeader('Content-Type', 'application/json');
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify({ status: 'success' }));
+          });
+        } else {
+          res.statusCode = 404;
+          res.end();
+
+/*
+          let body = '';
+          req.on('data', (chunk) => {
+            body += chunk;
+          });
+          req.on('end', () => {
+            console.log('Данные пришли!');
+            const boundary = /^multipart\/.+?(?:; boundary=(?:(?:"(.+)")|(?:([^\s]+))))$/i.exec(
+              req.headers['content-type']
+            );
+            const data = {};
+            body.split('--' + boundary[1]).forEach((part) => {
+              if (part.length === 0) return;
+              const m = /\r\nContent-Disposition:.+?name="(\w+)"(?:; filename="(.+)")?\r\n\r\n([\s\S]+)\r\n/g.exec(
+                part
+              );
+              if (!m) return;
+              if (m[1] === 'data') {
+                // data[m[1]] = JSON.parse(m[3]);
+                console.log('JSON получен');
+              } else {
+                data[m[1]] = {filename: m[2], data: m[3]};
+                console.log('Картинка получена');
+              }
+            });
+
+            // Write image to disk
+            if (data.images) {
+              fs.writeFileSync(`/files/userFiles/${data.images.filename}`, data.images.data, 'binary');
+              console.log('Картинка сохранена!');
+            } else {
+              console.log('Картинка не сохранена');
+            }
+
+
+            // console.log(data.data);
+
+            // Send response to client
+            res.end('File uploaded');
+          });
+        } else {
+          res.statusCode = 404;
+          res.end();
+*/
         }
-        res.writeHead(200, {'Content-Type': 'application/json'});
-        res.write(JSON.stringify({ status: 'success' }));
-        return res.end();
         break;
       }
       case 'letter': {

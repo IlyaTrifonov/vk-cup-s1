@@ -11,7 +11,7 @@ import SmallPopup from './SmallPopup/SmallPopup';
 
 const ComposeLetterPopup = ({closePopup}) => {
 
-  const {composeLetter, setComposeLetter} = useContext(MailContext);
+  const {composeLetter, setComposeLetter, sendLetter} = useContext(MailContext);
 
   const [inputRecipient, setInputRecipient] = useState('');
 
@@ -22,7 +22,7 @@ const ComposeLetterPopup = ({closePopup}) => {
     event.preventDefault();
     const trimmedRecipient = inputRecipient.trim();
     if (trimmedRecipient) {
-      setComposeLetter({...composeLetter, recipients: [...composeLetter.recipients, trimmedRecipient]});
+      setComposeLetter({...composeLetter, recipients: [...composeLetter.recipients, {email: trimmedRecipient}]});
     }
     setInputRecipient('');
   };
@@ -41,7 +41,7 @@ const ComposeLetterPopup = ({closePopup}) => {
   const [popup, setPopup] = useState(null);
 
   const sendButtonHandler = () => {
-    if (composeLetter.recipients.some((recipient) => !isValidEmail(recipient))
+    if (composeLetter.recipients.some((recipient) => !isValidEmail(recipient.email))
       || composeLetter.recipients.length < 1) {
       setPopup({
         errorTitle: 'Присутствуют некорректные адреса',
@@ -59,6 +59,8 @@ const ComposeLetterPopup = ({closePopup}) => {
       return;
     }
     // TODO Отправляем
+    sendLetter();
+    closePopup();
   };
 
   useEffect(() => {
@@ -88,9 +90,9 @@ const ComposeLetterPopup = ({closePopup}) => {
               <span className="head__label">Кому</span>
               <div className="head__recipients">
                 {composeLetter.recipients.map((recipient, index) => (
-                  <div className={`head__recipients__item ${!isValidEmail(recipient) && 'invalid-email'}`}
+                  <div className={`head__recipients__item ${!isValidEmail(recipient.email) && 'invalid-email'}`}
                        key={index}>
-                    <span className="head__recipients__item__text">{recipient}</span>
+                    <span className="head__recipients__item__text">{recipient.email}</span>
                     <button className="head__recipients__item__deleteButton"
                             type="button"
                             onClick={() => handleDelete(index)}>

@@ -113,12 +113,39 @@ const MailProvider = ({children}) => {
 
   const [composeLetter, setComposeLetter] = useState(initialComposeLetterState);
 
+  const [sendLetter, letterIsSending, letterSendingError] = useFetching(async () => {
+
+    // console.log(composeLetter.content);
+
+    const letterData = {
+      author: {
+        name: 'Илья',
+        surname: 'Трифонов',
+      },
+      to: composeLetter.recipients,
+      title: composeLetter.subject,
+      text: composeLetter.content,
+      bookmark: false,
+      important: false,
+      read: false,
+      folder: 'Отправленные',
+      date: new Date().toISOString(),
+    };
+    // console.log(letterData);
+    // console.log(composeLetter.attachments);
+
+    // const response = await MailService.sendLetter(letterData, composeLetter.attachments);
+    const response = await MailService.sendLetterWithoutPicture(letterData);
+    // setComposeLetter(initialComposeLetterState);
+  });
+
   return (
     <MailContext.Provider
       value={{
         letters, getLetters, isLettersLoading,
         filters, setFilterByName, filterButtonName, isNoMoreLetters,
         composeLetter, setComposeLetter,
+        sendLetter,
       }}
     >
       {children}

@@ -44,14 +44,31 @@ export default class MailService {
     return response;
   }
 
-  static async saveLetter(letter) {
+  static async sendLetterWithoutPicture(letter) {
     const queryURL = `${MailService.url}/backend/api/save-letter`;
     const response = await fetch(queryURL, {
       method: 'POST',
+      /*
       headers: {
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
+        // accept: 'application/json',
       },
+*/
       body: JSON.stringify(letter),
+    });
+    return response;
+  }
+
+  static async sendLetter(letterData, images) {
+    const queryURL = `${MailService.url}/backend/api/save-letter`;
+    const formData = new FormData();
+    images.forEach((image) => {
+      formData.append('images', image);
+    });
+    formData.append('data', JSON.stringify(letterData));
+    const response = await fetch(queryURL, {
+      method: 'POST',
+      body: formData,
     });
     return response;
   }
