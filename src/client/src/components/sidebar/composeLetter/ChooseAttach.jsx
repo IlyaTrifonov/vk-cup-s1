@@ -5,16 +5,30 @@ import './ChooseAttach.sass';
 import Icons from '../../../assets/icons/Icons';
 import AttachmentService from '../../../api/AttachmentService';
 import {MailContext} from '../../../context/MailContext';
+import {LanguageContext} from '../../../context/LanguageContext';
 
 const ChooseAttach = () => {
 
   const {composeLetter, setComposeLetter} = useContext(MailContext);
+  const {language} = useContext(LanguageContext);
 
-  const variants = ['файл', 'файла', 'файлов'];
-  const chooseWordForm = (number, variants) => {
-    const cases = [2, 0, 1, 1, 1, 2];
-    const index = (number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5];
-    return variants[index];
+  const variants = [
+    language.letterCompose.attaches.file,
+    language.letterCompose.attaches.files,
+    language.letterCompose.attaches.files2,
+  ];
+  const chooseWordForm = (number) => {
+    if (language.languageName === 'ru') {
+      const cases = [2, 0, 1, 1, 1, 2];
+      const index = (number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5];
+      return variants[index];
+    } else {
+      if (number > 1) {
+        return language.letterCompose.attaches.files;
+      } else {
+        return language.letterCompose.attaches.file;
+      }
+    }
   };
 
   const handleInputChange = (e) => {
@@ -40,7 +54,7 @@ const ChooseAttach = () => {
               icon={uiIcons.attach}
               size="20"
               onClick={() => document.getElementById('file-input').click()}>
-        Прикрепить файл
+        {language.letterCompose.attachFileButtonName}
       </Button>
       <input type="file"
              id="file-input"
@@ -75,11 +89,11 @@ const ChooseAttach = () => {
 
         {composeLetter.attachments.length > 0 && (
           <div className="attach-preview__info">
-            <span>{composeLetter.attachments.length} {chooseWordForm(composeLetter.attachments.length, variants)}, </span>
+            <span>{composeLetter.attachments.length} {chooseWordForm(composeLetter.attachments.length)}, </span>
             <span>({AttachmentService.getHumanFileSize(composeLetter.attachments.reduce((acc, curr) => acc + curr.size, 0))}) </span>
             <span onClick={handleDeleteAll}
                   className="attach-preview__info__delete-button">
-              удалить все
+              {language.letterCompose.deleteAllButtonName}
             </span>
           </div>
         )}

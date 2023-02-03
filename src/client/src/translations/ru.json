@@ -45,6 +45,36 @@
     },
     "letterToWord": "Кому: "
   },
+  "letterCompose": {
+    "head": "Кому",
+    "subject": "Тема",
+    "attachFileButtonName": "Прикрепить файл",
+    "sendButtonName": "Отправить",
+    "cancelButtonName": "Отменить",
+    "deleteAllButtonName": "удалить все",
+    "attaches": {
+      "file": "файл",
+      "files": "файла",
+      "files2": "файлов"
+    },
+    "popups": {
+      "invalidEmail": {
+        "errorTitle": "Присутствуют некорректные адреса",
+        "errorMessage": "Исправьте и попробуйте отправить заново",
+        "buttonText": "Исправить письмо"
+      },
+      "invalidSubject": {
+        "errorTitle": "Отсутствует тема",
+        "errorMessage": "Исправьте и попробуйте отправить заново",
+        "buttonText": "Исправить письмо"
+      },
+      "success": {
+        "errorTitle": "Письмо отправлено",
+        "errorMessage": "Проверьте папку отправленные",
+        "buttonText": "Ок"
+      }
+    }
+  },
   "common": {
     "months": {
       "january": "Январь",

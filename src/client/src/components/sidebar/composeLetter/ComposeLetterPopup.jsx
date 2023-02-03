@@ -8,10 +8,12 @@ import Icons from '../../../assets/icons/Icons';
 import WysiwygEditor from './editor/WysiwygEditor';
 import {initialComposeLetterState, isValidEmail, MailContext} from '../../../context/MailContext';
 import SmallPopup from './SmallPopup/SmallPopup';
+import {LanguageContext} from '../../../context/LanguageContext';
 
 const ComposeLetterPopup = ({closePopup}) => {
 
   const {composeLetter, setComposeLetter, sendLetter} = useContext(MailContext);
+  const {language} = useContext(LanguageContext);
 
   const [inputRecipient, setInputRecipient] = useState('');
 
@@ -44,27 +46,27 @@ const ComposeLetterPopup = ({closePopup}) => {
     if (composeLetter.recipients.some((recipient) => !isValidEmail(recipient.email))
       || composeLetter.recipients.length < 1) {
       setPopup({
-        errorTitle: 'Присутствуют некорректные адреса',
-        errorMessage: 'Исправьте и попробуйте отправить заново',
-        buttonText: 'Исправить письмо',
+        errorTitle: language.letterCompose.popups.invalidEmail.errorTitle,
+        errorMessage: language.letterCompose.popups.invalidEmail.errorMessage,
+        buttonText: language.letterCompose.popups.invalidEmail.buttonText,
         closePopup: () => setPopup(null),
       });
       return;
     }
     if (composeLetter.subject.trim().length < 1) {
       setPopup({
-        errorTitle: 'Отсутствует тема',
-        errorMessage: 'Исправьте и попробуйте отправить заново',
-        buttonText: 'Исправить письмо',
+        errorTitle: language.letterCompose.popups.invalidSubject.errorTitle,
+        errorMessage: language.letterCompose.popups.invalidSubject.errorMessage,
+        buttonText: language.letterCompose.popups.invalidSubject.buttonText,
         closePopup: () => setPopup(null),
       });
       return;
     }
     sendLetter();
     setPopup({
-      errorTitle: 'Письмо отправлено',
-      errorMessage: 'Проверьте папку отправленные',
-      buttonText: 'Ок',
+      errorTitle: language.letterCompose.popups.success.errorTitle,
+      errorMessage: language.letterCompose.popups.success.errorMessage,
+      buttonText: language.letterCompose.popups.success.buttonText,
       closePopup: () => {
         setPopup(null);
         closePopup();
@@ -96,7 +98,7 @@ const ComposeLetterPopup = ({closePopup}) => {
 
           <form onSubmit={handleSubmit}>
             <label className="popup__scroll-view__head" htmlFor="head">
-              <span className="head__label">Кому</span>
+              <span className="head__label">{language.letterCompose.head}</span>
               <div className="head__recipients">
                 {composeLetter.recipients.map((recipient, index) => (
                   <div className={`head__recipients__item ${!isValidEmail(recipient.email) && 'invalid-email'}`}
@@ -124,7 +126,7 @@ const ComposeLetterPopup = ({closePopup}) => {
           </form>
 
           <label className="popup__scroll-view__subject" htmlFor="subject">
-            <span className="subject__label">Тема</span>
+            <span className="subject__label">{language.letterCompose.subject}</span>
             <input type="text"
                    id="subject"
                    className="popup__scroll-view__input"
@@ -144,10 +146,10 @@ const ComposeLetterPopup = ({closePopup}) => {
           <div className="popup__footer__buttons">
             <Button type={buttonTypes.accent}
                     onClick={sendButtonHandler}>
-              Отправить
+              {language.letterCompose.sendButtonName}
             </Button>
             <Button type={buttonTypes.secondary} onClick={cancelButtonHandler}>
-              Отменить
+              {language.letterCompose.cancelButtonName}
             </Button>
           </div>
         </div>

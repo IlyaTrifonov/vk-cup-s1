@@ -45,6 +45,35 @@
     },
     "letterToWord": "To: "
   },
+  "letterCompose": {
+    "head": "To",
+    "subject": "Subject",
+    "attachFileButtonName": "Attach file",
+    "sendButtonName": "Send",
+    "cancelButtonName": "Cancel",
+    "deleteAllButtonName": "delete all",
+    "attaches": {
+      "file": "file",
+      "files": "files"
+    },
+    "popups": {
+      "invalidEmail": {
+        "errorTitle": "Invalid email",
+        "errorMessage": "Please fix and try again",
+        "buttonText": "Fix the letter"
+      },
+      "invalidSubject": {
+        "errorTitle": "Email subject missing",
+        "errorMessage": "Please fix and try again",
+        "buttonText": "Fix the letter"
+      },
+      "success": {
+        "errorTitle": "The letter has been sent",
+        "errorMessage": "Check your sent folder",
+        "buttonText": "Ok"
+      }
+    }
+  },
   "common": {
     "months": {
       "january": "January",
