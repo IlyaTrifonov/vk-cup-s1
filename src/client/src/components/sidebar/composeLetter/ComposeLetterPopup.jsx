@@ -7,6 +7,7 @@ import {uiIcons} from '../../../assets/icons';
 import Icons from '../../../assets/icons/Icons';
 import WysiwygEditor from './editor/WysiwygEditor';
 import {initialComposeLetterState, isValidEmail, MailContext} from '../../../context/MailContext';
+import SmallPopup from './SmallPopup/SmallPopup';
 
 const ComposeLetterPopup = ({closePopup}) => {
 
@@ -17,7 +18,6 @@ const ComposeLetterPopup = ({closePopup}) => {
   const subjectHandler = (event) => {
     setComposeLetter({...composeLetter, subject: event.target.value});
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const trimmedRecipient = inputRecipient.trim();
@@ -36,6 +36,29 @@ const ComposeLetterPopup = ({closePopup}) => {
   const cancelButtonHandler = () => {
     closePopup();
     setComposeLetter(initialComposeLetterState);
+  };
+
+  const [popup, setPopup] = useState(null);
+
+  const sendButtonHandler = () => {
+    if (composeLetter.recipients.some((recipient) => !isValidEmail(recipient))
+      || composeLetter.recipients.length < 1) {
+      setPopup({
+        errorTitle: 'Присутствуют некорректные адреса',
+        errorMessage: 'Исправьте и попробуйте отправить заново',
+        buttonText: 'Исправить письмо',
+      });
+      return;
+    }
+    if (composeLetter.subject.trim().length < 1) {
+      setPopup({
+        errorTitle: 'Отсутствует тема',
+        errorMessage: 'Исправьте и попробуйте отправить заново',
+        buttonText: 'Исправить письмо',
+      });
+      return;
+    }
+    // TODO Отправляем
   };
 
   useEffect(() => {
@@ -109,9 +132,7 @@ const ComposeLetterPopup = ({closePopup}) => {
         <div className="popup__footer">
           <div className="popup__footer__buttons">
             <Button type={buttonTypes.accent}
-                    onClick={() =>
-                      console.log('Отправляем письмо')
-                    }>
+                    onClick={sendButtonHandler}>
               Отправить
             </Button>
             <Button type={buttonTypes.secondary} onClick={cancelButtonHandler}>
@@ -119,8 +140,10 @@ const ComposeLetterPopup = ({closePopup}) => {
             </Button>
           </div>
         </div>
-
       </div>
+      {popup &&
+        <SmallPopup closePopup={() => setPopup(null)} popup={popup}/>
+      }
     </div>
   );
 };
