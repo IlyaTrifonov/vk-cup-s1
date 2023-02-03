@@ -173,6 +173,9 @@ const sanitize = (content) => {
   return content;
 };
 
+const htmlToText = (htmlString) => {
+  return htmlString.replace(/<[^>]+>/g, '');
+};
 
 // Папки на клиенте
 const folders = {
@@ -378,7 +381,7 @@ const server = http.createServer((req, res) => {
               letterData = {
                 ...letterData,
                 to: null,
-                text: letterData.text.slice(0, 100),
+                text: htmlToText(letterData.text).slice(0, 100),
               }
 
               hotData.push(letterData);
