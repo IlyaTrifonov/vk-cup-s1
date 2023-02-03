@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {MailContext, noFilterKey} from '../context/MailContext';
+import {initialComposeLetterState, MailContext, noFilterKey} from '../context/MailContext';
 import {useFetching} from '../hooks/useFetching';
 import MailService from '../api/MailService';
 import {bookmarkIcons, uiIcons} from '../assets/icons';
@@ -82,16 +82,12 @@ const MailProvider = ({children}) => {
       const response = await MailService.getLettersFromFolder(folder, limit, 0, filtersValues);
       const lettersTotalCount = response.headers.get('x-total-letters-count');
       const data = await response.json();
-
-      // console.log(data.length.toString(), lettersTotalCount, data.length.toString() === lettersTotalCount);
       setIsNoMoreLetters(data.length.toString() === lettersTotalCount);
       setLetters(data);
     } else {
       const response = await MailService.getLettersFromFolder(folder, limit, letters.length, filtersValues);
       const lettersTotalCount = response.headers.get('x-total-letters-count');
       const data = await response.json();
-
-      // console.log((letters.length + data.length).toString(), lettersTotalCount, (letters.length + data.length).toString() === lettersTotalCount);
       setIsNoMoreLetters((letters.length + data.length).toString() === lettersTotalCount);
       setLetters([...letters, ...data]);
     }
@@ -115,9 +111,15 @@ const MailProvider = ({children}) => {
     setFilters(filtersInit);
   }, [language]);
 
+  const [composeLetter, setComposeLetter] = useState(initialComposeLetterState);
+
   return (
     <MailContext.Provider
-      value={{letters, getLetters, filters, setFilterByName, filterButtonName, isNoMoreLetters, isLettersLoading}}
+      value={{
+        letters, getLetters, isLettersLoading,
+        filters, setFilterByName, filterButtonName, isNoMoreLetters,
+        composeLetter, setComposeLetter,
+      }}
     >
       {children}
     </MailContext.Provider>

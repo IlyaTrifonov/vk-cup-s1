@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import Button, {buttonTypes} from '../../UI/buttons/Button/Button';
 import {uiIcons} from '../../../assets/icons';
 import './ChooseAttach.sass';
 import Icons from '../../../assets/icons/Icons';
 import AttachmentService from '../../../api/AttachmentService';
+import {MailContext} from '../../../context/MailContext';
 
 const ChooseAttach = () => {
+
+  const {composeLetter, setComposeLetter} = useContext(MailContext);
 
   const variants = ['файл', 'файла', 'файлов'];
   const chooseWordForm = (number, variants) => {
@@ -14,23 +17,21 @@ const ChooseAttach = () => {
     return variants[index];
   };
 
-  const [images, setImages] = useState([]);
-
   const handleInputChange = (e) => {
     const acceptedFiles = Array.from(e.target.files).filter((file) =>
       /\.(jpe?g|png)$/i.test(file.name)
     );
-    setImages([...images, ...acceptedFiles]);
+    setComposeLetter({...composeLetter, attachments: [...composeLetter.attachments, ...acceptedFiles]});
   };
 
   const handleDeselect = (index) => {
-    const newImages = [...images];
-    newImages.splice(index, 1);
-    setImages(newImages);
+    const newComposeAttachments = [...composeLetter.attachments];
+    newComposeAttachments.splice(index, 1);
+    setComposeLetter({...composeLetter, attachments: newComposeAttachments});
   };
 
   const handleDeleteAll = () => {
-    setImages([]);
+    setComposeLetter({...composeLetter, attachments: []});
   };
 
   return (
@@ -49,7 +50,7 @@ const ChooseAttach = () => {
 
       <div className="attach-preview">
         <div className="attach-preview__thumbnails">
-          {images.map((image, index) => (
+          {composeLetter.attachments.map((image, index) => (
             <div key={index} className="thumbnail__item">
               <div className="thumbnail__item__item-container">
                 <img src={URL.createObjectURL(image)}
@@ -72,10 +73,10 @@ const ChooseAttach = () => {
           ))}
         </div>
 
-        {images.length > 0 && (
+        {composeLetter.attachments.length > 0 && (
           <div className="attach-preview__info">
-            <span>{images.length} {chooseWordForm(images.length, variants)}, </span>
-            <span>({AttachmentService.getHumanFileSize(images.reduce((acc, curr) => acc + curr.size, 0))}) </span>
+            <span>{composeLetter.attachments.length} {chooseWordForm(composeLetter.attachments.length, variants)}, </span>
+            <span>({AttachmentService.getHumanFileSize(composeLetter.attachments.reduce((acc, curr) => acc + curr.size, 0))}) </span>
             <span onClick={handleDeleteAll}
                   className="attach-preview__info__delete-button">
               удалить все
