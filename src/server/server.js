@@ -339,86 +339,86 @@ const server = http.createServer((req, res) => {
         // /backend/api/save-letter
       case 'api': {
         if (req.method === 'POST' && req.url === '/backend/api/save-letter') {
-          let body = '';
+          try {
+            let body = '';
 
-          req.on('data', chunk => {
-            body += chunk.toString();
-          });
-
-          req.on('end', async () => {
-            let letterData = JSON.parse(body);
-
-            // Do something with the data, like saving it to a database
-
-            const decoder = new TextDecoder();
-            letterData = {
-              ...letterData,
-              title: sanitize(decoder.decode(new Uint8Array(Object.values(letterData.title)).buffer)),
-              text: sanitize(decoder.decode(new Uint8Array(Object.values(letterData.text)).buffer)),
-            }
-
-            const letterIndex = data.length;
-            letterData = {...letterData, id: letterIndex}
-
-            data.push(letterData);
-            data.sort(sortFunctionByDate).reverse();
-
-
-            // res.statusCode = 200;
-            // res.setHeader('Content-Type', 'application/json');
-            res.writeHead(200, {'Content-Type': 'application/json'});
-            res.end(JSON.stringify({ status: 'success' }));
-          });
-        } else {
-          res.statusCode = 404;
-          res.end();
-
-/*
-          let body = '';
-          req.on('data', (chunk) => {
-            body += chunk;
-          });
-          req.on('end', () => {
-            console.log('Данные пришли!');
-            const boundary = /^multipart\/.+?(?:; boundary=(?:(?:"(.+)")|(?:([^\s]+))))$/i.exec(
-              req.headers['content-type']
-            );
-            const data = {};
-            body.split('--' + boundary[1]).forEach((part) => {
-              if (part.length === 0) return;
-              const m = /\r\nContent-Disposition:.+?name="(\w+)"(?:; filename="(.+)")?\r\n\r\n([\s\S]+)\r\n/g.exec(
-                part
-              );
-              if (!m) return;
-              if (m[1] === 'data') {
-                // data[m[1]] = JSON.parse(m[3]);
-                console.log('JSON получен');
-              } else {
-                data[m[1]] = {filename: m[2], data: m[3]};
-                console.log('Картинка получена');
-              }
+            req.on('data', chunk => {
+              body += chunk.toString();
             });
 
-            // Write image to disk
-            if (data.images) {
-              fs.writeFileSync(`/files/userFiles/${data.images.filename}`, data.images.data, 'binary');
-              console.log('Картинка сохранена!');
-            } else {
-              console.log('Картинка не сохранена');
-            }
+            req.on('end', async () => {
+              let letterData = JSON.parse(body);
 
+              const decoder = new TextDecoder();
+              letterData = {
+                ...letterData,
+                title: sanitize(decoder.decode(new Uint8Array(Object.values(letterData.title)).buffer)),
+                text: sanitize(decoder.decode(new Uint8Array(Object.values(letterData.text)).buffer)),
+              }
 
-            // console.log(data.data);
+              const letterIndex = data.length;
+              letterData = {...letterData, id: letterIndex}
 
-            // Send response to client
-            res.end('File uploaded');
-          });
+              data.push(letterData);
+              data.sort(sortFunctionByDate).reverse();
+
+              res.writeHead(200, {'Content-Type': 'application/json'});
+              res.end(JSON.stringify({status: 'success'}));
+            });
+          } catch (e) {
+            console.error(e);
+            res.statusCode = 500;
+            res.end();
+          }
         } else {
           res.statusCode = 404;
           res.end();
-*/
         }
         break;
+        /*
+                  let body = '';
+                  req.on('data', (chunk) => {
+                    body += chunk;
+                  });
+                  req.on('end', () => {
+                    console.log('Данные пришли!');
+                    const boundary = /^multipart\/.+?(?:; boundary=(?:(?:"(.+)")|(?:([^\s]+))))$/i.exec(
+                      req.headers['content-type']
+                    );
+                    const data = {};
+                    body.split('--' + boundary[1]).forEach((part) => {
+                      if (part.length === 0) return;
+                      const m = /\r\nContent-Disposition:.+?name="(\w+)"(?:; filename="(.+)")?\r\n\r\n([\s\S]+)\r\n/g.exec(
+                        part
+                      );
+                      if (!m) return;
+                      if (m[1] === 'data') {
+                        // data[m[1]] = JSON.parse(m[3]);
+                        console.log('JSON получен');
+                      } else {
+                        data[m[1]] = {filename: m[2], data: m[3]};
+                        console.log('Картинка получена');
+                      }
+                    });
+
+                    // Write image to disk
+                    if (data.images) {
+                      fs.writeFileSync(`/files/userFiles/${data.images.filename}`, data.images.data, 'binary');
+                      console.log('Картинка сохранена!');
+                    } else {
+                      console.log('Картинка не сохранена');
+                    }
+
+
+                    // console.log(data.data);
+
+                    // Send response to client
+                    res.end('File uploaded');
+                  });
+                } else {
+                  res.statusCode = 404;
+                  res.end();
+        */
       }
       case 'letter': {
         const letterNumber = newPathArr[2];
