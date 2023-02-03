@@ -83,7 +83,7 @@ const MailProvider = ({children}) => {
       const lettersTotalCount = response.headers.get('x-total-letters-count');
       const data = await response.json();
 
-      console.log(data.length.toString(), lettersTotalCount, data.length.toString() === lettersTotalCount);
+      // console.log(data.length.toString(), lettersTotalCount, data.length.toString() === lettersTotalCount);
       setIsNoMoreLetters(data.length.toString() === lettersTotalCount);
       setLetters(data);
     } else {
@@ -91,7 +91,7 @@ const MailProvider = ({children}) => {
       const lettersTotalCount = response.headers.get('x-total-letters-count');
       const data = await response.json();
 
-      console.log((letters.length + data.length).toString(), lettersTotalCount, (letters.length + data.length).toString() === lettersTotalCount);
+      // console.log((letters.length + data.length).toString(), lettersTotalCount, (letters.length + data.length).toString() === lettersTotalCount);
       setIsNoMoreLetters((letters.length + data.length).toString() === lettersTotalCount);
       setLetters([...letters, ...data]);
     }

@@ -34,7 +34,7 @@ const WysiwygEditor = () => {
         <div><br/></div>
         <div>——</div>
         <div>Илья Трифонов</div>
-        <div><a href="mailto:ilya.trifonov.official@vk.com">ilya.trifonov.official@vk.com</a></div>
+        <div>ilya.trifonov.official@vk.com</div>
         <div>Отправлено из почты VK Cup</div>
       </div>
     </div>
