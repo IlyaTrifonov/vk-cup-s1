@@ -115,8 +115,6 @@ const MailProvider = ({children}) => {
 
   const [sendLetter, letterIsSending, letterSendingError] = useFetching(async () => {
 
-    // console.log(composeLetter.content);
-
     const encoder = new TextEncoder();
 
     const letterData = {
@@ -126,19 +124,14 @@ const MailProvider = ({children}) => {
       },
       to: composeLetter.recipients,
       title: encoder.encode(composeLetter.subject),
-      // title: composeLetter.subject,
       text: encoder.encode(composeLetter.content),
-      // text: composeLetter.content,
       bookmark: false,
       important: false,
       read: false,
       folder: 'Отправленные',
       date: new Date().toISOString(),
     };
-    // console.log(letterData);
-    // console.log(composeLetter.attachments);
 
-    // const response = await MailService.sendLetter(letterData, composeLetter.attachments);
     const response = await MailService.sendLetterWithoutPicture(letterData);
     setComposeLetter(initialComposeLetterState);
   });
