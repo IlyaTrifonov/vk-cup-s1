@@ -12,10 +12,12 @@ const IS_PRODUCTION = false;
 * Блок чтения входного файла с письмами, создание папок.
 * */
 
-let data;
+let hotData;
+let coldData = {};
+
 try {
   const rawData = fs.readFileSync('db.json');
-  data = JSON.parse(rawData);
+  hotData = JSON.parse(rawData);
 } catch (err) {
   if (err.code === 'ENOENT') {
     console.error('Ошибка! Файл db.json не найден!');
@@ -94,7 +96,7 @@ const sortFunctionByDate = (a, b) => {
 * Обработка данных писем, создание файлов влжений и ссылок на них
 * */
 
-data.forEach((letter, index) => {
+hotData.forEach((letter, index) => {
   letter.id = index;
   if (letter.hasOwnProperty('doc')) {
     const docImg = letter.doc.img;
@@ -123,9 +125,18 @@ data.forEach((letter, index) => {
     if (letter.flag === 'Путешевствия')
       letter.flag = 'Путешествия'; // Какие данные дали, так и адаптируемся)))
   }
+
+  coldData[index] = {
+    to: letter.to,
+    text: letter.text
+  }
+
+  letter.text = letter.text.slice(0, 100);
+  letter.to = null
+
 });
 console.log('Ресурсы созданы и помещены в папки.');
-data.sort(sortFunctionByDate).reverse();
+hotData.sort(sortFunctionByDate).reverse();
 console.log('Письма обработаны и отсортированы.');
 
 
@@ -271,9 +282,9 @@ const server = http.createServer((req, res) => {
         res.setHeader('x-folder', path1);
         // В папку входящие(inbox) попадают все письма у которых нет поля folder
         if (path1 === 'inbox') {
-          myData = data.filter(letter => !letter.hasOwnProperty('folder'));
+          myData = hotData.filter(letter => !letter.hasOwnProperty('folder'));
         } else {
-          myData = data.filter(letter => letter.folder === folders[path1]);
+          myData = hotData.filter(letter => letter.folder === folders[path1]);
         }
 
         if (isUnread) {
@@ -356,11 +367,22 @@ const server = http.createServer((req, res) => {
                 text: sanitize(decoder.decode(new Uint8Array(Object.values(letterData.text)).buffer)),
               }
 
-              const letterIndex = data.length;
+              const letterIndex = hotData.length;
               letterData = {...letterData, id: letterIndex}
 
-              data.push(letterData);
-              data.sort(sortFunctionByDate).reverse();
+              coldData[letterIndex] = {
+                to: letterData.to,
+                text: letterData.text,
+              }
+
+              letterData = {
+                ...letterData,
+                to: null,
+                text: letterData.text.slice(0, 100),
+              }
+
+              hotData.push(letterData);
+              hotData.sort(sortFunctionByDate).reverse();
 
               res.writeHead(200, {'Content-Type': 'application/json'});
               res.end(JSON.stringify({status: 'success'}));
@@ -375,56 +397,12 @@ const server = http.createServer((req, res) => {
           res.end();
         }
         break;
-        /*
-                  let body = '';
-                  req.on('data', (chunk) => {
-                    body += chunk;
-                  });
-                  req.on('end', () => {
-                    console.log('Данные пришли!');
-                    const boundary = /^multipart\/.+?(?:; boundary=(?:(?:"(.+)")|(?:([^\s]+))))$/i.exec(
-                      req.headers['content-type']
-                    );
-                    const data = {};
-                    body.split('--' + boundary[1]).forEach((part) => {
-                      if (part.length === 0) return;
-                      const m = /\r\nContent-Disposition:.+?name="(\w+)"(?:; filename="(.+)")?\r\n\r\n([\s\S]+)\r\n/g.exec(
-                        part
-                      );
-                      if (!m) return;
-                      if (m[1] === 'data') {
-                        // data[m[1]] = JSON.parse(m[3]);
-                        console.log('JSON получен');
-                      } else {
-                        data[m[1]] = {filename: m[2], data: m[3]};
-                        console.log('Картинка получена');
-                      }
-                    });
-
-                    // Write image to disk
-                    if (data.images) {
-                      fs.writeFileSync(`/files/userFiles/${data.images.filename}`, data.images.data, 'binary');
-                      console.log('Картинка сохранена!');
-                    } else {
-                      console.log('Картинка не сохранена');
-                    }
-
-
-                    // console.log(data.data);
-
-                    // Send response to client
-                    res.end('File uploaded');
-                  });
-                } else {
-                  res.statusCode = 404;
-                  res.end();
-        */
       }
       case 'letter': {
         const letterNumber = newPathArr[2];
         console.log('Letter number: ', letterNumber);
         let letter = null;
-        data.forEach(dataLetter => {
+        hotData.forEach(dataLetter => {
           if (dataLetter.id.toString() === letterNumber) {
             letter = dataLetter;
           }
@@ -435,6 +413,13 @@ const server = http.createServer((req, res) => {
           res.writeHead(404, {'Content-Type': 'text/html'});
           return res.end('404 Not Found');
         }
+
+        letter = {
+          ...letter,
+          to: coldData[letter.id].to,
+          text: coldData[letter.id].text,
+        }
+
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify(letter));
         break;
