@@ -12,6 +12,7 @@ import {LanguageContext} from '../../context/LanguageContext';
 import ItemFlag from '../LetterItem/ItemFlag';
 import AttachmentService from '../../api/AttachmentService';
 import LetterAttachments from './letterAttach/LetterAttachments';
+import {initialComposeContent} from '../../context/MailContext';
 
 /**
  * Компонент страницы письма.
@@ -39,9 +40,19 @@ const Letter = () => {
 
   let users = language.letterPage.letterToWord;
   if (letter) {
-    users += letter.to.map(user =>
-      `${user.name} ${user.surname}`).join(', ') + '.';
+    users += letter.to.map(user => user.name && user.surname ? `${user.name} ${user.surname}` : user.email).join(', ') + '.';
   }
+
+  /*
+  let fromUser = '';
+  if (letter) {
+    if (letter.author.name && letter.author.surname) {
+      fromUser = `${letter.author.name} ${letter.author.surname}`;
+    } else {
+      fromUser = letter.author.email;
+    }
+  }
+*/
 
   useEffect(() => {
     fetchLetter(params.id);
@@ -79,7 +90,9 @@ const Letter = () => {
             <UserAvatar avatar={letter.author.avatar}/>
             <div className="letter__info__info">
               <div className="letter__info__info__tittle">
+                {/* TODO */}
                 <div className="name">{letter.author.name} {letter.author.surname}</div>
+                {/*<div className="name">{fromUser}</div>*/}
                 <div className="time">{getDateString(letter.date)}</div>
                 <ItemFlag bookmark={letter.bookmark} important={letter.important}/>
               </div>
@@ -95,8 +108,8 @@ const Letter = () => {
         }
 
         <div className="text">
-          <div className="text__text">
-            {letter.text}
+          <div className="text__text" dangerouslySetInnerHTML={{__html: letter.text}}>
+            {/*{letter.text}*/}
           </div>
         </div>
       </div>

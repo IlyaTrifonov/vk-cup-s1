@@ -136,7 +136,7 @@ const MailProvider = ({children}) => {
 
     // const response = await MailService.sendLetter(letterData, composeLetter.attachments);
     const response = await MailService.sendLetterWithoutPicture(letterData);
-    // setComposeLetter(initialComposeLetterState);
+    setComposeLetter(initialComposeLetterState);
   });
 
   return (

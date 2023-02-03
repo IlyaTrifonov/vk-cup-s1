@@ -21,6 +21,17 @@ const LetterItem = React.forwardRef(({letter}, ref) => {
   const [isCheckedLetter, setIsCheckedLetter] = useState(false);
   const router = useNavigate();
 
+  const htmlToText = (htmlString) => {
+    const div = document.createElement('div');
+    div.innerHTML = htmlString;
+    const text = div.textContent;
+    const parent = div.parentNode;
+    if (parent) {
+      parent.removeChild(div);
+    }
+    return text;
+  };
+
   return (
     <div className={`letter-item ${isCheckedLetter ? 'checked-letter' : ''}`}
          onClick={() => router(`letter/${letter.id}`)}
@@ -42,7 +53,7 @@ const LetterItem = React.forwardRef(({letter}, ref) => {
 
           <div className="letter-fragment">
             <span className={`tittle ${letter.read ? '' : 'unread'}`}>{letter.title}</span>
-            <span className="text">{letter.text}</span>
+            <span className="text">{htmlToText(letter.text)}</span>
           </div>
           <div className="secondary-data">
             {letter.flag &&

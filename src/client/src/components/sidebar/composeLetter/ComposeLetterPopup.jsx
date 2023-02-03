@@ -47,6 +47,7 @@ const ComposeLetterPopup = ({closePopup}) => {
         errorTitle: 'Присутствуют некорректные адреса',
         errorMessage: 'Исправьте и попробуйте отправить заново',
         buttonText: 'Исправить письмо',
+        closePopup: () => setPopup(null),
       });
       return;
     }
@@ -55,12 +56,20 @@ const ComposeLetterPopup = ({closePopup}) => {
         errorTitle: 'Отсутствует тема',
         errorMessage: 'Исправьте и попробуйте отправить заново',
         buttonText: 'Исправить письмо',
+        closePopup: () => setPopup(null),
       });
       return;
     }
-    // TODO Отправляем
     sendLetter();
-    closePopup();
+    setPopup({
+      errorTitle: 'Письмо отправлено',
+      errorMessage: 'Проверьте папку отправленные',
+      buttonText: 'Ок',
+      closePopup: () => {
+        setPopup(null);
+        closePopup();
+      },
+    });
   };
 
   useEffect(() => {
@@ -144,7 +153,7 @@ const ComposeLetterPopup = ({closePopup}) => {
         </div>
       </div>
       {popup &&
-        <SmallPopup closePopup={() => setPopup(null)} popup={popup}/>
+        <SmallPopup popup={popup}/>
       }
     </div>
   );
