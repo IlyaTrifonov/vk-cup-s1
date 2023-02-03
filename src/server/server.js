@@ -133,6 +133,36 @@ console.log('Письма обработаны и отсортированы.');
 * Создание сервера и его настройка
 * */
 
+const allowedTags = ['div', 'br', 'p', 'i', 'strike', 'b', 'u'];
+const sanitize = (content) => {
+  // Удаляем все тэги скриптов
+  content = content.replace(/<script[^>]*>.*<\/script>/g, '');
+
+  // Удаляем все тэги стилей
+  content = content.replace(/<style[^>]*>.*<\/style>/g, '');
+
+  // Удаляем все on* ивент хэндлеры
+  content = content.replace(/ on\w+="[^"]*"/g, '');
+
+  // Удаляем весь js
+  content = content.replace(/javascript:[^"]*/g, '');
+
+  // Удаляем все потенциально опасные тэги, кроме разрешённых
+  content = content.replace(/<[\/]?(\w+)[^>]*>/g, (match, tag) => {
+    if (!allowedTags.includes(tag)) {
+      return '';
+    }
+    return match;
+  });
+
+  // Удаляем все PHP тэги
+  content = content.replace(/<\?(?!xml)([\s\S]*?)\?>/g, '');
+  content = content.replace(/<\?(?!xml)/g, '&lt;?');
+
+  return content;
+};
+
+
 // Папки на клиенте
 const folders = {
   inbox: 'Входящие',
@@ -309,7 +339,6 @@ const server = http.createServer((req, res) => {
         // /backend/api/save-letter
       case 'api': {
         if (req.method === 'POST' && req.url === '/backend/api/save-letter') {
-          console.log('Вошли в проверку');
           let body = '';
 
           req.on('data', chunk => {
@@ -320,21 +349,22 @@ const server = http.createServer((req, res) => {
             let letterData = JSON.parse(body);
 
             // Do something with the data, like saving it to a database
-            // console.log(`Received data: ${data.content}`);
+
+            const decoder = new TextDecoder();
+            letterData = {
+              ...letterData,
+              title: sanitize(decoder.decode(new Uint8Array(Object.values(letterData.title)).buffer)),
+              text: sanitize(decoder.decode(new Uint8Array(Object.values(letterData.text)).buffer)),
+            }
 
             const letterIndex = data.length;
             letterData = {...letterData, id: letterIndex}
 
-            console.log('Собрали письмо');
-
             data.push(letterData);
-
-            console.log('Добавили письмо');
-
             data.sort(sortFunctionByDate).reverse();
 
 
-            res.statusCode = 200;
+            // res.statusCode = 200;
             // res.setHeader('Content-Type', 'application/json');
             res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(JSON.stringify({ status: 'success' }));

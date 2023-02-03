@@ -117,14 +117,18 @@ const MailProvider = ({children}) => {
 
     // console.log(composeLetter.content);
 
+    const encoder = new TextEncoder();
+
     const letterData = {
       author: {
         name: 'Илья',
         surname: 'Трифонов',
       },
       to: composeLetter.recipients,
-      title: composeLetter.subject,
-      text: composeLetter.content,
+      title: encoder.encode(composeLetter.subject),
+      // title: composeLetter.subject,
+      text: encoder.encode(composeLetter.content),
+      // text: composeLetter.content,
       bookmark: false,
       important: false,
       read: false,
