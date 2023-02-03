@@ -22,14 +22,7 @@ const LetterItem = React.forwardRef(({letter}, ref) => {
   const router = useNavigate();
 
   const htmlToText = (htmlString) => {
-    const div = document.createElement('div');
-    div.innerHTML = htmlString;
-    const text = div.textContent;
-    const parent = div.parentNode;
-    if (parent) {
-      parent.removeChild(div);
-    }
-    return text;
+    return htmlString.replace(/<[^>]+>/g, '');
   };
 
   return (
