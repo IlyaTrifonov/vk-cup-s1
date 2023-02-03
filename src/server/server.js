@@ -304,11 +304,17 @@ const server = http.createServer((req, res) => {
         });
         break;
       }
-/*
+      // /backend/api/save-letter
       case 'api': {
+        if (req.method === 'POST' && req.url === '/backend/api/save-letter') {
+          console.log(req.url);
 
+        }
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.write(JSON.stringify({ status: 'success' }));
+        return res.end();
+        break;
       }
-*/
       case 'letter': {
         const letterNumber = newPathArr[2];
         console.log('Letter number: ', letterNumber);

@@ -43,4 +43,16 @@ export default class MailService {
     });
     return response;
   }
+
+  static async saveLetter(letter) {
+    const queryURL = `${MailService.url}/backend/api/save-letter`;
+    const response = await fetch(queryURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(letter),
+    });
+    return response;
+  }
 }
