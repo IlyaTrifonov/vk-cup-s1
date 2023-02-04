@@ -53,11 +53,6 @@ export default class AttachmentService {
           accept: 'application/json',
         },
       });
-      /*
-            const size = response.headers.get('x-total-size-in-bytes');
-            attach.size = size;
-            attach.size = AttachmentService.getHumanFileSize(Number.parseInt(size));
-      */
       attach.size = response.headers.get('x-total-size-in-bytes');
       attachesWithParamsArray.push(attach);
     }

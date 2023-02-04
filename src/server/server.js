@@ -76,7 +76,7 @@ let pictureNumber = 1;
 const makePictureAndUrl = (image, type) => {
   const base64img = image.split(',')[1];
   const buff = Buffer.from(base64img, 'base64');
-  const path = `/files/${type}/picture_${pictureNumber++}.png`;// тут поменял
+  const path = `/files/${type}/picture_${pictureNumber++}.png`;
   fs.writeFileSync(`.${path}`, buff);
   return `http://${HOSTNAME}:${PORT}/backend${path}`;
 };
@@ -148,16 +148,12 @@ const allowedTags = ['div', 'br', 'p', 'i', 'strike', 'b', 'u'];
 const sanitize = (content) => {
   // Удаляем все тэги скриптов
   content = content.replace(/<script[^>]*>.*<\/script>/g, '');
-
   // Удаляем все тэги стилей
   content = content.replace(/<style[^>]*>.*<\/style>/g, '');
-
   // Удаляем все on* ивент хэндлеры
   content = content.replace(/ on\w+="[^"]*"/g, '');
-
   // Удаляем весь js
   content = content.replace(/javascript:[^"]*/g, '');
-
   // Удаляем все потенциально опасные тэги, кроме разрешённых
   content = content.replace(/<[\/]?(\w+)[^>]*>/g, (match, tag) => {
     if (!allowedTags.includes(tag)) {
@@ -165,7 +161,6 @@ const sanitize = (content) => {
     }
     return match;
   });
-
   // Удаляем все PHP тэги
   content = content.replace(/<\?(?!xml)([\s\S]*?)\?>/g, '');
   content = content.replace(/<\?(?!xml)/g, '&lt;?');

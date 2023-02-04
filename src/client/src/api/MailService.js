@@ -48,12 +48,6 @@ export default class MailService {
     const queryURL = `${MailService.url}/backend/api/save-letter`;
     const response = await fetch(queryURL, {
       method: 'POST',
-      /*
-      headers: {
-        // 'Content-Type': 'application/json',
-        // accept: 'application/json',
-      },
-*/
       body: JSON.stringify(letter),
     });
     return response;
