@@ -3,3 +3,6 @@
 /src/client/src/assets/index2.js
 /src/server/dbFiles/
 /src/server/db.json
+Dockerfile
+Makefile
+/src/client/dist

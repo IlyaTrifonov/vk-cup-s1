@@ -4,9 +4,10 @@ const url = require('url');
 const path = require('path');
 
 const HOSTNAME = process.env.HOSTNAME || '127.0.0.1';
+const PIC_HOSTNAME = process.env.PIC_HOSTNAME || process.env.HOSTNAME || '127.0.0.1';
 const PORT = process.env.PORT || 3000;
 
-const IS_PRODUCTION = false;
+const IS_PRODUCTION = process.env.IS_PRODUCTION || false;
 
 /*
 * Блок чтения входного файла с письмами, создание папок.
@@ -78,7 +79,7 @@ const makePictureAndUrl = (image, type) => {
   const buff = Buffer.from(base64img, 'base64');
   const path = `/files/${type}/picture_${pictureNumber++}.png`;
   fs.writeFileSync(`.${path}`, buff);
-  return `http://${HOSTNAME}:${PORT}/backend${path}`;
+  return `http://${PIC_HOSTNAME}:${PORT}/backend${path}`;
 };
 
 
